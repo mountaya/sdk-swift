@@ -278,7 +278,9 @@ struct MapControlsTests {
     let low = StackPlacement.stackPadding(
       corner: .bottomLeft, space: CGSize(width: 390, height: 220), room: short, stack: stack,
       clearOf: mark)
-    #expect(low.left == mark.maxX + 10, "a short map moves it beside the frame")
+    // One type on both sides: #expect captures each side on its own, and a Double compared with
+    // a CGFloat there is not the comparison the plain expression makes.
+    #expect(low.left == Double(mark.maxX + 10), "a short map moves it beside the frame")
     #expect(
       StackPlacement.stackPadding(
         corner: .topLeft, space: .zero, room: .zero, stack: .zero, clearOf: mark)
@@ -294,7 +296,7 @@ struct MapControlsTests {
     let beside = StackPlacement.panelFrame(
       beside: toggle, within: room, height: nil, clearOf: nil)
     #expect(beside.minX == 970 - 8 - 340 && beside.minY == 110 && beside.width == 340)
-    #expect(beside.height == 700 - 110, "laid out from the toggle's top in the map")
+    #expect(beside.height == CGFloat(700 - 110), "laid out from the toggle's top in the map")
 
     let safe = CGRect(x: 0, y: 59, width: 390, height: 751)
     let mark = CGRect(x: -4, y: 55, width: 180, height: 75.5)
