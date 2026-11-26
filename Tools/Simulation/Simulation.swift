@@ -46,7 +46,12 @@ public final class Simulation: Sendable {
     let thread = Thread { executor.loop() }
     thread.start()
     let task = Task(executorPreference: executor) {
-      try await body(simulation)
+      // The body ends the executor itself, on the executor's own thread, the moment it returns
+      // or throws. The caller awaiting the task's result resumes on the shared pool, which a
+      // loaded host may not schedule for seconds, and an executor still running by then would
+      // count that wait as the body's own and call a finished body stalled.
+      defer { executor.finish() }
+      return try await body(simulation)
     }
     executor.onStall { task.cancel() }
     let result = await task.result
