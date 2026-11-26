@@ -14,6 +14,8 @@ version and its date, and tags it.
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-26
+
 The first release, written against contract v0.9.0 of `mountaya/schemas` (registry version 20), its
 model and elements' data digesting to
 f9ded6dd4ca71cb8f89c6974c42adec77509ee9a19e5afd01c31b6ea9dcc33ea.
