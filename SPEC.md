@@ -3104,7 +3104,12 @@ once, at the meter `sdk-dart`'s engine says it.
   tells the engine where the reader moved the camera to, so the state is the map as it is shown.
   Each state sends MapLibre again only the sources it changed, a GeoJSON source given its new
   features in place, so a scrub frame sends the emphasis slot's source alone, where it lights
-  another leg, the cursor marker being an annotation (`source-pushes`, §7). `MapView` is a SwiftUI
+  another leg, the cursor marker being an annotation (`source-pushes`, §7). MapLibre on iOS, handed
+  a feature whose geometry is a GeometryCollection, throws an exception nothing catches and ends the
+  app, and a segment's geometry is one (`ItinerarySegment.geojson`), so the renderer hands each
+  GeoJSON source, as it is added and as it changes, with such a feature laid out as one feature per
+  geometry it holds, each with the feature's properties (`mapLibreFeatures`), which every platform
+  draws as it draws the collection. `MapView` is a SwiftUI
   `View`: MapLibre's map is the `UIViewRepresentable` under it, `MapCanvas`, with `MapChrome` laid
   over it, the watermark, the label of the marker tapped last and the readout, so it takes `MapView.init(_:readout:onReady:onTap:onCameraChange:)`,
   the contract's own spelling of the readout's switch, `readout` true where the app states none.

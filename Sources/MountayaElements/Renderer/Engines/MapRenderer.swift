@@ -387,10 +387,12 @@
       }
     }
 
-    /// shape is GeoJSON features as MapLibre reads them, none where they cannot be written as
-    /// JSON, a coordinate that is no number among them.
+    /// shape is GeoJSON features as MapLibre reads them, a GeometryCollection's laid out as the
+    /// geometries it holds (`mapLibreFeatures`), none where they cannot be written as JSON, a
+    /// coordinate that is no number among them.
     private func shape(_ features: GeoJSONFeatureCollection) -> MLNShape? {
-      let collection = FeatureCollection(features: features.features.map(Feature.init))
+      let collection = FeatureCollection(
+        features: mapLibreFeatures(features.features).map(Feature.init))
       guard let data = try? JSONEncoder().encode(collection) else { return nil }
       return try? MLNShape(data: data, encoding: String.Encoding.utf8.rawValue)
     }

@@ -141,6 +141,52 @@ extension MapLibreSuites {
       window.isHidden = true
     }
 
+    @Test(
+      "a segment's GeometryCollection is drawn as the geometries it holds, as its source is added and as it changes"
+    )
+    func geometryCollection() async throws {
+      let map = try Self.engine()
+      let (renderer, window) = try await Self.ready(map)
+      // A segment's geometry as the contract states it: its routed LineString, its positions
+      // carrying an elevation, and a MultiPoint of the points it was routed through. MapLibre on
+      // iOS, handed such a feature, ends the app.
+      func segment(_ end: Double) -> GeoJSONFeatureCollection {
+        GeoJSONFeatureCollection(features: [
+          GeoJSONFeature(
+            geometry: .geometryCollection(
+              GeoJSONGeometryCollection(geometries: [
+                .lineString(
+                  GeoJSONLineString(coordinates: [[6.86, 45.83, 1020], [end, 45.84, 1100]])),
+                .multiPoint(GeoJSONMultiPoint(coordinates: [[6.86, 45.83], [end, 45.84]])),
+              ])),
+            properties: ["color": "#2f80ed"])
+        ])
+      }
+      map.addSource(MapSource(id: "segment", kind: .geoJson(segment(6.87))))
+      map.addLayer(
+        MapLayer(
+          id: "segment-line", type: .line, source: "segment",
+          rank: LayerRank.itineraryLine.rank))
+      #expect(
+        await MapWindow.until {
+          renderer.mapView.style?.layer(withIdentifier: "segment-line") != nil
+        })
+      #expect(renderer.mapView.style?.source(withIdentifier: "segment") is MLNShapeSource)
+
+      map.addSource(MapSource(id: "segment", kind: .geoJson(segment(6.88))))
+      #expect(
+        await MapWindow.until {
+          let shape =
+            (renderer.mapView.style?.source(withIdentifier: "segment") as? MLNShapeSource)?
+            .shape as? MLNShapeCollectionFeature
+          guard let line = shape?.shapes.first as? MLNPolylineFeature, line.pointCount == 2 else {
+            return false
+          }
+          return line.coordinates[1].longitude == 6.88
+        })
+      window.isHidden = true
+    }
+
     @Test("a patch the engine merges is the property the map draws, null back to the default")
     func patch() async throws {
       let map = try Self.engine()
