@@ -189,7 +189,7 @@ mise run api:update           # print the five products' API baselines again aft
 mise run snippets -- <file.md> # type-check the Swift fences of Markdown files outside this repository, the docs' pages among them, on macOS; no gate runs it
 mise run conformance          # only the contract's fixtures
 mise run conformance:report   # writes sdk/reports/swift.json in the contract checkout
-mise run release <version>    # the preflight and the gate, then the changelog, the tag, one atomic push to Entire, and the wait for the mirror
+mise run release <version>    # the preflight and the gate, then the changelog, the tag, the push of main and then the tag to Entire, and the wait for the mirror
 mise run release <version> --dry-run  # every check but git's, and the gate; no commit, no tag, no push
 ```
 
@@ -340,11 +340,12 @@ mise run release <version> --dry-run  # every check but git's, and the gate; no 
   that is not clean at its pin (`sh .agents/siblings at-pins`), a licence text that differs from
   sdk-typescript's, and a failing gate: `mise run disk:check`, then `CI=true mise run ci`.
   It then says what it will do and asks, moves the notes to the version and its date in a commit of
-  their own, tags `v<version>`, pushes `main` at that commit and the tag to Entire in one atomic
-  push, and waits, ten minutes at most, until the GitHub mirror lists the tag. Nothing pushes to
-  the mirror by hand: `.depot/workflows/mirror.yml`, rendered by `ai`, pushes every push of `main`
-  and every `v*` tag from Entire. `--dry-run` runs every check but git's, and the gate, and pushes
-  nothing; `--skip-gate` leaves the gate out of a dry run and is refused without one.
+  their own, tags `v<version>`, pushes `main` at that commit to Entire and then the tag (Entire
+  takes no atomic push), and waits, ten minutes at most, until the GitHub mirror lists the tag.
+  Nothing pushes to the mirror by hand: `.depot/workflows/mirror.yml`, rendered by `ai`, pushes
+  every push of `main` and every `v*` tag from Entire. `--dry-run` runs every check but git's, and
+  the gate, and pushes nothing; `--skip-gate` leaves the gate out of a dry run and is refused
+  without one.
 
 **No failure is expected.** Every case of every runner passes on macOS, on the iOS simulator and
 in both Linux containers, and so does `every capability has a runner or a scope sentence`: every

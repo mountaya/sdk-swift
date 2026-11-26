@@ -4629,10 +4629,10 @@ repository to build it elsewhere.
   which holds the API baselines, the README's snippets, the licence, the hot-path budgets and the
   app's size as well. It then says what it will do and asks, moves the notes to the version and
   its date in a commit holding nothing else, unless the section is there already, tags that commit
-  `v<version>`, annotated, with the section as its message, and pushes `main` at that commit and
-  the tag to Entire in one atomic push; no other branch is pushed. Last, it waits, ten minutes at
-  most, until the mirror lists the tag, and where it never does it says the release is done and
-  names `mirror.yml`'s runs to read. `--dry-run` runs every check but git's, and the gate, and
+  `v<version>`, annotated, with the section as its message, and pushes `main` at that commit to
+  Entire, then the tag, since Entire takes no atomic push; no other branch is pushed. Last, it
+  waits, ten minutes at most, until the mirror lists the tag, and where it never does it says the
+  release is done and names `mirror.yml`'s runs to read. `--dry-run` runs every check but git's, and the gate, and
   pushes nothing; `--skip-gate` leaves the gate out of a dry run, and is refused without one.
 - **`CHANGELOG.md` records the package's version**, in Keep a Changelog's shape: `[Unreleased]`
   first, then each release as its version and its date, newest first, the five products being one

@@ -29,11 +29,12 @@
 # which holds the API baselines, the README's snippets and the licence too.
 #
 # Then, once it has said what it will do and been answered: the changelog's `[Unreleased]` notes
-# become the version's section with today's date, in a commit "Release <version>" that holds that
-# change alone, unless CHANGELOG.md holds the section already; the annotated tag `v<version>` is
-# made on it; `main` at that commit and the tag are pushed to Entire in one atomic push; and the
-# release waits until the mirror lists the tag, which the Depot workflow mirror.yml pushes there
-# from Entire. No other branch is pushed and nothing else is committed.
+# become the version's section with today's date, in a commit "version: Release v<version>"
+# that holds that change alone, unless CHANGELOG.md holds the section already; the annotated tag
+# `v<version>` is made on it; `main` at that commit is pushed to Entire, then the tag, since Entire
+# takes no atomic push; and the release waits until the mirror lists the tag, which the Depot
+# workflow mirror.yml pushes there from Entire. No other branch is pushed and nothing else is
+# committed.
 set -euo pipefail
 
 # shellcheck source=lib/common.sh
@@ -214,7 +215,7 @@ else
       refuse "$tag is already tagged here, on $(git rev-parse --short=12 "$tag^{commit}").
 
   Fix: where that release stopped before its push, push it, then wait for the mirror to list it:
-  git push --atomic $entire $tag^{commit}:refs/heads/main refs/tags/$tag
+  git push $entire $tag^{commit}:refs/heads/main && git push $entire refs/tags/$tag
   Otherwise release a version past $version."
     elif [ -n "$entire_tag" ]; then
       refuse "\`$entire\` already holds $tag, so $version is released.
@@ -378,8 +379,8 @@ fi
 if [ "$dry_run" -eq 1 ]; then
   echo ""
   ok "The dry run of $version passed."
-  echo "A release would now move [Unreleased] to $version, commit it, tag $tag, push main and $tag"
-  echo "to $entire in one atomic push, and wait for $mirror to list $tag."
+  echo "A release would now move [Unreleased] to $version, commit it, tag $tag, push main and then"
+  echo "$tag to $entire, and wait for $mirror to list $tag."
   exit 0
 fi
 
@@ -400,12 +401,12 @@ echo ""
 echo "${PF_BOLD}The release of $version:${PF_RESET}"
 if [ "$moved" -eq 0 ]; then
   step "CHANGELOG.md: the notes under [Unreleased] become [$version] - $date."
-  step "A commit on main, \"Release $version\", holding that change and nothing else."
+  step "A commit on main, \"version: Release $tag\", holding that change and nothing else."
 else
   step "CHANGELOG.md already holds ${section#"## "}, committed: nothing to move, and no commit."
 fi
 step "The annotated tag $tag, on that commit."
-step "main at that commit and $tag, pushed to $entire ($entire_url) in one atomic push."
+step "main at that commit, pushed to $entire ($entire_url), then $tag."
 step "A wait, up to ten minutes, until the mirror, $mirror, lists $tag:" \
   "the Depot workflow mirror.yml pushes it there from $entire."
 echo ""
@@ -425,12 +426,12 @@ if [ "$moved" -eq 0 ]; then
   moved_changelog "$version" >"$moved_file"
   mv "$moved_file" CHANGELOG.md
   git add CHANGELOG.md
-  if ! git commit --quiet -m "Release $version"; then
-    die "The commit \"Release $version\" was stopped, by pre-commit as the lines above say: nothing was tagged or pushed, and CHANGELOG.md holds the moved notes, staged." \
+  if ! git commit --quiet -m "version: Release $tag"; then
+    die "The commit \"version: Release $tag\" was stopped, by pre-commit as the lines above say: nothing was tagged or pushed, and CHANGELOG.md holds the moved notes, staged." \
       "Put CHANGELOG.md back as it was: git restore --staged --worktree CHANGELOG.md" \
       "Fix what pre-commit reported in a commit of its own, push it, then run the release again."
   fi
-  ok "Committed CHANGELOG.md as \"Release $version\"."
+  ok "Committed CHANGELOG.md as \"version: Release $tag\"."
   section="## [$version] - $date"
 fi
 
@@ -448,12 +449,20 @@ git tag --annotate "$tag" --file "$message"
 rm -f "$message"
 ok "Tagged $tag on $(git rev-parse --short=12 HEAD)."
 
-if ! git push --atomic "$entire" "HEAD:refs/heads/main" "refs/tags/$tag"; then
-  die "Pushing main and $tag to $entire failed; the commit and the tag are made here, and nothing was pushed." \
-    "Once $entire is reachable: git push --atomic $entire HEAD:refs/heads/main refs/tags/$tag" \
+# Entire takes no atomic push, so main goes first and the tag after it: a tag on Entire then always
+# names a commit its main holds, and a push that stops between the two leaves only the tag to push.
+if ! git push "$entire" "HEAD:refs/heads/main"; then
+  die "Pushing main to $entire failed; the commit and the tag are made here, and nothing was pushed." \
+    "Once $entire is reachable: git push $entire HEAD:refs/heads/main && git push $entire refs/tags/$tag" \
     "Then wait for the mirror to list it: git ls-remote $mirror refs/tags/$tag"
 fi
-ok "Pushed main and $tag to $entire."
+ok "Pushed main to $entire."
+if ! git push "$entire" "refs/tags/$tag"; then
+  die "Pushing $tag to $entire failed; main is pushed there, and the tag is made here alone." \
+    "Once $entire is reachable: git push $entire refs/tags/$tag" \
+    "Then wait for the mirror to list it: git ls-remote $mirror refs/tags/$tag"
+fi
+ok "Pushed $tag to $entire."
 
 info "Waiting for the mirror, $mirror, to list $tag; mirror.yml pushes it there from $entire."
 made="$(git rev-parse "refs/tags/$tag")"

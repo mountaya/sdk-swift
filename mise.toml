@@ -202,7 +202,7 @@ env = { MOUNTAYA_CONFORMANCE_REPORT = "write" }
 # `bash scripts/release.sh --help` says what it refuses and what it does, and `--dry-run` proves
 # all of it but git and the push.
 [tasks.release]
-description = "Release a version: the preflight and the gate, then the changelog, the tag, one atomic push of main and the tag to Entire, and the wait for the mirror"
+description = "Release a version: the preflight and the gate, then the changelog, the tag, the push of main and then the tag to Entire, and the wait for the mirror"
 run = "bash scripts/release.sh"
 
 # The gate, whole, which runs where you work: no CI runner offers the pinned Xcode, so CI runs its
