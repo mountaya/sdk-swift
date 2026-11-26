@@ -1,0 +1,29 @@
+Third-party licences in sdk-swift
+=================================
+
+lucide-static (v1.75.0)
+-----------------------
+The glyph sets MountayaGeo publishes hold the markup of icons from Lucide, printed from the
+glyph table of mountaya/schemas into
+
+  Sources/MountayaGeo/Generated/GlyphSet.Marker.swift
+  Sources/MountayaGeo/Generated/GlyphSet.Control.swift
+
+each carrying the licences below too: the ISC licence for Lucide, and the MIT licence for the
+icons Lucide derives from Feather, which it lists.
+
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any purpose.
+
+---
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis

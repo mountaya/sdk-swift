@@ -1,0 +1,280 @@
+MOUNTAYA SDK LICENSE (TRADUCTION FRANÇAISE)
+Version 1.0 · 11 novembre 2026
+
+Copyright (c) 2026 Mountaya SAS. Tous droits réservés.
+
+Traduction de courtoisie. En cas de divergence, la version anglaise
+(LICENSE.txt) fait foi entre Mountaya et les tiers ; entre Mountaya et ses
+clients, les Conditions Générales de Service et la Convention en langue
+française prévalent, conformément à l'article 25.7 des CGS.
+
+Ce logiciel est à SOURCE DISPONIBLE, ce n'est PAS un logiciel libre. Vous
+pouvez le lire, l'empaqueter et le distribuer au sein de votre propre
+application, mais uniquement tant que vous êtes lié à Mountaya par un contrat
+(convention signée, ou conditions générales acceptées à l'ouverture d'un
+compte en libre-service) et en conjonction avec les Services Mountaya. L'affichage de calques tiers aux
+côtés des données Mountaya est autorisé (voir l'article 2). Veuillez lire la
+présente licence avant toute installation.
+
+
+1. DÉFINITIONS
+
+« Logiciel » : le SDK Mountaya avec lequel la présente licence est distribuée :
+pour TypeScript, les paquets @mountaya/client, @mountaya/client-react,
+@mountaya/elements, @mountaya/elements-react, @mountaya/studio et
+@mountaya/studio-react ; pour Swift et Kotlin, les bibliothèques du SDK Mountaya
+pour ce langage. Il comprend leur code source, leurs artefacts de compilation et
+leur documentation, à l'exclusion des Composants Tiers.
+
+« Services Mountaya » : les services hébergés et interfaces de programmation
+exploités par Mountaya SAS, notamment Map Studio, la Publication de cartes, le
+Studio Embarqué, la Data API, le Serveur MCP et la Tile API.
+
+« Contrat » : soit (i) la convention de services signée en vigueur entre vous
+et Mountaya SAS, avec ses bons de commande et les conditions générales de
+service de Mountaya qu'elle incorpore, soit (ii) les conditions générales de
+service de Mountaya que vous avez acceptées en ligne en ouvrant un compte en
+libre-service pour la Data API et le Serveur MCP, tant que ce compte est
+ouvert. L'existence d'un Contrat en vigueur conditionne l'effet de la présente
+licence. L'usage du Studio Embarqué suppose en outre que votre Contrat
+l'accorde.
+
+« Votre Application » : l'application, le site ou le produit que vous
+développez et exploitez, identifié au Contrat ou, pour un compte en
+libre-service, déclaré dans votre organisation.
+
+« Composants Tiers » : les composants énumérés dans THIRD-PARTY-NOTICES.txt,
+régis par leurs propres licences.
+
+
+2. CONCESSION
+
+Sous réserve du respect de la présente licence et de l'existence d'un Contrat
+en vigueur, Mountaya vous concède un droit non exclusif, non
+cessible, non sous-licenciable et révocable d'installer, de copier,
+d'empaqueter et de distribuer le Logiciel, dans les limites du territoire
+stipulé au Contrat, uniquement en tant qu'incorporé à Votre Application, et en
+conjonction avec les Services Mountaya.
+
+Vous pouvez exécuter, déboguer et tester le Logiciel dans vos environnements
+de développement, de test et d'intégration continue.
+
+LES CALQUES TIERS SONT AUTORISÉS. Le Logiciel est conçu pour afficher des
+données, calques, fonds cartographiques, surcouches et points d'intérêt
+provenant de sources autres que les Services Mountaya : sources publiques,
+vos propres données, celles de vos partenaires ou de vos utilisateurs finaux.
+Cet usage est autorisé et ne constitue pas un manquement à la présente
+licence. Vous faites votre affaire personnelle des droits, licences,
+conditions d'usage et mentions d'attribution afférents aux données tierces
+que vous affichez, ainsi que de leur licéité. Mountaya n'apporte aucune
+garantie et n'assume aucune responsabilité au titre de ces données.
+
+Aucun autre droit n'est concédé. Tout droit non expressément concédé est
+réservé.
+
+
+3. RESTRICTIONS
+
+Il vous est interdit :
+
+  (a) d'utiliser le Logiciel autrement qu'en conjonction avec les Services
+      Mountaya, ou de le configurer de manière à substituer aux Services
+      Mountaya un service concurrent de données de plein air, de calcul
+      d'itinéraire en terrain naturel ou de tuiles cartographiques outdoor ;
+
+  (b) de modifier, désactiver, contourner, falsifier ou perturber toute
+      portion du Logiciel signalée comme relative à l'attribution, ainsi que
+      l'identification de version et de client portée par les en-têtes des
+      appels aux Services Mountaya ;
+
+  (c) de supprimer, masquer, réduire au point de les rendre illisibles ou
+      altérer les mentions de droit d'auteur, de marque, d'attribution ou de
+      licence, y compris celles des Composants Tiers et celles affichées pour
+      les données Mountaya ; l'ajout de vos propres attributions pour les
+      calques tiers est attendu et n'autorise pas à réduire celles de
+      Mountaya ;
+
+  (d) de modifier le Logiciel, à l'exception des opérations techniques
+      d'empaquetage strictement nécessaires à son intégration (minification,
+      élagage de code, génération de cartes de source, transpilation), qui ne
+      doivent pas en altérer le comportement ;
+
+  (e) de distribuer, publier ou mettre à disposition le Logiciel autrement
+      qu'incorporé à Votre Application, ni de publier ou maintenir un fork,
+      une version modifiée ou un travail dérivé ;
+
+  (f) de réimplémenter dans un autre logiciel l'expression du code du
+      Logiciel. Cette interdiction ne porte ni sur les idées et principes qui
+      en sont à la base, ni sur les spécifications fonctionnelles du protocole
+      d'échange, dont la mise en œuvre indépendante demeure licite ; elle
+      s'applique sans préjudice des articles 5 et 6 de la directive 2009/24/CE
+      et de l'article L. 122-6-1 du Code de la propriété intellectuelle, toute
+      stipulation contraire étant nulle ;
+
+  (g) d'utiliser le Logiciel pour concevoir ou exploiter un produit ou un
+      service concurrent des Services Mountaya. Construire au moyen du Logiciel
+      votre propre expérience cartographique, votre propre éditeur
+      d'itinéraires ou votre propre application de plein air, pour Votre
+      Application, constitue l'objet même de la présente licence et ne
+      constitue pas un produit concurrent au sens du présent paragraphe, y
+      compris lorsque cette construction offre des fonctionnalités comparables
+      à celles de Map Studio. Est en revanche prohibée la commercialisation
+      auprès de tiers d'une bibliothèque de composants, d'un kit de
+      développement, d'un service d'intégration packagé ou d'une interface de
+      programmation se substituant au Logiciel ou aux Services Mountaya ;
+
+  (h) de sous-licencier, louer, donner en crédit-bail, prêter, vendre, céder
+      ou transférer le Logiciel.
+
+Ces restrictions s'appliquent à vous, à vos affiliés et à toute personne
+agissant pour votre compte, dont vous répondez.
+
+
+4. ABSENCE DE TÉLÉMÉTRIE CÔTÉ CLIENT
+
+Le Logiciel ne comporte aucun mécanisme de télémétrie, de mesure d'audience,
+de traçage ni de collecte de données à caractère personnel s'exécutant sur les
+terminaux de vos utilisateurs finaux. La consommation est mesurée exclusivement
+côté serveur, sur les appels effectivement reçus par la Data API et la Tile
+API de Mountaya. Les seules informations transmises par le Logiciel au-delà
+des paramètres fonctionnels de la requête sont son numéro de version et un
+identifiant de client, portés par les en-têtes, aux fins de l'article 5.
+
+Seuls les appels aboutis sont décomptés. Les appels bridés, rejetés pour une
+erreur de votre côté, échoués du fait des Services ou refusés au titre de
+l'article 5 ne sont ni décomptés ni facturés. Les calques tiers que vous
+affichez au titre de l'article 2 ne sont ni mesurés ni facturés.
+
+
+5. MISES À JOUR ET VERSION MINIMALE
+
+Les appels adressés par le Logiciel aux Services Mountaya portent son numéro de
+version dans leurs en-têtes.
+
+Lorsqu'une version du Logiciel présente une vulnérabilité de sécurité connue
+ou une incompatibilité technique, Mountaya peut définir une version minimale
+en deçà de laquelle les Services Mountaya cessent de répondre. Mountaya vous en
+informe préalablement, ne l'oppose pas avant l'expiration des délais
+d'installation des versions de sécurité prévus au Contrat majorés de quinze
+(15) jours, et n'utilise pas ce mécanisme comme moyen de pression
+commerciale. Vous installez les versions de sécurité dans les délais prévus
+au Contrat.
+
+À partir de la version 1.0 d'un SDK, Mountaya ne retire une opération
+qu'après l'avoir signalée comme obsolète pendant au moins cent quatre-vingts
+(180) jours et au moins deux versions mineures. Les versions antérieures à
+1.0 et les SDK en accès anticipé ne comportent pas cet engagement.
+
+
+6. COMPOSANTS TIERS
+
+Les Composants Tiers sont régis par leurs propres licences, qui prévalent sur
+la présente licence pour ces seuls composants. Leurs mentions sont reproduites
+dans THIRD-PARTY-NOTICES.txt et doivent être conservées dans toute
+distribution de Votre Application.
+
+
+7. DURÉE ET EXTINCTION
+
+La présente licence produit effet aussi longtemps qu'un Contrat est en vigueur
+entre vous et Mountaya. Elle s'éteint de plein droit, sans mise en demeure ni
+formalité, à la cessation du Contrat. Un manquement à la présente licence est un
+manquement au Contrat, et Mountaya ne peut résilier pour ce motif que dans les
+conditions que le Contrat prévoit pour la résiliation pour manquement, y compris
+la mise en demeure et le délai pour y remédier qu'il fixe.
+
+À l'extinction, vous devez, dans un délai de trente (30) jours : (i) cesser
+d'utiliser le Logiciel dans vos environnements de développement et de
+production ; (ii) cesser de publier, de distribuer ou de mettre à disposition
+toute nouvelle version de Votre Application l'incorporant ; et (iii) le retirer
+de toute version de Votre Application que vous contrôlez. Mountaya peut
+révoquer vos clés d'API.
+
+Les copies du Logiciel déjà installées par vos utilisateurs finaux avant
+l'extinction peuvent subsister. Il vous est concédé, à cette seule fin, une
+licence non exclusive et non transférable de les laisser subsister, sans mise à
+jour, sans redistribution et sans nouvelle installation, jusqu'à leur
+remplacement ou leur désinstallation. Cette licence ne confère aucun droit
+d'appeler les Services Mountaya, qui cessent de répondre dès la révocation de
+vos clés d'API.
+
+La lisibilité du code source, comme sa présence sur vos systèmes, ne vous
+confère aucun droit d'en poursuivre l'usage, d'en produire une version dérivée
+ou d'en réimplémenter les fonctions.
+
+Les articles 3 (b) à 3 (f) et 3 (h), 4, 6, 8, 9 et 10 survivent à
+l'extinction. Les articles 3 (a) et 3 (g) ne s'appliquent que pendant la
+durée de la présente licence. Lorsqu'un Contrat est en vigueur, celui-ci peut
+prévoir une restriction post-contractuelle limitée ; la présente licence n'en
+prévoit aucune.
+
+
+8. ABSENCE DE GARANTIE
+
+LE LOGICIEL EST FOURNI « EN L'ÉTAT », SANS GARANTIE D'AUCUNE SORTE, EXPRESSE
+OU IMPLICITE, Y COMPRIS SANS LIMITATION TOUTE GARANTIE DE QUALITÉ MARCHANDE,
+D'ADÉQUATION À UN USAGE PARTICULIER ET D'ABSENCE DE CONTREFAÇON.
+
+Les données d'itinéraire, de terrain, de surface, d'enneigement et de météo
+restituées par le Logiciel sont FOURNIES À TITRE INDICATIF. Elles peuvent être
+inexactes, incomplètes ou obsolètes et ne pas refléter l'état réel du terrain.
+Elles ne doivent jamais être utilisées comme source unique ou déterminante
+d'information pour la sécurité des personnes, ni pour l'évaluation du risque
+d'avalanche, la navigation autonome ou des opérations de secours. Le Contrat
+en fixe le régime complet, y compris vos propres obligations de
+reconnaissance.
+
+
+9. LIMITATION DE RESPONSABILITÉ
+
+Dans la limite permise par la loi, la responsabilité de Mountaya au titre de
+la présente licence est limitée dans les conditions prévues au Contrat.
+
+En l'absence de Contrat, la responsabilité de Mountaya est exclue dans toute la
+mesure permise par la loi.
+
+Aucune stipulation de la présente licence n'exclut ni ne limite la
+responsabilité en cas de dol ou de faute lourde, de dommage corporel, ni au
+titre d'une règle impérative du droit applicable, notamment des dispositions
+transposant la directive (UE) 2024/2853 relative à la responsabilité du fait
+des produits défectueux.
+
+
+10. DROIT APPLICABLE
+
+La présente licence est régie par le droit français. Lorsqu'un Contrat est en
+vigueur entre vous et Mountaya, ce Contrat prévaut sur la présente licence en
+cas de contradiction, y compris quant au droit applicable et à la juridiction
+compétente.
+
+
+11. CONTRIBUTIONS
+
+Si vous soumettez à Mountaya une contribution relative au Logiciel (code,
+correctif, demande de tirage, documentation, traduction ou tout autre élément),
+vous concédez à Mountaya SAS, sur cette contribution et au moment de sa
+soumission, une licence non exclusive, mondiale, libre de redevance,
+sous-licenciable et irrévocable, pour toute la durée légale de protection, de
+la reproduire, l'adapter, la traduire, la distribuer et la mettre à
+disposition, sur tout support, au sein du Logiciel et de tout dérivé ou
+successeur de celui-ci, et de la concéder sous licence à quelque condition que
+ce soit. Chaque soumission constitue une concession distincte portant sur la
+seule contribution alors soumise ; aucun droit n'est concédé sur des œuvres non
+encore créées, conformément à l'article L. 131-1 du Code de la propriété
+intellectuelle. La concession est consentie à titre gratuit, ce que vous
+acceptez expressément. Vous conservez votre droit moral ; Mountaya tient un
+fichier AUTHORS nommant les contributeurs sur demande. Vous garantissez être
+l'auteur de la contribution ou être autrement habilité à la soumettre, qu'elle
+est libre de tout droit de tiers et qu'elle ne comporte aucun code soumis à une licence
+qui imposerait des obligations au Logiciel. Mountaya n'est tenue d'aucune
+obligation d'utiliser une contribution.
+
+Le présent article est accepté séparément lors de chaque contribution (par une
+attestation d'origine du développeur ou un accord de contributeur) ;
+l'installation du Logiciel ne vaut pas, à elle seule, soumission.
+
+
+12. CONTACT
+
+Mountaya SAS, 8 allée le Bouchon, 74940 Annecy, France
+legal@mountaya.com

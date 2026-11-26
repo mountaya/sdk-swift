@@ -1,0 +1,262 @@
+MOUNTAYA SDK LICENSE
+Version 1.0 · 11 November 2026
+
+Copyright (c) 2026 Mountaya SAS. All rights reserved.
+
+This English version is the authoritative text of this License. The French
+version (LICENCE.fr.txt) is provided for convenience; in the event of any
+discrepancy, this English version prevails, save that where an Agreement is in
+force between you and Mountaya, that Agreement and its French text prevail over
+both. This License governs the version of the Software with which it is
+distributed and is not applied retroactively to releases already distributed.
+
+This software is SOURCE-AVAILABLE, NOT OPEN SOURCE. You may read it, bundle it
+and ship it inside your own application, but only while you have an agreement
+with Mountaya (a signed agreement, or the general terms accepted when opening a
+self-serve account) and only in conjunction with the Mountaya Services. Displaying
+third-party layers alongside Mountaya data is allowed (see section 2). Please
+read this License before installing.
+
+
+1. DEFINITIONS
+
+"Software" means the Mountaya SDK this License is distributed with: for
+TypeScript, the packages @mountaya/client, @mountaya/client-react,
+@mountaya/elements, @mountaya/elements-react, @mountaya/studio and
+@mountaya/studio-react; for Swift and Kotlin, the libraries of the Mountaya SDK
+for that language. It includes their source code, build artifacts and
+accompanying documentation, but excludes Third-Party Components.
+
+"Mountaya Services" means the hosted services and programming interfaces
+operated by Mountaya SAS, including Map Studio, Map Publishing, the Embedded
+Studio, the Data API, the MCP Server and the Tile API.
+
+"Agreement" means either (i) the signed services agreement (convention de
+services) in force between you and Mountaya SAS, together with its order forms
+and the Mountaya general terms of service it incorporates, or (ii) the Mountaya
+general terms of service you accepted online when opening a self-serve account
+for the Data API and the MCP Server, for as long as that account is open. An
+Agreement in force is what makes this License effective. Using the Embedded
+Studio further requires that your Agreement grant it.
+
+"Your Application" means the application, website or product you develop and
+operate, as identified in the Agreement or, for a self-serve account, declared
+in your organization.
+
+"Third-Party Components" means the components listed in THIRD-PARTY-NOTICES.txt,
+which are licensed under their own terms.
+
+
+2. LICENSE GRANT
+
+Subject to your compliance with this License and to an Agreement being in
+force, Mountaya grants you a non-exclusive, non-transferable, non-sublicensable and
+revocable license, within the territory set out in your Agreement, to install, copy, bundle and
+distribute the Software, solely as incorporated into Your Application, and in
+conjunction with the Mountaya Services.
+
+You may run, debug and test the Software in your own development, testing and
+continuous integration environments.
+
+THIRD-PARTY LAYERS ARE ALLOWED. The Software is designed to display data,
+layers, basemaps, overlays and points of interest coming from sources other
+than the Mountaya Services: public sources, your own data, your partners'
+data or your end users' data. You may do so, and doing so is not a breach of
+this License. You are responsible for the rights, licenses, terms of use and
+attribution notices attached to any third-party data you display, and for its
+lawfulness. Mountaya gives no warranty and accepts no liability in respect of
+that data.
+
+No other right is granted. Any right not expressly granted is reserved.
+
+
+3. RESTRICTIONS
+
+You may not:
+
+  (a) use the Software otherwise than in conjunction with the Mountaya
+      Services, or configure it so as to substitute for the Mountaya Services
+      a competing outdoor data, terrain routing or outdoor map tile service;
+
+  (b) modify, disable, circumvent, spoof or otherwise interfere with any
+      portion of the Software identified as relating to attribution, or with
+      the version and client identification carried in the headers of requests
+      to the Mountaya Services;
+
+  (c) remove, obscure, shrink beyond legibility or alter any copyright,
+      trademark, attribution or license notice, including those of
+      Third-Party Components and those rendered for Mountaya data; adding
+      your own attributions for third-party layers is expected and does not
+      authorise reducing Mountaya's;
+
+  (d) modify the Software, except for the technical packaging operations
+      strictly necessary to integrate it (bundling, minification,
+      tree-shaking, source map generation, transpilation), which must not
+      alter its behaviour;
+
+  (e) distribute, publish or otherwise make the Software available other than
+      as incorporated into Your Application, or publish or maintain a fork, a
+      modified version or a derivative work of it;
+
+  (f) reimplement the expression of the Software in other software. This
+      restriction does not extend to the ideas and principles underlying the
+      Software, nor to an independent implementation of the functional
+      specifications of the exchange protocol between the Software and the
+      Mountaya Services, which remains lawful, and applies without prejudice to Articles 5 and 6 of
+      Directive 2009/24/EC and to Article L. 122-6-1 of the French Intellectual
+      Property Code, any stipulation to the contrary being void;
+
+  (g) use the Software to build or operate a product or service that competes
+      with the Mountaya Services. Building your own map experience, route
+      editor or outdoor application with the Software, for Your Application, is
+      the very purpose of this License and is not a competing product under
+      this paragraph, including where it offers features comparable to Map
+      Studio. What is prohibited is marketing to third parties a component
+      library, a software development kit, a packaged integration service or an
+      API substituting for the Software or the Mountaya Services;
+
+  (h) sublicense, rent, lease, sell, assign or otherwise transfer the
+      Software.
+
+These restrictions apply to you, to your affiliates and to anyone acting on
+your behalf, and you are responsible for their compliance.
+
+
+4. NO CLIENT-SIDE TELEMETRY
+
+The Software contains no telemetry, analytics, tracking or personal-data
+collection running on your end users' devices. Usage is measured server-side
+only, on the calls actually received by the Mountaya Data API and Tile API.
+The only information the Software sends beyond the functional parameters of a
+request is its version and a client identifier, carried in the request
+headers, for the purpose of section 5.
+
+Only successful calls are counted. Calls that are rate-limited, rejected for a
+client-side error, failed on our side, or refused under section 5 are neither
+counted nor billed. Third-party layers you display under section 2 are neither
+measured nor billed.
+
+
+5. UPDATES AND MINIMUM SUPPORTED VERSION
+
+Requests issued by the Software to the Mountaya Services carry its version in
+their headers.
+
+Where a version of the Software contains a known security vulnerability or is
+technically incompatible, Mountaya may set a minimum supported version below
+which the Mountaya Services stop responding. Mountaya will give notice before
+doing so, will not enforce it before expiry of the security-release periods set
+out in your Agreement plus fifteen (15) days, and will not use this mechanism
+as a commercial lever. You must
+install security releases within the periods set out in your Agreement.
+
+From version 1.0 of a given SDK, Mountaya removes an operation only after it
+has been marked as deprecated for at least one hundred and eighty (180) days
+and across at least two minor versions. Versions before 1.0, and SDKs released
+in early access, carry no such commitment.
+
+
+6. THIRD-PARTY COMPONENTS
+
+Third-Party Components are licensed under their own terms, which prevail over
+this License for those components. Their notices are reproduced in
+THIRD-PARTY-NOTICES.txt and must be preserved in every distribution of Your
+Application.
+
+
+7. TERM AND TERMINATION
+
+This License is effective for as long as an Agreement is in force between you
+and Mountaya. It terminates automatically, without notice and without formality,
+when the Agreement ends. A breach of this License is a breach of the Agreement,
+and Mountaya may terminate on that ground only under the conditions the
+Agreement sets for termination for breach, including the formal notice and the
+period to remedy the breach that it provides.
+
+On termination you must, within thirty (30) days: (i) stop using the Software
+in your development and production environments; (ii) stop publishing,
+distributing or otherwise making available any new version of Your Application
+incorporating the Software; and (iii) remove the Software from every version of
+Your Application that you control. Mountaya may revoke your API keys.
+
+Copies of the Software already installed by your end users before termination
+may remain in place. You are granted a non-exclusive, non-transferable licence
+to allow those copies to subsist, without update, redistribution or new
+installation, until they are replaced or uninstalled. That licence confers no
+right to call the Mountaya Services, which cease to respond once your API keys
+are revoked.
+
+The fact that the source code is readable, or that it remains present on your
+systems, gives you no right to continue using it, to derive a work from it or
+to reimplement it.
+
+Sections 3(b) to 3(f) and 3(h), 4, 6, 8, 9 and 10 survive termination.
+Sections 3(a) and 3(g) apply for the duration of this License only. Where an
+Agreement is in force, that Agreement may provide for a limited post-termination
+restriction; this License does not.
+
+
+8. NO WARRANTY
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING WITHOUT LIMITATION THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+
+Route, terrain, surface, snow and weather data rendered through the Software
+is INDICATIVE ONLY. It may be inaccurate, incomplete or out of date, and may
+not reflect actual ground conditions. It must never be relied upon as a sole
+or determining source of information for personal safety, nor used for
+avalanche risk assessment, autonomous navigation or rescue operations. Your
+Agreement sets out the full terms, including your own reconnaissance
+obligations.
+
+
+9. LIMITATION OF LIABILITY
+
+To the fullest extent permitted by law, Mountaya's liability arising out of or
+in connection with this License is limited as set out in your Agreement.
+
+In the absence of an Agreement, Mountaya's liability is excluded to the fullest
+extent permitted by law.
+
+Nothing in this License excludes or limits liability for wilful misconduct or
+gross negligence, for death or personal injury, or under any mandatory rule of
+applicable law, including the rules transposing Directive (EU) 2024/2853 on
+liability for defective products.
+
+
+10. GOVERNING LAW
+
+This License is governed by French law. Where an Agreement is in force between
+you and Mountaya, that Agreement prevails over this License in the event of
+conflict, including as to governing law and jurisdiction.
+
+
+11. CONTRIBUTIONS
+
+If you submit to Mountaya a contribution (code, patch, pull request,
+documentation, translation or other material), you grant Mountaya SAS, in
+respect of that contribution and at the time of its submission, a
+non-exclusive, worldwide, royalty-free, sublicensable and irrevocable licence,
+for the whole legal term of protection, to reproduce, adapt, translate,
+distribute and make that contribution available, on all media, as part of the
+Software and of any derivative or successor of it, and to license it under any
+terms. Each submission constitutes a separate grant in respect of the
+contribution then submitted; no right is granted in respect of works not yet
+created. The grant is made free of charge, which you expressly accept. You
+retain your moral rights; Mountaya maintains an AUTHORS file naming
+contributors on request. You represent that you are the author of the
+contribution or otherwise entitled to submit it, that it is free of any
+third-party right, and that it contains no code subject to a licence that would
+impose obligations on the Software. Mountaya is under no obligation to use a
+contribution.
+
+This section is accepted separately at the time of each contribution (via a
+Developer Certificate of Origin sign-off or a contributor licence agreement
+bot); installing the Software does not by itself constitute a submission.
+
+
+12. CONTACT
+
+Mountaya SAS, 8 allée le Bouchon, 74940 Annecy, France
+legal@mountaya.com

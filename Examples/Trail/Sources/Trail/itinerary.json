@@ -1,0 +1,1204 @@
+{
+  "activity_id": "a1c4e7b2-3d59-4f08-8b6a-2e5c9d0f7134",
+  "ascent": 150,
+  "count": {
+    "groups": 0,
+    "segments": 3,
+    "waypoints": 4
+  },
+  "created_at": "2026-06-02T08:14:00Z",
+  "created_by": {
+    "id": "7c2e9b14-5a6f-4d83-9b1e-0f4a8c6d2e57"
+  },
+  "description": "A short climb from the Arve through the Nants woods to the Floria viewpoint.",
+  "distance": 1734.5,
+  "etag": "\"p3\"",
+  "groups": [],
+  "has_unpublished_changes": false,
+  "id": "3f6c9a52-8d17-4e0b-a5c4-91e2d7b06f38",
+  "is_private": false,
+  "is_verified": true,
+  "name": "Chamonix to La Floria",
+  "organization_id": "b81d4e6a-2c95-4f37-8a0e-6d3f1c7b9e24",
+  "published_at": "2026-06-20T17:45:00Z",
+  "revision": 3,
+  "segments": [
+    {
+      "altitude_max": 1066,
+      "altitude_min": 1035,
+      "ascent": 33,
+      "color": "#2f80ed",
+      "created_at": "2026-06-02T08:14:00Z",
+      "created_by": {
+        "id": "7c2e9b14-5a6f-4d83-9b1e-0f4a8c6d2e57"
+      },
+      "descent": 2,
+      "description": null,
+      "distance": 623.3,
+      "duration": 539.8,
+      "geojson": {
+        "geometries": [
+          {
+            "coordinates": [
+              [
+                6.86925,
+                45.92265,
+                1035
+              ],
+              [
+                6.869464,
+                45.922774,
+                1035
+              ],
+              [
+                6.869667,
+                45.922906,
+                1036
+              ],
+              [
+                6.869862,
+                45.923045,
+                1035
+              ],
+              [
+                6.870092,
+                45.923157,
+                1036
+              ],
+              [
+                6.870286,
+                45.923296,
+                1036
+              ],
+              [
+                6.8705,
+                45.92342,
+                1036
+              ],
+              [
+                6.87072,
+                45.923541,
+                1037
+              ],
+              [
+                6.87091,
+                45.923685,
+                1037
+              ],
+              [
+                6.871133,
+                45.923804,
+                1037
+              ],
+              [
+                6.871322,
+                45.923949,
+                1037
+              ],
+              [
+                6.87154,
+                45.924072,
+                1037
+              ],
+              [
+                6.87175,
+                45.9242,
+                1038
+              ],
+              [
+                6.871591,
+                45.924354,
+                1038
+              ],
+              [
+                6.871411,
+                45.924497,
+                1037
+              ],
+              [
+                6.87125,
+                45.92465,
+                1037
+              ],
+              [
+                6.871465,
+                45.924765,
+                1039
+              ],
+              [
+                6.871664,
+                45.924893,
+                1041
+              ],
+              [
+                6.871867,
+                45.925018,
+                1042
+              ],
+              [
+                6.872073,
+                45.92514,
+                1044
+              ],
+              [
+                6.872291,
+                45.925253,
+                1045
+              ],
+              [
+                6.872495,
+                45.925377,
+                1048
+              ],
+              [
+                6.8727,
+                45.9255,
+                1049
+              ],
+              [
+                6.872876,
+                45.925622,
+                1051
+              ],
+              [
+                6.873078,
+                45.925722,
+                1053
+              ],
+              [
+                6.873252,
+                45.925846,
+                1055
+              ],
+              [
+                6.873451,
+                45.925949,
+                1058
+              ],
+              [
+                6.873631,
+                45.926068,
+                1060
+              ],
+              [
+                6.873815,
+                45.926184,
+                1062
+              ],
+              [
+                6.874,
+                45.926298,
+                1064
+              ],
+              [
+                6.8742,
+                45.9264,
+                1066
+              ]
+            ],
+            "type": "LineString"
+          },
+          {
+            "coordinates": [
+              [
+                6.86925,
+                45.92265
+              ],
+              [
+                6.8742,
+                45.9264
+              ]
+            ],
+            "type": "MultiPoint"
+          }
+        ],
+        "type": "GeometryCollection"
+      },
+      "gradient_max": 6.7,
+      "gradient_min": -0.9,
+      "group_id": null,
+      "id": "d4a7e1c9-3b62-4f05-8e9d-2c1b7a6f5e30",
+      "itinerary_id": "3f6c9a52-8d17-4e0b-a5c4-91e2d7b06f38",
+      "mode": "directions",
+      "name": "Along the Arve",
+      "position": 0,
+      "revision": 2,
+      "road_access_info": [],
+      "slope_info": [
+        {
+          "from_index": 0,
+          "to_index": 4,
+          "value": 0.7
+        },
+        {
+          "from_index": 4,
+          "to_index": 8,
+          "value": 0.7
+        },
+        {
+          "from_index": 8,
+          "to_index": 12,
+          "value": 0.7
+        },
+        {
+          "from_index": 12,
+          "to_index": 15,
+          "value": -0.9
+        },
+        {
+          "from_index": 15,
+          "to_index": 19,
+          "value": 4.8
+        },
+        {
+          "from_index": 19,
+          "to_index": 23,
+          "value": 4.9
+        },
+        {
+          "from_index": 23,
+          "to_index": 27,
+          "value": 6.7
+        },
+        {
+          "from_index": 27,
+          "to_index": 30,
+          "value": 6
+        }
+      ],
+      "speed": null,
+      "speed_info": [
+        {
+          "from_index": 0,
+          "to_index": 4,
+          "value": 4.79
+        },
+        {
+          "from_index": 4,
+          "to_index": 8,
+          "value": 4.82
+        },
+        {
+          "from_index": 8,
+          "to_index": 12,
+          "value": 4.83
+        },
+        {
+          "from_index": 12,
+          "to_index": 15,
+          "value": 5.31
+        },
+        {
+          "from_index": 15,
+          "to_index": 19,
+          "value": 3.75
+        },
+        {
+          "from_index": 19,
+          "to_index": 23,
+          "value": 3.7
+        },
+        {
+          "from_index": 23,
+          "to_index": 27,
+          "value": 3.33
+        },
+        {
+          "from_index": 27,
+          "to_index": 30,
+          "value": 3.5
+        }
+      ],
+      "start_at": "2026-07-18T13:00:00Z",
+      "steps": [
+        {
+          "distance": 259.7,
+          "duration": 194.2,
+          "exit_number": null,
+          "from_index": 0,
+          "name": "Promenade de l'Arve",
+          "to_index": 12,
+          "type": "depart"
+        },
+        {
+          "distance": 63.3,
+          "duration": 42.9,
+          "exit_number": null,
+          "from_index": 12,
+          "name": "Passerelle des Nants",
+          "to_index": 15,
+          "type": "turn-left"
+        },
+        {
+          "distance": 300.3,
+          "duration": 302.6,
+          "exit_number": null,
+          "from_index": 15,
+          "name": "Route des Nants",
+          "to_index": 30,
+          "type": "turn-right"
+        },
+        {
+          "distance": 0,
+          "duration": 0,
+          "exit_number": null,
+          "from_index": 30,
+          "name": "-",
+          "to_index": 30,
+          "type": "goal"
+        }
+      ],
+      "surface_info": [
+        {
+          "from_index": 0,
+          "to_index": 12,
+          "value": "paved"
+        },
+        {
+          "from_index": 12,
+          "to_index": 15,
+          "value": "wood"
+        },
+        {
+          "from_index": 15,
+          "to_index": 30,
+          "value": "asphalt"
+        }
+      ],
+      "trail_difficulty_info": [
+        {
+          "from_index": 0,
+          "to_index": 30,
+          "value": "hiking"
+        }
+      ],
+      "way_type_info": [
+        {
+          "from_index": 0,
+          "to_index": 15,
+          "value": "footway"
+        },
+        {
+          "from_index": 15,
+          "to_index": 30,
+          "value": "street"
+        }
+      ]
+    },
+    {
+      "altitude_max": 1131,
+      "altitude_min": 1066,
+      "ascent": 69,
+      "color": "#27ae60",
+      "created_at": "2026-06-02T08:14:00Z",
+      "created_by": {
+        "id": "7c2e9b14-5a6f-4d83-9b1e-0f4a8c6d2e57"
+      },
+      "descent": 4,
+      "description": null,
+      "distance": 609.2,
+      "duration": 653.2,
+      "geojson": {
+        "geometries": [
+          {
+            "coordinates": [
+              [
+                6.8742,
+                45.9264,
+                1066
+              ],
+              [
+                6.874245,
+                45.926561,
+                1068
+              ],
+              [
+                6.874306,
+                45.926719,
+                1071
+              ],
+              [
+                6.874333,
+                45.926883,
+                1073
+              ],
+              [
+                6.874416,
+                45.927038,
+                1076
+              ],
+              [
+                6.87445,
+                45.9272,
+                1078
+              ],
+              [
+                6.874505,
+                45.927359,
+                1080
+              ],
+              [
+                6.87455,
+                45.92752,
+                1083
+              ],
+              [
+                6.874617,
+                45.927677,
+                1085
+              ],
+              [
+                6.874661,
+                45.927838,
+                1088
+              ],
+              [
+                6.8747,
+                45.928,
+                1090
+              ],
+              [
+                6.874548,
+                45.928124,
+                1089
+              ],
+              [
+                6.874411,
+                45.928255,
+                1088
+              ],
+              [
+                6.874276,
+                45.928388,
+                1088
+              ],
+              [
+                6.874139,
+                45.92852,
+                1087
+              ],
+              [
+                6.874,
+                45.92865,
+                1086
+              ],
+              [
+                6.873865,
+                45.928802,
+                1090
+              ],
+              [
+                6.873709,
+                45.928945,
+                1093
+              ],
+              [
+                6.873581,
+                45.9291,
+                1096
+              ],
+              [
+                6.873424,
+                45.929243,
+                1101
+              ],
+              [
+                6.8733,
+                45.9294,
+                1104
+              ],
+              [
+                6.873499,
+                45.929518,
+                1106
+              ],
+              [
+                6.873701,
+                45.929633,
+                1109
+              ],
+              [
+                6.873888,
+                45.92976,
+                1111
+              ],
+              [
+                6.874098,
+                45.929868,
+                1114
+              ],
+              [
+                6.874296,
+                45.929987,
+                1116
+              ],
+              [
+                6.8745,
+                45.9301,
+                1118
+              ],
+              [
+                6.874686,
+                45.930214,
+                1120
+              ],
+              [
+                6.874857,
+                45.930341,
+                1122
+              ],
+              [
+                6.875053,
+                45.930448,
+                1125
+              ],
+              [
+                6.875235,
+                45.930566,
+                1127
+              ],
+              [
+                6.87541,
+                45.930688,
+                1129
+              ],
+              [
+                6.8756,
+                45.9308,
+                1131
+              ]
+            ],
+            "type": "LineString"
+          },
+          {
+            "coordinates": [
+              [
+                6.8742,
+                45.9264
+              ],
+              [
+                6.8756,
+                45.9308
+              ]
+            ],
+            "type": "MultiPoint"
+          }
+        ],
+        "type": "GeometryCollection"
+      },
+      "gradient_max": 11.3,
+      "gradient_min": -2.4,
+      "group_id": null,
+      "id": "d4a7e1c9-3b62-4f05-8e9d-2c1b7a6f5e31",
+      "itinerary_id": "3f6c9a52-8d17-4e0b-a5c4-91e2d7b06f38",
+      "mode": "directions",
+      "name": "Through the Nants woods",
+      "position": 1,
+      "revision": 2,
+      "road_access_info": [],
+      "slope_info": [
+        {
+          "from_index": 0,
+          "to_index": 4,
+          "value": 7.8
+        },
+        {
+          "from_index": 4,
+          "to_index": 8,
+          "value": 7
+        },
+        {
+          "from_index": 8,
+          "to_index": 10,
+          "value": 7.8
+        },
+        {
+          "from_index": 10,
+          "to_index": 14,
+          "value": -2.4
+        },
+        {
+          "from_index": 14,
+          "to_index": 18,
+          "value": 6.6
+        },
+        {
+          "from_index": 18,
+          "to_index": 20,
+          "value": 11.3
+        },
+        {
+          "from_index": 20,
+          "to_index": 24,
+          "value": 7.1
+        },
+        {
+          "from_index": 24,
+          "to_index": 28,
+          "value": 5.8
+        },
+        {
+          "from_index": 28,
+          "to_index": 32,
+          "value": 6.7
+        }
+      ],
+      "speed": null,
+      "speed_info": [
+        {
+          "from_index": 0,
+          "to_index": 4,
+          "value": 3.11
+        },
+        {
+          "from_index": 4,
+          "to_index": 8,
+          "value": 3.26
+        },
+        {
+          "from_index": 8,
+          "to_index": 10,
+          "value": 3.1
+        },
+        {
+          "from_index": 10,
+          "to_index": 14,
+          "value": 5.65
+        },
+        {
+          "from_index": 14,
+          "to_index": 18,
+          "value": 3.18
+        },
+        {
+          "from_index": 18,
+          "to_index": 20,
+          "value": 2.46
+        },
+        {
+          "from_index": 20,
+          "to_index": 24,
+          "value": 3.25
+        },
+        {
+          "from_index": 24,
+          "to_index": 28,
+          "value": 3.53
+        },
+        {
+          "from_index": 28,
+          "to_index": 32,
+          "value": 3.33
+        }
+      ],
+      "start_at": null,
+      "steps": [
+        {
+          "distance": 182.5,
+          "duration": 207.5,
+          "exit_number": null,
+          "from_index": 0,
+          "name": "Chemin des Nants",
+          "to_index": 10,
+          "type": "depart"
+        },
+        {
+          "distance": 190,
+          "duration": 192.5,
+          "exit_number": null,
+          "from_index": 10,
+          "name": "-",
+          "to_index": 20,
+          "type": "slight-left"
+        },
+        {
+          "distance": 236.7,
+          "duration": 253.2,
+          "exit_number": null,
+          "from_index": 20,
+          "name": "Chemin de la Floria",
+          "to_index": 32,
+          "type": "turn-right"
+        },
+        {
+          "distance": 0,
+          "duration": 0,
+          "exit_number": null,
+          "from_index": 32,
+          "name": "-",
+          "to_index": 32,
+          "type": "goal"
+        }
+      ],
+      "surface_info": [
+        {
+          "from_index": 0,
+          "to_index": 10,
+          "value": "compacted-gravel"
+        },
+        {
+          "from_index": 10,
+          "to_index": 32,
+          "value": "ground"
+        }
+      ],
+      "trail_difficulty_info": [
+        {
+          "from_index": 0,
+          "to_index": 10,
+          "value": "hiking"
+        },
+        {
+          "from_index": 10,
+          "to_index": 32,
+          "value": "mountain-hiking"
+        }
+      ],
+      "way_type_info": [
+        {
+          "from_index": 0,
+          "to_index": 10,
+          "value": "track"
+        },
+        {
+          "from_index": 10,
+          "to_index": 32,
+          "value": "path"
+        }
+      ]
+    },
+    {
+      "altitude_max": 1174,
+      "altitude_min": 1131,
+      "ascent": 48,
+      "color": "#f2994a",
+      "created_at": "2026-06-02T08:14:00Z",
+      "created_by": {
+        "id": "7c2e9b14-5a6f-4d83-9b1e-0f4a8c6d2e57"
+      },
+      "descent": 5,
+      "description": null,
+      "distance": 502,
+      "duration": 504.7,
+      "geojson": {
+        "geometries": [
+          {
+            "coordinates": [
+              [
+                6.8756,
+                45.9308,
+                1131
+              ],
+              [
+                6.875768,
+                45.930956,
+                1133
+              ],
+              [
+                6.875935,
+                45.931113,
+                1135
+              ],
+              [
+                6.876082,
+                45.931279,
+                1138
+              ],
+              [
+                6.87625,
+                45.931435,
+                1140
+              ],
+              [
+                6.8764,
+                45.9316,
+                1142
+              ],
+              [
+                6.876532,
+                45.931735,
+                1144
+              ],
+              [
+                6.876631,
+                45.931884,
+                1145
+              ],
+              [
+                6.876754,
+                45.932022,
+                1147
+              ],
+              [
+                6.876866,
+                45.932166,
+                1148
+              ],
+              [
+                6.877,
+                45.9323,
+                1149
+              ],
+              [
+                6.876903,
+                45.932451,
+                1148
+              ],
+              [
+                6.876793,
+                45.932598,
+                1147
+              ],
+              [
+                6.876704,
+                45.932751,
+                1145
+              ],
+              [
+                6.8766,
+                45.9329,
+                1144
+              ],
+              [
+                6.876494,
+                45.933065,
+                1147
+              ],
+              [
+                6.876415,
+                45.933238,
+                1148
+              ],
+              [
+                6.876294,
+                45.933398,
+                1152
+              ],
+              [
+                6.8762,
+                45.933567,
+                1154
+              ],
+              [
+                6.876084,
+                45.933729,
+                1156
+              ],
+              [
+                6.876,
+                45.9339,
+                1159
+              ],
+              [
+                6.87615,
+                45.934065,
+                1162
+              ],
+              [
+                6.876326,
+                45.934217,
+                1165
+              ],
+              [
+                6.876486,
+                45.934377,
+                1168
+              ],
+              [
+                6.876638,
+                45.934541,
+                1171
+              ],
+              [
+                6.8768,
+                45.9347,
+                1174
+              ]
+            ],
+            "type": "LineString"
+          },
+          {
+            "coordinates": [
+              [
+                6.8756,
+                45.9308
+              ],
+              [
+                6.8768,
+                45.9347
+              ]
+            ],
+            "type": "MultiPoint"
+          }
+        ],
+        "type": "GeometryCollection"
+      },
+      "gradient_max": 7.9,
+      "gradient_min": -3.9,
+      "group_id": null,
+      "id": "d4a7e1c9-3b62-4f05-8e9d-2c1b7a6f5e32",
+      "itinerary_id": "3f6c9a52-8d17-4e0b-a5c4-91e2d7b06f38",
+      "mode": "directions",
+      "name": "Up to the Floria belvedere",
+      "position": 2,
+      "revision": 2,
+      "road_access_info": [],
+      "slope_info": [
+        {
+          "from_index": 0,
+          "to_index": 4,
+          "value": 5.9
+        },
+        {
+          "from_index": 4,
+          "to_index": 8,
+          "value": 5.3
+        },
+        {
+          "from_index": 8,
+          "to_index": 10,
+          "value": 3.1
+        },
+        {
+          "from_index": 10,
+          "to_index": 14,
+          "value": -3.9
+        },
+        {
+          "from_index": 14,
+          "to_index": 18,
+          "value": 7.1
+        },
+        {
+          "from_index": 18,
+          "to_index": 22,
+          "value": 7.5
+        },
+        {
+          "from_index": 22,
+          "to_index": 25,
+          "value": 7.9
+        }
+      ],
+      "speed": null,
+      "speed_info": [
+        {
+          "from_index": 0,
+          "to_index": 4,
+          "value": 3.49
+        },
+        {
+          "from_index": 4,
+          "to_index": 8,
+          "value": 3.64
+        },
+        {
+          "from_index": 8,
+          "to_index": 10,
+          "value": 4.15
+        },
+        {
+          "from_index": 10,
+          "to_index": 14,
+          "value": 5.61
+        },
+        {
+          "from_index": 14,
+          "to_index": 18,
+          "value": 3.2
+        },
+        {
+          "from_index": 18,
+          "to_index": 22,
+          "value": 3.17
+        },
+        {
+          "from_index": 22,
+          "to_index": 25,
+          "value": 3.1
+        }
+      ],
+      "start_at": null,
+      "steps": [
+        {
+          "distance": 199.3,
+          "duration": 196.3,
+          "exit_number": null,
+          "from_index": 0,
+          "name": "-",
+          "to_index": 10,
+          "type": "depart"
+        },
+        {
+          "distance": 302.8,
+          "duration": 308.3,
+          "exit_number": null,
+          "from_index": 10,
+          "name": "Sentier de la Floria",
+          "to_index": 25,
+          "type": "turn-left"
+        },
+        {
+          "distance": 0,
+          "duration": 0,
+          "exit_number": null,
+          "from_index": 25,
+          "name": "-",
+          "to_index": 25,
+          "type": "goal"
+        }
+      ],
+      "surface_info": [
+        {
+          "from_index": 0,
+          "to_index": 25,
+          "value": "ground"
+        }
+      ],
+      "trail_difficulty_info": [
+        {
+          "from_index": 0,
+          "to_index": 25,
+          "value": "mountain-hiking"
+        }
+      ],
+      "way_type_info": [
+        {
+          "from_index": 0,
+          "to_index": 25,
+          "value": "path"
+        }
+      ]
+    }
+  ],
+  "status": "published",
+  "updated_at": "2026-06-20T17:41:00Z",
+  "waypoints": [
+    {
+      "amenities": [
+        "public-transport",
+        "water",
+        "toilets",
+        "shop"
+      ],
+      "color": null,
+      "contact": null,
+      "created_at": "2026-06-02T08:31:00Z",
+      "created_by": {
+        "id": "7c2e9b14-5a6f-4d83-9b1e-0f4a8c6d2e57"
+      },
+      "description": "The start, by the Arve in the centre of Chamonix.",
+      "geojson": {
+        "coordinates": [
+          6.869173,
+          45.922605
+        ],
+        "type": "Point"
+      },
+      "icon": "flag-start",
+      "id": "e92b5c07-6d1a-4f48-b3c5-8a0d4e7f1b60",
+      "itinerary_id": "3f6c9a52-8d17-4e0b-a5c4-91e2d7b06f38",
+      "media": null,
+      "mode": "poi",
+      "name": "Place Balmat",
+      "position": 0,
+      "properties": null,
+      "revision": 1,
+      "timing": null
+    },
+    {
+      "amenities": [
+        "water",
+        "picnic"
+      ],
+      "color": null,
+      "contact": null,
+      "created_at": "2026-06-02T08:31:00Z",
+      "created_by": {
+        "id": "7c2e9b14-5a6f-4d83-9b1e-0f4a8c6d2e57"
+      },
+      "description": "The hamlet where the road gives way to the woods.",
+      "geojson": {
+        "coordinates": [
+          6.874316,
+          45.926463
+        ],
+        "type": "Point"
+      },
+      "icon": "droplet",
+      "id": "e92b5c07-6d1a-4f48-b3c5-8a0d4e7f1b61",
+      "itinerary_id": "3f6c9a52-8d17-4e0b-a5c4-91e2d7b06f38",
+      "media": null,
+      "mode": "poi",
+      "name": "Les Nants",
+      "position": 1,
+      "properties": null,
+      "revision": 1,
+      "timing": null
+    },
+    {
+      "amenities": [
+        "rest-area",
+        "viewpoint",
+        "picnic"
+      ],
+      "color": null,
+      "contact": null,
+      "created_at": "2026-06-02T08:31:00Z",
+      "created_by": {
+        "id": "7c2e9b14-5a6f-4d83-9b1e-0f4a8c6d2e57"
+      },
+      "description": "A clearing in the woods, the last level ground before the climb.",
+      "geojson": {
+        "coordinates": [
+          6.875497,
+          45.930836
+        ],
+        "type": "Point"
+      },
+      "icon": "eye",
+      "id": "e92b5c07-6d1a-4f48-b3c5-8a0d4e7f1b62",
+      "itinerary_id": "3f6c9a52-8d17-4e0b-a5c4-91e2d7b06f38",
+      "media": null,
+      "mode": "poi",
+      "name": "Clairière des Nants",
+      "position": 2,
+      "properties": null,
+      "revision": 1,
+      "timing": null
+    },
+    {
+      "amenities": [
+        "viewpoint",
+        "timing-checkpoint"
+      ],
+      "color": null,
+      "contact": null,
+      "created_at": "2026-06-02T08:31:00Z",
+      "created_by": {
+        "id": "7c2e9b14-5a6f-4d83-9b1e-0f4a8c6d2e57"
+      },
+      "description": "The viewpoint over the Mont-Blanc massif where the walk ends.",
+      "geojson": {
+        "coordinates": [
+          6.876852,
+          45.934754
+        ],
+        "type": "Point"
+      },
+      "icon": "flag-end",
+      "id": "e92b5c07-6d1a-4f48-b3c5-8a0d4e7f1b63",
+      "itinerary_id": "3f6c9a52-8d17-4e0b-a5c4-91e2d7b06f38",
+      "media": null,
+      "mode": "poi",
+      "name": "Belvédère de la Floria",
+      "position": 3,
+      "properties": null,
+      "revision": 1,
+      "timing": {
+        "cutoff_at": "2026-07-18T16:30:00Z",
+        "stop_duration": 900
+      }
+    }
+  ]
+}

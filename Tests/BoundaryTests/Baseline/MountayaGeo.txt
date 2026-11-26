@@ -1,0 +1,2006 @@
+// The public API of MountayaGeo, printed by BoundaryTests from the compiler's symbol graph.
+// Never edit it: a change to the API is printed again with `mise run api:update`, and the
+// diff is the review. A line removed or changed is a break (SPEC.md section 10).
+AltitudeRange  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+AltitudeRange  struct AltitudeRange
+AltitudeRange.==(_:_:)  static func == (lhs: AltitudeRange, rhs: AltitudeRange) -> Bool
+AltitudeRange.hash(into:)  func hash(into hasher: inout Hasher)
+AltitudeRange.init(min:max:)  init(min: Double, max: Double)
+AltitudeRange.max  var max: Double
+AltitudeRange.min  var min: Double
+AmenityFilter  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+AmenityFilter  struct AmenityFilter
+AmenityFilter.==(_:_:)  static func == (lhs: AmenityFilter, rhs: AmenityFilter) -> Bool
+AmenityFilter.available  var available: [RestSchema.WaypointAmenity]
+AmenityFilter.hash(into:)  func hash(into hasher: inout Hasher)
+AmenityFilter.init(available:shown:)  init(available: [RestSchema.WaypointAmenity], shown: [ItineraryWaypointRow])
+AmenityFilter.shown  var shown: [ItineraryWaypointRow]
+AmenityStack  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+AmenityStack  struct AmenityStack
+AmenityStack.==(_:_:)  static func == (lhs: AmenityStack, rhs: AmenityStack) -> Bool
+AmenityStack.counted  var counted: Int
+AmenityStack.hash(into:)  func hash(into hasher: inout Hasher)
+AmenityStack.init(pin:shown:counted:named:)  init(pin: CurvePin, shown: [RestSchema.WaypointAmenity], counted: Int, named: [RestSchema.WaypointAmenity])
+AmenityStack.named  var named: [RestSchema.WaypointAmenity]
+AmenityStack.pin  var pin: CurvePin
+AmenityStack.shown  var shown: [RestSchema.WaypointAmenity]
+AngleUnit  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+AngleUnit  enum AngleUnit
+AngleUnit.degree  case degree
+AngleUnit.id  var id: String { get }
+AngleUnit.init(rawValue:)  init?(rawValue: String)
+AngleUnit.radian  case radian
+AspectCardinal  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+AspectCardinal  enum AspectCardinal
+AspectCardinal.east  case east
+AspectCardinal.init(rawValue:)  init?(rawValue: String)
+AspectCardinal.north  case north
+AspectCardinal.northEast  case northEast
+AspectCardinal.northWest  case northWest
+AspectCardinal.south  case south
+AspectCardinal.southEast  case southEast
+AspectCardinal.southWest  case southWest
+AspectCardinal.west  case west
+AxisLabelBox  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+AxisLabelBox  struct AxisLabelBox
+AxisLabelBox.==(_:_:)  static func == (lhs: AxisLabelBox, rhs: AxisLabelBox) -> Bool
+AxisLabelBox.hash(into:)  func hash(into hasher: inout Hasher)
+AxisLabelBox.init(key:left:right:)  init(key: String, left: Double, right: Double)
+AxisLabelBox.key  var key: String
+AxisLabelBox.left  var left: Double
+AxisLabelBox.right  var right: Double
+BadgeSurface  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+BadgeSurface  enum BadgeSurface
+BadgeSurface.cell  case cell
+BadgeSurface.init(rawValue:)  init?(rawValue: String)
+BadgeSurface.labelled  case labelled
+BadgeSurface.stack  case stack
+CameraPose  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+CameraPose  struct CameraPose
+CameraPose.==(_:_:)  static func == (lhs: CameraPose, rhs: CameraPose) -> Bool
+CameraPose.bearing  var bearing: Double
+CameraPose.center  var center: [Double]
+CameraPose.hash(into:)  func hash(into hasher: inout Hasher)
+CameraPose.init(center:zoom:pitch:bearing:)  init(center: [Double], zoom: Double, pitch: Double, bearing: Double)
+CameraPose.pitch  var pitch: Double
+CameraPose.zoom  var zoom: Double
+Climb  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+Climb  struct Climb
+Climb.==(_:_:)  static func == (lhs: Climb, rhs: Climb) -> Bool
+Climb.avgGradePercent  var avgGradePercent: Double
+Climb.category  var category: ClimbCategory
+Climb.endKm  var endKm: Double
+Climb.hash(into:)  func hash(into hasher: inout Hasher)
+Climb.init(startKm:endKm:peakElevation:avgGradePercent:category:)  init(startKm: Double, endKm: Double, peakElevation: Double, avgGradePercent: Double, category: ClimbCategory)
+Climb.peakElevation  var peakElevation: Double
+Climb.startKm  var startKm: Double
+ClimbCategory  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ClimbCategory  enum ClimbCategory
+ClimbCategory.category1  case category1
+ClimbCategory.category2  case category2
+ClimbCategory.category3  case category3
+ClimbCategory.category4  case category4
+ClimbCategory.horsCategorie  case horsCategorie
+ClimbCategory.id  var id: String { get }
+ClimbCategory.init(rawValue:)  init?(rawValue: String)
+ClimbCategory.minimumScore  var minimumScore: Double { get }
+CurveColor  : ProfileSpan, Swift.Equatable, Swift.Hashable, Swift.Sendable
+CurveColor  struct CurveColor
+CurveColor.==(_:_:)  static func == (lhs: CurveColor, rhs: CurveColor) -> Bool
+CurveColor.color  var color: String
+CurveColor.from  var from: Double
+CurveColor.hash(into:)  func hash(into hasher: inout Hasher)
+CurveColor.init(from:to:color:)  init(from: Double, to: Double, color: String)
+CurveColor.to  var to: Double
+CurveCutoff  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+CurveCutoff  struct CurveCutoff
+CurveCutoff.==(_:_:)  static func == (lhs: CurveCutoff, rhs: CurveCutoff) -> Bool
+CurveCutoff.cutoffAt  var cutoffAt: Date
+CurveCutoff.distance  var distance: Double
+CurveCutoff.hash(into:)  func hash(into hasher: inout Hasher)
+CurveCutoff.init(key:place:distance:x:cutoffAt:)  init(key: String, place: ProfilePlace, distance: Double, x: Double, cutoffAt: Date)
+CurveCutoff.key  var key: String
+CurveCutoff.place  var place: ProfilePlace
+CurveCutoff.x  var x: Double
+CurveDivider  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+CurveDivider  struct CurveDivider
+CurveDivider.==(_:_:)  static func == (lhs: CurveDivider, rhs: CurveDivider) -> Bool
+CurveDivider.distance  var distance: Double
+CurveDivider.hash(into:)  func hash(into hasher: inout Hasher)
+CurveDivider.init(key:place:distance:x:y:)  init(key: String, place: ProfilePlace, distance: Double, x: Double, y: Double?)
+CurveDivider.key  var key: String
+CurveDivider.name  var name: String { get }
+CurveDivider.place  var place: ProfilePlace
+CurveDivider.x  var x: Double
+CurveDivider.y  var y: Double?
+CurvePin  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+CurvePin  struct CurvePin
+CurvePin.==(_:_:)  static func == (lhs: CurvePin, rhs: CurvePin) -> Bool
+CurvePin.altitude  var altitude: Double
+CurvePin.distance  var distance: Double
+CurvePin.hash(into:)  func hash(into hasher: inout Hasher)
+CurvePin.init(key:place:distance:x:y:altitude:)  init(key: String, place: ProfilePlace, distance: Double, x: Double, y: Double, altitude: Double)
+CurvePin.key  var key: String
+CurvePin.place  var place: ProfilePlace
+CurvePin.x  var x: Double
+CurvePin.y  var y: Double
+CurvePlacement  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+CurvePlacement  struct CurvePlacement
+CurvePlacement.cutoffs  var cutoffs: [CurveCutoff]
+CurvePlacement.dividers  var dividers: [CurveDivider]
+CurvePlacement.init(pins:dividers:cutoffs:)  init(pins: [CurvePin], dividers: [CurveDivider], cutoffs: [CurveCutoff])
+CurvePlacement.pins  var pins: [CurvePin]
+CurveStop  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+CurveStop  struct CurveStop
+CurveStop.==(_:_:)  static func == (lhs: CurveStop, rhs: CurveStop) -> Bool
+CurveStop.color  var color: String?
+CurveStop.hash(into:)  func hash(into hasher: inout Hasher)
+CurveStop.init(offset:color:)  init(offset: Double, color: String?)
+CurveStop.offset  var offset: Double
+DataSizeUnit  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+DataSizeUnit  enum DataSizeUnit
+DataSizeUnit.bit  case bit
+DataSizeUnit.byte  case byte
+DataSizeUnit.id  var id: String { get }
+DataSizeUnit.init(rawValue:)  init?(rawValue: String)
+DataSizeUnit.kibibyte  case kibibyte
+DataSizeUnit.kilobit  case kilobit
+DataSizeUnit.kilobyte  case kilobyte
+DataSizeUnit.mebibyte  case mebibyte
+DataSizeUnit.megabit  case megabit
+DataSizeUnit.megabyte  case megabyte
+DateLength  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+DateLength  enum DateLength
+DateLength.full  case full
+DateLength.init(rawValue:)  init?(rawValue: String)
+DateLength.long  case long
+DateLength.medium  case medium
+DateLength.short  case short
+DistanceTick  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+DistanceTick  struct DistanceTick
+DistanceTick.==(_:_:)  static func == (lhs: DistanceTick, rhs: DistanceTick) -> Bool
+DistanceTick.fractionDigits  var fractionDigits: Int
+DistanceTick.hash(into:)  func hash(into hasher: inout Hasher)
+DistanceTick.init(value:meters:fractionDigits:)  init(value: Double, meters: Double, fractionDigits: Int)
+DistanceTick.meters  var meters: Double
+DistanceTick.value  var value: Double
+DomainRoundingStep  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+DomainRoundingStep  struct DomainRoundingStep
+DomainRoundingStep.==(_:_:)  static func == (lhs: DomainRoundingStep, rhs: DomainRoundingStep) -> Bool
+DomainRoundingStep.hash(into:)  func hash(into hasher: inout Hasher)
+DomainRoundingStep.init(stepMeters:uptoSpanMeters:)  init(stepMeters: Double, uptoSpanMeters: Double?)
+DomainRoundingStep.stepMeters  var stepMeters: Double
+DomainRoundingStep.uptoSpanMeters  var uptoSpanMeters: Double?
+DurationSplit  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+DurationSplit  struct DurationSplit
+DurationSplit.hours  var hours: Int
+DurationSplit.init(hours:minutes:)  init(hours: Int, minutes: Int)
+DurationSplit.minutes  var minutes: Int
+DurationUnit  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+DurationUnit  enum DurationUnit
+DurationUnit.day  case day
+DurationUnit.hour  case hour
+DurationUnit.id  var id: String { get }
+DurationUnit.init(rawValue:)  init?(rawValue: String)
+DurationUnit.millisecond  case millisecond
+DurationUnit.minute  case minute
+DurationUnit.second  case second
+ElementTokens  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ElementTokens  struct ElementTokens
+ElementTokens.accent  var accent: ThemeToken<HexColor>
+ElementTokens.controlBg  var controlBg: ThemeToken<HexColor>
+ElementTokens.controlBgHover  var controlBgHover: ThemeToken<HexColor>
+ElementTokens.controlFg  var controlFg: ThemeToken<HexColor>
+ElementTokens.controlFgDisabled  var controlFgDisabled: ThemeToken<HexColor>
+ElementTokens.controlShadow  var controlShadow: ThemeToken<[HexColor]>
+ElementTokens.dimmed  var dimmed: ThemeToken<HexColor>
+ElementTokens.focusRing  var focusRing: ThemeToken<HexColor>
+ElementTokens.panelBg  var panelBg: ThemeToken<HexColor>
+ElementTokens.panelBorder  var panelBorder: ThemeToken<HexColor>
+ElementTokens.panelFg  var panelFg: ThemeToken<HexColor>
+ElementTokens.profileCursor  var profileCursor: ThemeToken<HexColor>
+ElementTokens.profileCursorDash  var profileCursorDash: ThemeToken<[Double]>
+ElementTokens.profileGridColor  var profileGridColor: ThemeToken<HexColor>
+ElementTokens.profileLitFill  var profileLitFill: ThemeToken<HexColor>
+ElementTokens.profileNavigatorHandle  var profileNavigatorHandle: ThemeToken<HexColor>
+ElementTokens.profileNavigatorVeil  var profileNavigatorVeil: ThemeToken<HexColor>
+ElementTokens.profileTooltipBg  var profileTooltipBg: ThemeToken<HexColor>
+ElementTokens.profileTooltipFg  var profileTooltipFg: ThemeToken<HexColor>
+ElementTokens.profileTooltipShadow  var profileTooltipShadow: ThemeToken<[HexColor]>
+ElementTokens.profileWaypointColor  var profileWaypointColor: ThemeToken<HexColor>
+ElementTokens.profileWaypointLine  var profileWaypointLine: ThemeToken<HexColor>
+ElementTokens.standard  static let standard: ElementTokens
+ElementTokens.tableBorder  var tableBorder: ThemeToken<HexColor>
+ElementTokens.tableRowHover  var tableRowHover: ThemeToken<HexColor>
+ElementTokens.tableSparkBase  var tableSparkBase: ThemeToken<HexColor>
+ElementTokens.tooltipBg  var tooltipBg: ThemeToken<HexColor>
+ElementTokens.tooltipFg  var tooltipFg: ThemeToken<HexColor>
+ElementTokens.waypointCardMarkColor  var waypointCardMarkColor: ThemeToken<HexColor>
+ElementTokens.waypointCardMarkFg  var waypointCardMarkFg: ThemeToken<HexColor>
+ElementsScope  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ElementsScope  struct ElementsScope
+ElementsScope.==(_:_:)  static func == (lhs: ElementsScope, rhs: ElementsScope) -> Bool
+ElementsScope.controlGlyphs  let controlGlyphs: GlyphSet
+ElementsScope.hash(into:)  func hash(into hasher: inout Hasher)
+ElementsScope.language  let language: RestSchema.Language
+ElementsScope.locale  let locale: String
+ElementsScope.markerGlyphs  let markerGlyphs: GlyphSet
+ElementsScope.standard  static let standard: ElementsScope
+ElementsScope.word(_:)  func word(_ path: String) -> String
+ElementsScope.words  let words: [String : JSONValue]
+ElementsScopeStatement  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ElementsScopeStatement  struct ElementsScopeStatement
+ElementsScopeStatement.==(_:_:)  static func == (lhs: ElementsScopeStatement, rhs: ElementsScopeStatement) -> Bool
+ElementsScopeStatement.controlGlyphs  var controlGlyphs: GlyphSet?
+ElementsScopeStatement.hash(into:)  func hash(into hasher: inout Hasher)
+ElementsScopeStatement.init(language:locale:words:controlGlyphs:markerGlyphs:)  init(language: RestSchema.Language? = nil, locale: String? = nil, words: WordOverrides? = nil, controlGlyphs: GlyphSet? = nil, markerGlyphs: GlyphSet? = nil)
+ElementsScopeStatement.language  var language: RestSchema.Language?
+ElementsScopeStatement.locale  var locale: String?
+ElementsScopeStatement.markerGlyphs  var markerGlyphs: GlyphSet?
+ElementsScopeStatement.words  var words: WordOverrides?
+ElevationDomain  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ElevationDomain  struct ElevationDomain
+ElevationDomain.==(_:_:)  static func == (lhs: ElevationDomain, rhs: ElevationDomain) -> Bool
+ElevationDomain.hash(into:)  func hash(into hasher: inout Hasher)
+ElevationDomain.init(min:max:)  init(min: Double, max: Double)
+ElevationDomain.max  var max: Double
+ElevationDomain.min  var min: Double
+ElevationEncoding  : Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ElevationEncoding  struct ElevationEncoding
+ElevationEncoding.==(_:_:)  static func == (lhs: ElevationEncoding, rhs: ElevationEncoding) -> Bool
+ElevationEncoding.hash(into:)  func hash(into hasher: inout Hasher)
+ElevationEncoding.init(rawValue:)  init(rawValue: String)
+ElevationEncoding.mapbox  static let mapbox: ElevationEncoding
+ElevationEncoding.rawValue  let rawValue: String
+ElevationEncoding.terrarium  static let terrarium: ElevationEncoding
+ElevationPoint  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ElevationPoint  struct ElevationPoint
+ElevationPoint.==(_:_:)  static func == (lhs: ElevationPoint, rhs: ElevationPoint) -> Bool
+ElevationPoint.distance  var distance: Double
+ElevationPoint.elevation  var elevation: Double
+ElevationPoint.hash(into:)  func hash(into hasher: inout Hasher)
+ElevationPoint.index  var index: Int
+ElevationPoint.init(distance:elevation:lngLat:index:)  init(distance: Double, elevation: Double, lngLat: [Double], index: Int)
+ElevationPoint.lngLat  var lngLat: [Double]
+ElevationSeries  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ElevationSeries  struct ElevationSeries
+ElevationSeries.==(_:_:)  static func == (lhs: ElevationSeries, rhs: ElevationSeries) -> Bool
+ElevationSeries.hasElevation  var hasElevation: Bool { get }
+ElevationSeries.hash(into:)  func hash(into hasher: inout Hasher)
+ElevationSeries.init(points:totalDistance:minElevation:maxElevation:)  init(points: [ElevationPoint], totalDistance: Double, minElevation: Double?, maxElevation: Double?)
+ElevationSeries.maxElevation  var maxElevation: Double?
+ElevationSeries.minElevation  var minElevation: Double?
+ElevationSeries.points  var points: [ElevationPoint]
+ElevationSeries.totalDistance  var totalDistance: Double
+ElevationSource  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ElevationSource  struct ElevationSource
+ElevationSource.encoding  var encoding: ElevationEncoding
+ElevationSource.init(encoding:tileSize:zoom:)  init(encoding: ElevationEncoding = .mapbox, tileSize: Int, zoom: Int)
+ElevationSource.tileSize  var tileSize: Int
+ElevationSource.zoom  var zoom: Int
+ElevationTile  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ElevationTile  struct ElevationTile
+ElevationTile.init(z:x:y:pixels:)  init(z: Int, x: Int, y: Int, pixels: [UInt8] = [])
+ElevationTile.pixels  var pixels: [UInt8]
+ElevationTile.x  var x: Int
+ElevationTile.y  var y: Int
+ElevationTile.z  var z: Int
+FollowedRoute  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+FollowedRoute  struct FollowedRoute
+FollowedRoute.==(_:_:)  static func == (lhs: FollowedRoute, rhs: FollowedRoute) -> Bool
+FollowedRoute.hash(into:)  func hash(into hasher: inout Hasher)
+FollowedRoute.line  var line: [[Double]] { get }
+FollowedRoute.measured  var measured: [Double] { get }
+FollowedRoute.steps  var steps: [NavigationStep] { get }
+GeoJSONFeature  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GeoJSONFeature  struct GeoJSONFeature
+GeoJSONFeature.==(_:_:)  static func == (lhs: GeoJSONFeature, rhs: GeoJSONFeature) -> Bool
+GeoJSONFeature.geometry  var geometry: GeoJSONGeometry?
+GeoJSONFeature.hash(into:)  func hash(into hasher: inout Hasher)
+GeoJSONFeature.init(geometry:properties:)  init(geometry: GeoJSONGeometry?, properties: [String : JSONValue])
+GeoJSONFeature.properties  var properties: [String : JSONValue]
+GeoJSONFeatureCollection  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GeoJSONFeatureCollection  struct GeoJSONFeatureCollection
+GeoJSONFeatureCollection.features  var features: [GeoJSONFeature]
+GeoJSONFeatureCollection.init(features:)  init(features: [GeoJSONFeature])
+GeolocateControlEngine  : Observation.Observable, Swift.Sendable
+GeolocateControlEngine  @MainActor final class GeolocateControlEngine
+GeolocateControlEngine.close()  @MainActor func close()
+GeolocateControlEngine.configure(map:)  @MainActor func configure(map: (any GeolocateControlTarget)?)
+GeolocateControlEngine.init(map:)  @MainActor init(map: (any GeolocateControlTarget)? = nil)
+GeolocateControlEngine.locate(onError:)  @MainActor func locate(onError: (@MainActor @Sendable (any Error) -> Void)? = nil)
+GeolocateControlEngine.state  @MainActor var state: GeolocateControlState { get }
+GeolocateControlEngine.subscribe()  @MainActor func subscribe() -> AsyncStream<GeolocateControlState>
+GeolocateControlState  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GeolocateControlState  struct GeolocateControlState
+GeolocateControlState.init(isBusy:isBlocked:isLive:)  init(isBusy: Bool = false, isBlocked: Bool = false, isLive: Bool = false)
+GeolocateControlState.isBlocked  var isBlocked: Bool
+GeolocateControlState.isBusy  var isBusy: Bool
+GeolocateControlState.isLive  var isLive: Bool
+GeolocateControlTarget  @MainActor protocol GeolocateControlTarget : AnyObject
+GeolocateControlTarget.isLocationRefused()  @MainActor func isLocationRefused() async throws -> Bool
+GeolocateControlTarget.locate()  @MainActor func locate() async throws -> [Double]
+GlyphDrawing  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GlyphDrawing  struct GlyphDrawing
+GlyphDrawing.==(_:_:)  static func == (lhs: GlyphDrawing, rhs: GlyphDrawing) -> Bool
+GlyphDrawing.Gradient  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GlyphDrawing.Gradient  struct Gradient
+GlyphDrawing.Gradient.==(_:_:)  static func == (lhs: GlyphDrawing.Gradient, rhs: GlyphDrawing.Gradient) -> Bool
+GlyphDrawing.Gradient.from  var from: [Double]
+GlyphDrawing.Gradient.hash(into:)  func hash(into hasher: inout Hasher)
+GlyphDrawing.Gradient.init(from:to:stops:)  init(from: [Double], to: [Double], stops: [GlyphDrawing.GradientStop])
+GlyphDrawing.Gradient.stops  var stops: [GlyphDrawing.GradientStop]
+GlyphDrawing.Gradient.to  var to: [Double]
+GlyphDrawing.GradientStop  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GlyphDrawing.GradientStop  struct GradientStop
+GlyphDrawing.GradientStop.==(_:_:)  static func == (lhs: GlyphDrawing.GradientStop, rhs: GlyphDrawing.GradientStop) -> Bool
+GlyphDrawing.GradientStop.color  var color: HexColor
+GlyphDrawing.GradientStop.hash(into:)  func hash(into hasher: inout Hasher)
+GlyphDrawing.GradientStop.init(offset:color:)  init(offset: Double, color: HexColor)
+GlyphDrawing.GradientStop.offset  var offset: Double
+GlyphDrawing.Paint  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GlyphDrawing.Paint  enum Paint
+GlyphDrawing.Paint.==(_:_:)  static func == (lhs: GlyphDrawing.Paint, rhs: GlyphDrawing.Paint) -> Bool
+GlyphDrawing.Paint.color(_:)  case color(HexColor)
+GlyphDrawing.Paint.hash(into:)  func hash(into hasher: inout Hasher)
+GlyphDrawing.Paint.linear(_:)  case linear(GlyphDrawing.Gradient)
+GlyphDrawing.Paint.token(_:opacity:)  case token(any KeyPath<ElementTokens, ThemeToken<HexColor>> & Sendable, opacity: Double)
+GlyphDrawing.PaintedShape  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GlyphDrawing.PaintedShape  struct PaintedShape
+GlyphDrawing.PaintedShape.==(_:_:)  static func == (lhs: GlyphDrawing.PaintedShape, rhs: GlyphDrawing.PaintedShape) -> Bool
+GlyphDrawing.PaintedShape.fill  var fill: GlyphDrawing.Paint?
+GlyphDrawing.PaintedShape.hash(into:)  func hash(into hasher: inout Hasher)
+GlyphDrawing.PaintedShape.init(markup:fill:stroke:strokeWidth:)  init(markup: String, fill: GlyphDrawing.Paint? = nil, stroke: GlyphDrawing.Paint? = nil, strokeWidth: Double? = nil)
+GlyphDrawing.PaintedShape.markup  var markup: String
+GlyphDrawing.PaintedShape.stroke  var stroke: GlyphDrawing.Paint?
+GlyphDrawing.PaintedShape.strokeWidth  var strokeWidth: Double?
+GlyphDrawing.Shadow  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GlyphDrawing.Shadow  struct Shadow
+GlyphDrawing.Shadow.==(_:_:)  static func == (lhs: GlyphDrawing.Shadow, rhs: GlyphDrawing.Shadow) -> Bool
+GlyphDrawing.Shadow.blur  var blur: Double
+GlyphDrawing.Shadow.color  var color: HexColor
+GlyphDrawing.Shadow.dx  var dx: Double
+GlyphDrawing.Shadow.dy  var dy: Double
+GlyphDrawing.Shadow.hash(into:)  func hash(into hasher: inout Hasher)
+GlyphDrawing.Shadow.init(blur:dx:dy:color:)  init(blur: Double, dx: Double, dy: Double, color: HexColor)
+GlyphDrawing.artwork  static let artwork: [String : GlyphDrawing]
+GlyphDrawing.hash(into:)  func hash(into hasher: inout Hasher)
+GlyphDrawing.init(viewBox:opacity:shadow:shapes:)  init(viewBox: [Double], opacity: Double, shadow: GlyphDrawing.Shadow?, shapes: [GlyphDrawing.PaintedShape])
+GlyphDrawing.init(viewBox:shapes:)  init(viewBox: [Double], shapes: [GlyphDrawing.PaintedShape])
+GlyphDrawing.opacity  var opacity: Double
+GlyphDrawing.shadow  var shadow: GlyphDrawing.Shadow?
+GlyphDrawing.shapes  var shapes: [GlyphDrawing.PaintedShape]
+GlyphDrawing.viewBox  var viewBox: [Double]
+GlyphSet  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GlyphSet  struct GlyphSet
+GlyphSet.==(_:_:)  static func == (lhs: GlyphSet, rhs: GlyphSet) -> Bool
+GlyphSet.Paint  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+GlyphSet.Paint  enum Paint
+GlyphSet.Paint.fill  case fill
+GlyphSet.Paint.init(rawValue:)  init?(rawValue: String)
+GlyphSet.Paint.stroke  case stroke
+GlyphSet.control  static let control: GlyphSet
+GlyphSet.hash(into:)  func hash(into hasher: inout Hasher)
+GlyphSet.init(chaining:)  init?(chaining sets: [GlyphSet])
+GlyphSet.init(name:paint:strokeWidth:viewBox:markup:)  init?(name: String, paint: GlyphSet.Paint, strokeWidth: Double = 2, viewBox: Double = 24, markup: [String : String])
+GlyphSet.marker  static let marker: GlyphSet
+GlyphSet.markup  let markup: [String : String]
+GlyphSet.name  let name: String
+GlyphSet.paint  let paint: GlyphSet.Paint
+GlyphSet.strokeWidth  let strokeWidth: Double
+GlyphSet.viewBox  let viewBox: Double
+GlyphShape  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+GlyphShape  struct GlyphShape
+GlyphShape.==(_:_:)  static func == (lhs: GlyphShape, rhs: GlyphShape) -> Bool
+GlyphShape.attributes  var attributes: [String : String]
+GlyphShape.hash(into:)  func hash(into hasher: inout Hasher)
+GlyphShape.init(tag:attributes:)  init(tag: String, attributes: [String : String])
+GlyphShape.tag  var tag: String
+GuidancePlan  : Swift.Equatable, Swift.Sendable
+GuidancePlan  struct GuidancePlan
+GuidancePlan.init(steps:)  init(steps: [GuidanceStep])
+GuidancePlan.steps  let steps: [GuidanceStep]
+GuidancePrompt  : Swift.Equatable, Swift.Sendable
+GuidancePrompt  struct GuidancePrompt
+GuidancePrompt.id  let id: Int
+GuidancePrompt.init(id:instruction:meters:)  init(id: Int, instruction: NavigationInstruction, meters: Double)
+GuidancePrompt.instruction  let instruction: NavigationInstruction
+GuidancePrompt.meters  let meters: Double
+GuidanceStep  : Swift.Equatable, Swift.Sendable
+GuidanceStep  struct GuidanceStep
+GuidanceStep.init(meters:instruction:prompts:)  init(meters: Double, instruction: NavigationInstruction, prompts: [GuidancePrompt])
+GuidanceStep.instruction  let instruction: NavigationInstruction
+GuidanceStep.meters  let meters: Double
+GuidanceStep.prompts  let prompts: [GuidancePrompt]
+HexColor  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+HexColor  struct HexColor
+HexColor.==(_:_:)  static func == (lhs: HexColor, rhs: HexColor) -> Bool
+HexColor.hash(into:)  func hash(into hasher: inout Hasher)
+HexColor.hex  var hex: String
+HexColor.init(hex:opacity:)  init(hex: String, opacity: Double = 1)
+HexColor.opacity  var opacity: Double
+HighlightPart  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+HighlightPart  struct HighlightPart
+HighlightPart.==(_:_:)  static func == (lhs: HighlightPart, rhs: HighlightPart) -> Bool
+HighlightPart.hash(into:)  func hash(into hasher: inout Hasher)
+HighlightPart.init(text:match:)  init(text: String, match: Bool)
+HighlightPart.match  var match: Bool
+HighlightPart.text  var text: String
+HoveredItinerary  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+HoveredItinerary  struct HoveredItinerary
+HoveredItinerary.init(segmentId:waypointId:)  init(segmentId: String? = nil, waypointId: String? = nil)
+HoveredItinerary.segmentId  var segmentId: String?
+HoveredItinerary.waypointId  var waypointId: String?
+InfoBand  : where Value : Equatable : Swift.Equatable
+InfoBand  : where Value : Hashable : Swift.Equatable, Swift.Hashable
+InfoBand  : where Value : Sendable : Swift.Sendable
+InfoBand  struct InfoBand<Value>
+InfoBand.==(_:_:)  static func == (lhs: InfoBand<Value>, rhs: InfoBand<Value>) -> Bool  in an extension where Value : Equatable
+InfoBand.endKm  var endKm: Double
+InfoBand.hash(into:)  func hash(into hasher: inout Hasher)  in an extension where Value : Hashable
+InfoBand.init(startKm:endKm:value:)  init(startKm: Double, endKm: Double, value: Value)
+InfoBand.startKm  var startKm: Double
+InfoBand.value  var value: Value
+InfoRange  : where Value : Equatable : Swift.Equatable
+InfoRange  : where Value : Hashable : Swift.Equatable, Swift.Hashable
+InfoRange  : where Value : Sendable : Swift.Sendable
+InfoRange  struct InfoRange<Value>
+InfoRange.==(_:_:)  static func == (lhs: InfoRange<Value>, rhs: InfoRange<Value>) -> Bool  in an extension where Value : Equatable
+InfoRange.fromIndex  var fromIndex: Int
+InfoRange.hash(into:)  func hash(into hasher: inout Hasher)  in an extension where Value : Hashable
+InfoRange.init(fromIndex:toIndex:value:)  init(fromIndex: Int, toIndex: Int, value: Value)
+InfoRange.toIndex  var toIndex: Int
+InfoRange.value  var value: Value
+ItineraryLeg  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ItineraryLeg  struct ItineraryLeg
+ItineraryLeg.==(_:_:)  static func == (lhs: ItineraryLeg, rhs: ItineraryLeg) -> Bool
+ItineraryLeg.altitudeMax  var altitudeMax: Int?
+ItineraryLeg.altitudeMin  var altitudeMin: Int?
+ItineraryLeg.color  var color: String?
+ItineraryLeg.duration  var duration: Double?
+ItineraryLeg.geometry  var geometry: GeoJSONGeometry?
+ItineraryLeg.hash(into:)  func hash(into hasher: inout Hasher)
+ItineraryLeg.id  var id: String
+ItineraryLeg.init(id:memberIds:name:color:geometry:sectionDistance:sectionAscent:sectionDescent:duration:altitudeMin:altitudeMax:)  init(id: String, memberIds: [String] = [], name: String, color: String? = nil, geometry: GeoJSONGeometry? = nil, sectionDistance: Double? = nil, sectionAscent: Int? = nil, sectionDescent: Int? = nil, duration: Double? = nil, altitudeMin: Int? = nil, altitudeMax: Int? = nil)
+ItineraryLeg.memberIds  var memberIds: [String]
+ItineraryLeg.name  var name: String
+ItineraryLeg.sectionAscent  var sectionAscent: Int?
+ItineraryLeg.sectionDescent  var sectionDescent: Int?
+ItineraryLeg.sectionDistance  var sectionDistance: Double?
+ItineraryPlace  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ItineraryPlace  struct ItineraryPlace
+ItineraryPlace.==(_:_:)  static func == (lhs: ItineraryPlace, rhs: ItineraryPlace) -> Bool
+ItineraryPlace.color  var color: String?
+ItineraryPlace.details  var details: WaypointDetails?
+ItineraryPlace.glyph  var glyph: RestSchema.WaypointIcon?
+ItineraryPlace.hash(into:)  func hash(into hasher: inout Hasher)
+ItineraryPlace.id  var id: String
+ItineraryPlace.init(id:lngLat:name:color:glyph:details:)  init(id: String, lngLat: [Double], name: String? = nil, color: String? = nil, glyph: RestSchema.WaypointIcon? = nil, details: WaypointDetails? = nil)
+ItineraryPlace.lngLat  var lngLat: [Double]
+ItineraryPlace.name  var name: String?
+ItineraryResource  : Swift.Sendable
+ItineraryResource  enum ItineraryResource
+ItineraryResource.failed(_:)  case failed(any Error)
+ItineraryResource.idle  case idle
+ItineraryResource.resolved(_:)  case resolved(ResolvedItinerary)
+ItineraryResource.resolving  case resolving
+ItineraryResourceCache  : Swift.Sendable
+ItineraryResourceCache  @MainActor final class ItineraryResourceCache
+ItineraryResourceCache.capacity  nonisolated static let capacity: Int
+ItineraryResourceCache.init(source:)  @MainActor init(source: @escaping ItinerarySource)
+ItineraryResourceCache.invalidate(itineraryId:)  @MainActor func invalidate(itineraryId: String? = nil)
+ItineraryResourceEngine  : Observation.Observable, Swift.Sendable
+ItineraryResourceEngine  @MainActor final class ItineraryResourceEngine
+ItineraryResourceEngine.close()  @MainActor func close()
+ItineraryResourceEngine.configure(cache:itineraryId:surface:)  @MainActor func configure(cache: ItineraryResourceCache, itineraryId: String?, surface: RestSchema.ReadSurface? = nil)
+ItineraryResourceEngine.init(cache:itineraryId:surface:)  @MainActor init(cache: ItineraryResourceCache, itineraryId: String? = nil, surface: RestSchema.ReadSurface? = nil)
+ItineraryResourceEngine.state  @MainActor var state: ItineraryResource { get }
+ItineraryResourceEngine.subscribe()  @MainActor func subscribe() -> AsyncStream<ItineraryResource>
+ItinerarySegmentRow  : ProfileSpan, Swift.Equatable, Swift.Hashable, Swift.Sendable
+ItinerarySegmentRow  struct ItinerarySegmentRow
+ItinerarySegmentRow.==(_:_:)  static func == (lhs: ItinerarySegmentRow, rhs: ItinerarySegmentRow) -> Bool
+ItinerarySegmentRow.color  var color: String?
+ItinerarySegmentRow.from  var from: Double
+ItinerarySegmentRow.hash(into:)  func hash(into hasher: inout Hasher)
+ItinerarySegmentRow.id  var id: String
+ItinerarySegmentRow.index  var index: Int
+ItinerarySegmentRow.init(key:id:memberIds:name:color:index:from:to:metrics:)  init(key: String, id: String, memberIds: [String] = [], name: String, color: String? = nil, index: Int, from: Double, to: Double, metrics: ItinerarySegmentRowMetrics)
+ItinerarySegmentRow.key  var key: String
+ItinerarySegmentRow.memberIds  var memberIds: [String]
+ItinerarySegmentRow.metrics  var metrics: ItinerarySegmentRowMetrics
+ItinerarySegmentRow.name  var name: String
+ItinerarySegmentRow.to  var to: Double
+ItinerarySegmentRowMetrics  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ItinerarySegmentRowMetrics  struct ItinerarySegmentRowMetrics
+ItinerarySegmentRowMetrics.==(_:_:)  static func == (lhs: ItinerarySegmentRowMetrics, rhs: ItinerarySegmentRowMetrics) -> Bool
+ItinerarySegmentRowMetrics.altitudeMax  var altitudeMax: Double?
+ItinerarySegmentRowMetrics.altitudeMin  var altitudeMin: Double?
+ItinerarySegmentRowMetrics.ascent  var ascent: Double?
+ItinerarySegmentRowMetrics.descent  var descent: Double?
+ItinerarySegmentRowMetrics.difficulty  var difficulty: RestSchema.TrailDifficultyType?
+ItinerarySegmentRowMetrics.distance  var distance: Double?
+ItinerarySegmentRowMetrics.duration  var duration: Double?
+ItinerarySegmentRowMetrics.hash(into:)  func hash(into hasher: inout Hasher)
+ItinerarySegmentRowMetrics.init(distance:sectionDistance:ascent:descent:sectionAscent:sectionDescent:altitudeMin:altitudeMax:duration:difficulty:)  init(distance: Double? = nil, sectionDistance: Double? = nil, ascent: Double? = nil, descent: Double? = nil, sectionAscent: Double? = nil, sectionDescent: Double? = nil, altitudeMin: Double? = nil, altitudeMax: Double? = nil, duration: Double? = nil, difficulty: RestSchema.TrailDifficultyType? = nil)
+ItinerarySegmentRowMetrics.sectionAscent  var sectionAscent: Double?
+ItinerarySegmentRowMetrics.sectionDescent  var sectionDescent: Double?
+ItinerarySegmentRowMetrics.sectionDistance  var sectionDistance: Double?
+ItinerarySource  typealias ItinerarySource = @Sendable (String, RestSchema.ReadSurface?) async throws -> RestSchema.ItineraryWithDetails
+ItineraryStroke  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ItineraryStroke  enum ItineraryStroke
+ItineraryStroke.==(_:_:)  static func == (lhs: ItineraryStroke, rhs: ItineraryStroke) -> Bool
+ItineraryStroke.casing  case casing
+ItineraryStroke.dashed(color:)  case dashed(color: JSONValue)
+ItineraryStroke.hash(into:)  func hash(into hasher: inout Hasher)
+ItineraryStroke.line(color:)  case line(color: JSONValue)
+ItineraryWaypointRow  : ProfileSpan, Swift.Equatable, Swift.Hashable, Swift.Sendable
+ItineraryWaypointRow  struct ItineraryWaypointRow
+ItineraryWaypointRow.==(_:_:)  static func == (lhs: ItineraryWaypointRow, rhs: ItineraryWaypointRow) -> Bool
+ItineraryWaypointRow.from  var from: Double
+ItineraryWaypointRow.hash(into:)  func hash(into hasher: inout Hasher)
+ItineraryWaypointRow.index  var index: Int
+ItineraryWaypointRow.init(key:place:index:from:to:metrics:)  init(key: String, place: ProfilePlace, index: Int, from: Double, to: Double, metrics: ItineraryWaypointRowMetrics)
+ItineraryWaypointRow.key  var key: String
+ItineraryWaypointRow.metrics  var metrics: ItineraryWaypointRowMetrics
+ItineraryWaypointRow.place  var place: ProfilePlace
+ItineraryWaypointRow.to  var to: Double
+ItineraryWaypointRowMetrics  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ItineraryWaypointRowMetrics  struct ItineraryWaypointRowMetrics
+ItineraryWaypointRowMetrics.==(_:_:)  static func == (lhs: ItineraryWaypointRowMetrics, rhs: ItineraryWaypointRowMetrics) -> Bool
+ItineraryWaypointRowMetrics.altitude  var altitude: Double?
+ItineraryWaypointRowMetrics.ascent  var ascent: Double?
+ItineraryWaypointRowMetrics.descent  var descent: Double?
+ItineraryWaypointRowMetrics.distance  var distance: Double
+ItineraryWaypointRowMetrics.hash(into:)  func hash(into hasher: inout Hasher)
+ItineraryWaypointRowMetrics.init(distance:sectionDistance:ascent:descent:sectionAscent:sectionDescent:altitude:)  init(distance: Double, sectionDistance: Double? = nil, ascent: Double? = nil, descent: Double? = nil, sectionAscent: Double? = nil, sectionDescent: Double? = nil, altitude: Double? = nil)
+ItineraryWaypointRowMetrics.sectionAscent  var sectionAscent: Double?
+ItineraryWaypointRowMetrics.sectionDescent  var sectionDescent: Double?
+ItineraryWaypointRowMetrics.sectionDistance  var sectionDistance: Double?
+LayerRank  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+LayerRank  enum LayerRank
+LayerRank.chrome  case chrome
+LayerRank.hillshade  case hillshade
+LayerRank.init(rawValue:)  init?(rawValue: Int)
+LayerRank.itineraryDirection  case itineraryDirection
+LayerRank.itineraryFocus  case itineraryFocus
+LayerRank.itineraryLine  case itineraryLine
+LayerRank.itineraryPoint  case itineraryPoint
+LayerRank.itineraryRestriction  case itineraryRestriction
+LayerRank.overlay  case overlay
+LayerRank.poi  case poi
+LayerRank.rank  var rank: Int { get }
+LayerRank.streetviewCorridor  case streetviewCorridor
+LayerRank.streetviewCoverage  case streetviewCoverage
+LayerRank.zone  case zone
+LayersPanelCategory  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+LayersPanelCategory  struct LayersPanelCategory
+LayersPanelCategory.==(_:_:)  static func == (lhs: LayersPanelCategory, rhs: LayersPanelCategory) -> Bool
+LayersPanelCategory.hash(into:)  func hash(into hasher: inout Hasher)
+LayersPanelCategory.init(slug:name:)  init(slug: String, name: String)
+LayersPanelCategory.name  var name: String
+LayersPanelCategory.slug  var slug: String
+LayersPanelChoice  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+LayersPanelChoice  enum LayersPanelChoice
+LayersPanelChoice.enrichment  case enrichment
+LayersPanelChoice.init(rawValue:)  init?(rawValue: String)
+LayersPanelChoice.overlay  case overlay
+LayersPanelChoice.terrain  case terrain
+LayersPanelChoice.time  case time
+LayersPanelHeading  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+LayersPanelHeading  struct LayersPanelHeading
+LayersPanelHeading.==(_:_:)  static func == (lhs: LayersPanelHeading, rhs: LayersPanelHeading) -> Bool
+LayersPanelHeading.hash(into:)  func hash(into hasher: inout Hasher)
+LayersPanelHeading.init(word:)  init(word: String)
+LayersPanelHeading.word  var word: String
+LayersPanelMark  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+LayersPanelMark  enum LayersPanelMark
+LayersPanelMark.init(rawValue:)  init?(rawValue: String)
+LayersPanelMark.lock  case lock
+LayersPanelMark.tick  case tick
+LayersPanelPress  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+LayersPanelPress  enum LayersPanelPress
+LayersPanelPress.==(_:_:)  static func == (lhs: LayersPanelPress, rhs: LayersPanelPress) -> Bool
+LayersPanelPress.command(_:slug:)  case command(LayersPanelChoice, slug: String)
+LayersPanelPress.hash(into:)  func hash(into hasher: inout Hasher)
+LayersPanelPress.locked(_:)  case locked(String)
+LayersPanelRow  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+LayersPanelRow  struct LayersPanelRow
+LayersPanelRow.==(_:_:)  static func == (lhs: LayersPanelRow, rhs: LayersPanelRow) -> Bool
+LayersPanelRow.hash(into:)  func hash(into hasher: inout Hasher)
+LayersPanelRow.init(slug:label:isChecked:mark:)  init(slug: String, label: String, isChecked: Bool, mark: LayersPanelMark?)
+LayersPanelRow.isChecked  var isChecked: Bool
+LayersPanelRow.label  var label: String
+LayersPanelRow.mark  var mark: LayersPanelMark?
+LayersPanelRow.slug  var slug: String
+LayersPanelSection  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+LayersPanelSection  struct LayersPanelSection
+LayersPanelSection.==(_:_:)  static func == (lhs: LayersPanelSection, rhs: LayersPanelSection) -> Bool
+LayersPanelSection.categories  var categories: [LayersPanelCategory]
+LayersPanelSection.category  var category: String?
+LayersPanelSection.choice  var choice: LayersPanelChoice
+LayersPanelSection.hash(into:)  func hash(into hasher: inout Hasher)
+LayersPanelSection.heading  var heading: LayersPanelHeading
+LayersPanelSection.init(heading:choice:category:rows:categories:)  init(heading: LayersPanelHeading, choice: LayersPanelChoice, category: String?, rows: [LayersPanelRow], categories: [LayersPanelCategory] = [])
+LayersPanelSection.rows  var rows: [LayersPanelRow]
+LayersSelection  : Swift.Sendable
+LayersSelection  struct LayersSelection
+LayersSelection.catalogue  var catalogue: TileSchema.Layers?
+LayersSelection.enrichments  var enrichments: [String]
+LayersSelection.init(catalogue:terrain:overlay:enrichments:instant:refusal:)  init(catalogue: TileSchema.Layers? = nil, terrain: String? = nil, overlay: String? = nil, enrichments: [String] = [], instant: Date? = nil, refusal: (any Error)? = nil)
+LayersSelection.instant  var instant: Date? { get set }
+LayersSelection.overlay  var overlay: String?
+LayersSelection.refusal  var refusal: (any Error)?
+LayersSelection.terrain  var terrain: String?
+LayersSelectionEngine  : Observation.Observable, Swift.Sendable
+LayersSelectionEngine  @MainActor final class LayersSelectionEngine
+LayersSelectionEngine.close()  @MainActor func close()
+LayersSelectionEngine.configure(map:)  @MainActor func configure(map: (any LayersSelectionTarget)?)
+LayersSelectionEngine.init(map:)  @MainActor init(map: (any LayersSelectionTarget)? = nil)
+LayersSelectionEngine.setInstant(_:)  @MainActor func setInstant(_ instant: Date?)
+LayersSelectionEngine.setOverlay(_:)  @MainActor func setOverlay(_ slug: String?)
+LayersSelectionEngine.setTerrain(_:)  @MainActor func setTerrain(_ slug: String)
+LayersSelectionEngine.state  @MainActor var state: LayersSelection { get }
+LayersSelectionEngine.subscribe()  @MainActor func subscribe() -> AsyncStream<LayersSelection>
+LayersSelectionEngine.toggleEnrichment(_:)  @MainActor func toggleEnrichment(_ slug: String)
+LayersSelectionTarget  @MainActor protocol LayersSelectionTarget : AnyObject
+LayersSelectionTarget.addEnrichment(_:)  @MainActor func addEnrichment(_ slug: String) async throws
+LayersSelectionTarget.clearOverlay()  @MainActor func clearOverlay() async throws
+LayersSelectionTarget.loadLayers()  @MainActor func loadLayers() async throws -> TileSchema.Layers
+LayersSelectionTarget.removeEnrichment(_:)  @MainActor func removeEnrichment(_ slug: String) async throws
+LayersSelectionTarget.setInstant(_:)  @MainActor func setInstant(_ instant: Date?) async throws
+LayersSelectionTarget.setOverlay(_:)  @MainActor func setOverlay(_ slug: String) async throws
+LayersSelectionTarget.setTerrain(_:)  @MainActor func setTerrain(_ slug: String?) async throws
+LayersSelectionTarget.terrain  @MainActor var terrain: String? { get }
+LengthUnit  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+LengthUnit  enum LengthUnit
+LengthUnit.centimeter  case centimeter
+LengthUnit.foot  case foot
+LengthUnit.id  var id: String { get }
+LengthUnit.inch  case inch
+LengthUnit.init(rawValue:)  init?(rawValue: String)
+LengthUnit.kilometer  case kilometer
+LengthUnit.meter  case meter
+LengthUnit.mile  case mile
+LineLayerStyle  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+LineLayerStyle  struct LineLayerStyle
+LineLayerStyle.==(_:_:)  static func == (lhs: LineLayerStyle, rhs: LineLayerStyle) -> Bool
+LineLayerStyle.hash(into:)  func hash(into hasher: inout Hasher)
+LineLayerStyle.init(layout:paint:)  init(layout: [String : JSONValue], paint: [String : JSONValue])
+LineLayerStyle.layout  var layout: [String : JSONValue]
+LineLayerStyle.paint  var paint: [String : JSONValue]
+MapPaint  : Swift.Equatable, Swift.Sendable
+MapPaint  struct MapPaint
+MapPaint.==(_:_:)  static func == (lhs: MapPaint, rhs: MapPaint) -> Bool
+MapPaint.Itinerary  : Swift.Equatable, Swift.Sendable
+MapPaint.Itinerary  struct Itinerary
+MapPaint.Itinerary.==(_:_:)  static func == (lhs: MapPaint.Itinerary, rhs: MapPaint.Itinerary) -> Bool
+MapPaint.Itinerary.casingColor  var casingColor: String
+MapPaint.Itinerary.casingOpacity  var casingOpacity: Double
+MapPaint.Itinerary.casingWidthStops  var casingWidthStops: [Double]
+MapPaint.Itinerary.dashArray  var dashArray: [Double]
+MapPaint.Itinerary.dashedOpacity  var dashedOpacity: Double
+MapPaint.Itinerary.lineWidthStops  var lineWidthStops: [Double]
+MapPaint.Segments  : Swift.Equatable, Swift.Sendable
+MapPaint.Segments  struct Segments
+MapPaint.Segments.==(_:_:)  static func == (lhs: MapPaint.Segments, rhs: MapPaint.Segments) -> Bool
+MapPaint.Segments.defaultColor  var defaultColor: String
+MapPaint.Segments.palette  var palette: [String]
+MapPaint.itinerary  var itinerary: MapPaint.Itinerary
+MapPaint.layerRanks  var layerRanks: [String : Int] { get set }
+MapPaint.segments  var segments: MapPaint.Segments
+MapPaint.standard  static let standard: MapPaint
+MapViewport  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+MapViewport  struct MapViewport
+MapViewport.==(_:_:)  static func == (lhs: MapViewport, rhs: MapViewport) -> Bool
+MapViewport.center  var center: [Double]
+MapViewport.hash(into:)  func hash(into hasher: inout Hasher)
+MapViewport.init(center:zoom:)  init(center: [Double], zoom: Double)
+MapViewport.zoom  var zoom: Double
+NavigationEngine  : Observation.Observable
+NavigationEngine  @MainActor protocol NavigationEngine<Request> : AnyObject, Observable
+NavigationEngine.Request  associatedtype Request : Sendable
+NavigationEngine.close()  @MainActor func close()
+NavigationEngine.reroute(_:)  @MainActor func reroute(_ request: Self.Request)
+NavigationEngine.setPosition(_:)  @MainActor func setPosition(_ position: [Double]) throws(PositionError)
+NavigationEngine.start(_:)  @MainActor func start(_ request: Self.Request)
+NavigationEngine.state  @MainActor var state: NavigationState { get }
+NavigationEngine.stop()  @MainActor func stop()
+NavigationEngine.subscribe()  @MainActor func subscribe() -> AsyncStream<NavigationState>
+NavigationError  : Swift.CustomStringConvertible, Swift.Equatable, Swift.Error, Swift.Hashable, Swift.Sendable
+NavigationError  struct NavigationError
+NavigationError.==(_:_:)  static func == (lhs: NavigationError, rhs: NavigationError) -> Bool
+NavigationError.Kind  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+NavigationError.Kind  @nonexhaustive enum Kind
+NavigationError.Kind.emptyRoute  case emptyRoute
+NavigationError.Kind.routeFailed  case routeFailed
+NavigationError.cause  let cause: (any Error)?
+NavigationError.description  var description: String { get }
+NavigationError.emptyRoute()  static func emptyRoute() -> NavigationError
+NavigationError.hash(into:)  func hash(into hasher: inout Hasher)
+NavigationError.kind  let kind: NavigationError.Kind
+NavigationError.routeFailed(_:)  static func routeFailed(_ cause: any Error) -> NavigationError
+NavigationInstruction  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+NavigationInstruction  struct NavigationInstruction
+NavigationInstruction.==(_:_:)  static func == (lhs: NavigationInstruction, rhs: NavigationInstruction) -> Bool
+NavigationInstruction.exit  let exit: Int?
+NavigationInstruction.hash(into:)  func hash(into hasher: inout Hasher)
+NavigationInstruction.key  let key: NavigationInstructionKey
+NavigationInstruction.name  let name: String?
+NavigationInstructionArgument  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+NavigationInstructionArgument  enum NavigationInstructionArgument
+NavigationInstructionArgument.exit  case exit
+NavigationInstructionArgument.id  var id: String { get }
+NavigationInstructionArgument.init(rawValue:)  init?(rawValue: String)
+NavigationInstructionArgument.name  case name
+NavigationInstructionKey  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+NavigationInstructionKey  enum NavigationInstructionKey
+NavigationInstructionKey.arguments  var arguments: [NavigationInstructionArgument] { get }
+NavigationInstructionKey.continue  case `continue`
+NavigationInstructionKey.continuePlain  case continuePlain
+NavigationInstructionKey.depart  case depart
+NavigationInstructionKey.departPlain  case departPlain
+NavigationInstructionKey.enterRoundabout  case enterRoundabout
+NavigationInstructionKey.enterRoundaboutPlain  case enterRoundaboutPlain
+NavigationInstructionKey.exitRoundabout  case exitRoundabout
+NavigationInstructionKey.exitRoundaboutPlain  case exitRoundaboutPlain
+NavigationInstructionKey.goal  case goal
+NavigationInstructionKey.goalPlain  case goalPlain
+NavigationInstructionKey.id  var id: String { get }
+NavigationInstructionKey.init(rawValue:)  init?(rawValue: String)
+NavigationInstructionKey.keepLeft  case keepLeft
+NavigationInstructionKey.keepLeftPlain  case keepLeftPlain
+NavigationInstructionKey.keepRight  case keepRight
+NavigationInstructionKey.keepRightPlain  case keepRightPlain
+NavigationInstructionKey.roundaboutExit  case roundaboutExit
+NavigationInstructionKey.roundaboutExitPlain  case roundaboutExitPlain
+NavigationInstructionKey.sharpLeft  case sharpLeft
+NavigationInstructionKey.sharpLeftPlain  case sharpLeftPlain
+NavigationInstructionKey.sharpRight  case sharpRight
+NavigationInstructionKey.sharpRightPlain  case sharpRightPlain
+NavigationInstructionKey.slightLeft  case slightLeft
+NavigationInstructionKey.slightLeftPlain  case slightLeftPlain
+NavigationInstructionKey.slightRight  case slightRight
+NavigationInstructionKey.slightRightPlain  case slightRightPlain
+NavigationInstructionKey.turnLeft  case turnLeft
+NavigationInstructionKey.turnLeftPlain  case turnLeftPlain
+NavigationInstructionKey.turnRight  case turnRight
+NavigationInstructionKey.turnRightPlain  case turnRightPlain
+NavigationInstructionKey.unknown  case unknown
+NavigationInstructionKey.unknownPlain  case unknownPlain
+NavigationInstructionKey.uturn  case uturn
+NavigationInstructionKey.uturnPlain  case uturnPlain
+NavigationInstructionKey.waypoint  case waypoint
+NavigationInstructionKey.waypointPlain  case waypointPlain
+NavigationProgress  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+NavigationProgress  struct NavigationProgress
+NavigationProgress.==(_:_:)  static func == (lhs: NavigationProgress, rhs: NavigationProgress) -> Bool
+NavigationProgress.along  var along: Double
+NavigationProgress.hash(into:)  func hash(into hasher: inout Hasher)
+NavigationProgress.init(along:step:next:toManeuver:toArrival:)  init(along: Double, step: Int, next: Int?, toManeuver: NavigationRemainder, toArrival: NavigationRemainder)
+NavigationProgress.next  var next: Int?
+NavigationProgress.step  var step: Int
+NavigationProgress.toArrival  var toArrival: NavigationRemainder
+NavigationProgress.toManeuver  var toManeuver: NavigationRemainder
+NavigationRemainder  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+NavigationRemainder  struct NavigationRemainder
+NavigationRemainder.==(_:_:)  static func == (lhs: NavigationRemainder, rhs: NavigationRemainder) -> Bool
+NavigationRemainder.distance  var distance: Double
+NavigationRemainder.duration  var duration: Double?
+NavigationRemainder.hash(into:)  func hash(into hasher: inout Hasher)
+NavigationRemainder.init(distance:duration:)  init(distance: Double, duration: Double?)
+NavigationRoute  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+NavigationRoute  struct NavigationRoute
+NavigationRoute.==(_:_:)  static func == (lhs: NavigationRoute, rhs: NavigationRoute) -> Bool
+NavigationRoute.duration  var duration: Double?
+NavigationRoute.hash(into:)  func hash(into hasher: inout Hasher)
+NavigationRoute.init(line:steps:duration:)  init(line: [[Double]], steps: [NavigationStep] = [], duration: Double? = nil)
+NavigationRoute.line  var line: [[Double]]
+NavigationRoute.steps  var steps: [NavigationStep]
+NavigationRouteSource  typealias NavigationRouteSource<Request> = @Sendable (Request) async throws -> NavigationRoute where Request : Sendable
+NavigationState  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+NavigationState  struct NavigationState
+NavigationState.error  var error: NavigationError?
+NavigationState.idle  static let idle: NavigationState
+NavigationState.init(status:route:progress:error:)  init(status: NavigationStatus, route: FollowedRoute? = nil, progress: NavigationProgress? = nil, error: NavigationError? = nil)
+NavigationState.progress  var progress: NavigationProgress?
+NavigationState.route  var route: FollowedRoute?
+NavigationState.status  var status: NavigationStatus
+NavigationStatus  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+NavigationStatus  enum NavigationStatus
+NavigationStatus.arrived  case arrived
+NavigationStatus.failed  case failed
+NavigationStatus.id  var id: String { get }
+NavigationStatus.idle  case idle
+NavigationStatus.init(rawValue:)  init?(rawValue: String)
+NavigationStatus.navigating  case navigating
+NavigationStatus.offRoute  case offRoute
+NavigationStatus.rerouting  case rerouting
+NavigationStatus.routing  case routing
+NavigationStep  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+NavigationStep  struct NavigationStep
+NavigationStep.==(_:_:)  static func == (lhs: NavigationStep, rhs: NavigationStep) -> Bool
+NavigationStep.distance  var distance: Double?
+NavigationStep.duration  var duration: Double?
+NavigationStep.exitNumber  var exitNumber: Int?
+NavigationStep.fromIndex  var fromIndex: Int
+NavigationStep.hash(into:)  func hash(into hasher: inout Hasher)
+NavigationStep.init(fromIndex:toIndex:maneuver:name:distance:duration:exitNumber:)  init(fromIndex: Int, toIndex: Int, maneuver: RestSchema.ManeuverType, name: String? = nil, distance: Double? = nil, duration: Double? = nil, exitNumber: Int? = nil)
+NavigationStep.maneuver  var maneuver: RestSchema.ManeuverType
+NavigationStep.name  var name: String?
+NavigationStep.toIndex  var toIndex: Int
+NavigationStepsReading  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+NavigationStepsReading  struct NavigationStepsReading
+NavigationStepsReading.init(refused:steps:)  init(refused: Bool, steps: [NavigationStep])
+NavigationStepsReading.refused  var refused: Bool
+NavigationStepsReading.steps  var steps: [NavigationStep]
+OrganizationRead  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+OrganizationRead  enum OrganizationRead
+OrganizationRead.answered(whiteLabel:)  case answered(whiteLabel: Bool)
+OrganizationRead.failed  case failed
+OrganizationRead.noKey  case noKey
+OrganizationRead.timedOut  case timedOut
+OrganizationRead.waiting  case waiting
+OverlayKind  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.Sendable
+OverlayKind  enum OverlayKind
+OverlayKind.classic  case classic
+OverlayKind.enrichment  case enrichment
+POIPanelGroup  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+POIPanelGroup  struct POIPanelGroup
+POIPanelGroup.==(_:_:)  static func == (lhs: POIPanelGroup, rhs: POIPanelGroup) -> Bool
+POIPanelGroup.glyph  var glyph: String?
+POIPanelGroup.hash(into:)  func hash(into hasher: inout Hasher)
+POIPanelGroup.id  var id: String
+POIPanelGroup.init(id:label:keys:glyph:)  init(id: String, label: String, keys: [String], glyph: String? = nil)
+POIPanelGroup.keys  var keys: [String]
+POIPanelGroup.label  var label: String
+POIPanelRow  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+POIPanelRow  struct POIPanelRow
+POIPanelRow.==(_:_:)  static func == (lhs: POIPanelRow, rhs: POIPanelRow) -> Bool
+POIPanelRow.glyph  var glyph: String?
+POIPanelRow.hash(into:)  func hash(into hasher: inout Hasher)
+POIPanelRow.id  var id: String
+POIPanelRow.init(id:label:glyph:keys:isVisible:)  init(id: String, label: String, glyph: String? = nil, keys: [String], isVisible: Bool)
+POIPanelRow.isVisible  var isVisible: Bool
+POIPanelRow.keys  var keys: [String]
+POIPanelRow.label  var label: String
+POIPanelRows  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+POIPanelRows  struct POIPanelRows
+POIPanelRows.init(rows:isAnyVisible:)  init(rows: [POIPanelRow], isAnyVisible: Bool)
+POIPanelRows.isAnyVisible  var isAnyVisible: Bool
+POIPanelRows.rows  var rows: [POIPanelRow]
+POIStyle  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+POIStyle  struct POIStyle
+POIStyle.==(_:_:)  static func == (lhs: POIStyle, rhs: POIStyle) -> Bool
+POIStyle.color  var color: HexColor
+POIStyle.glyph  var glyph: String
+POIStyle.hash(into:)  func hash(into hasher: inout Hasher)
+POIStyle.init(glyph:color:)  init(glyph: String, color: HexColor)
+PixelPadding  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+PixelPadding  struct PixelPadding
+PixelPadding.==(_:_:)  static func == (lhs: PixelPadding, rhs: PixelPadding) -> Bool
+PixelPadding.bottom  var bottom: Double
+PixelPadding.hash(into:)  func hash(into hasher: inout Hasher)
+PixelPadding.init(_:)  init(_ all: Double)
+PixelPadding.init(top:right:bottom:left:)  init(top: Double, right: Double, bottom: Double, left: Double)
+PixelPadding.left  var left: Double
+PixelPadding.right  var right: Double
+PixelPadding.top  var top: Double
+PlacedSpan  : Swift.Sendable
+PlacedSpan  : where Span : ProfileSpan, Span : Hashable : Swift.Equatable, Swift.Hashable
+PlacedSpan  struct PlacedSpan<Span> where Span : ProfileSpan
+PlacedSpan.==(_:_:)  static func == (lhs: PlacedSpan<Span>, rhs: PlacedSpan<Span>) -> Bool  in an extension where Span : ProfileSpan, Span : Hashable
+PlacedSpan.end  var end: Double
+PlacedSpan.from  var from: Double
+PlacedSpan.hash(into:)  func hash(into hasher: inout Hasher)  in an extension where Span : ProfileSpan, Span : Hashable
+PlacedSpan.index  var index: Int
+PlacedSpan.init(span:index:from:to:start:end:)  init(span: Span, index: Int, from: Double, to: Double, start: Double, end: Double)
+PlacedSpan.span  var span: Span
+PlacedSpan.start  var start: Double
+PlacedSpan.to  var to: Double
+PlacedWaypoint  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+PlacedWaypoint  struct PlacedWaypoint
+PlacedWaypoint.==(_:_:)  static func == (lhs: PlacedWaypoint, rhs: PlacedWaypoint) -> Bool
+PlacedWaypoint.distance  var distance: Double
+PlacedWaypoint.hash(into:)  func hash(into hasher: inout Hasher)
+PlacedWaypoint.init(key:waypoint:distance:)  init(key: String, waypoint: ProfileWaypoint, distance: Double)
+PlacedWaypoint.key  var key: String
+PlacedWaypoint.waypoint  var waypoint: ProfileWaypoint
+PlotCommand  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+PlotCommand  enum PlotCommand
+PlotCommand.close  case close
+PlotCommand.line(_:)  case line(PlotPoint)
+PlotCommand.move(_:)  case move(PlotPoint)
+PlotPoint  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+PlotPoint  struct PlotPoint
+PlotPoint.==(_:_:)  static func == (lhs: PlotPoint, rhs: PlotPoint) -> Bool
+PlotPoint.hash(into:)  func hash(into hasher: inout Hasher)
+PlotPoint.init(x:y:)  init(x: Double, y: Double)
+PlotPoint.x  var x: Double
+PlotPoint.y  var y: Double
+PositionError  : Swift.CustomStringConvertible, Swift.Error, Swift.Sendable
+PositionError  struct PositionError
+PositionError.description  var description: String { get }
+PositionError.init(position:)  init(position: [Double])
+PositionError.position  let position: [Double]
+PreferenceChoice  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+PreferenceChoice  struct PreferenceChoice
+PreferenceChoice.field  var field: PreferenceField
+PreferenceChoice.init(field:options:)  init(field: PreferenceField, options: [PreferenceOption])
+PreferenceChoice.options  var options: [PreferenceOption]
+PreferenceField  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+PreferenceField  enum PreferenceField
+PreferenceField.init(rawValue:)  init?(rawValue: String)
+PreferenceField.language  case language
+PreferenceField.length  case length
+PreferenceField.pace  case pace
+PreferenceField.slope  case slope
+PreferenceField.temperature  case temperature
+PreferenceLabel  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+PreferenceLabel  enum PreferenceLabel
+PreferenceLabel.==(_:_:)  static func == (lhs: PreferenceLabel, rhs: PreferenceLabel) -> Bool
+PreferenceLabel.hash(into:)  func hash(into hasher: inout Hasher)
+PreferenceLabel.name(_:)  case name(String)
+PreferenceLabel.word(_:)  case word(String)
+PreferenceOption  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+PreferenceOption  struct PreferenceOption
+PreferenceOption.init(value:label:isChecked:)  init(value: PreferenceValue, label: PreferenceLabel, isChecked: Bool)
+PreferenceOption.isChecked  var isChecked: Bool
+PreferenceOption.label  var label: PreferenceLabel
+PreferenceOption.value  var value: PreferenceValue
+PreferencePress  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+PreferencePress  struct PreferencePress
+PreferencePress.==(_:_:)  static func == (lhs: PreferencePress, rhs: PreferencePress) -> Bool
+PreferencePress.hash(into:)  func hash(into hasher: inout Hasher)
+PreferencePress.init(next:relabel:)  init(next: UnitPreferences, relabel: RestSchema.Language?)
+PreferencePress.next  var next: UnitPreferences
+PreferencePress.relabel  var relabel: RestSchema.Language?
+PreferenceValue  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+PreferenceValue  enum PreferenceValue
+PreferenceValue.==(_:_:)  static func == (lhs: PreferenceValue, rhs: PreferenceValue) -> Bool
+PreferenceValue.field  var field: PreferenceField { get }
+PreferenceValue.hash(into:)  func hash(into hasher: inout Hasher)
+PreferenceValue.language(_:)  case language(RestSchema.Language)
+PreferenceValue.length(_:)  case length(RestSchema.UnitLength)
+PreferenceValue.pace(_:)  case pace(RestSchema.UnitPace)
+PreferenceValue.rawValue  var rawValue: String { get }
+PreferenceValue.slope(_:)  case slope(RestSchema.UnitSlope)
+PreferenceValue.temperature(_:)  case temperature(RestSchema.UnitTemperature)
+ProfileAnchor  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ProfileAnchor  enum ProfileAnchor
+ProfileAnchor.init(rawValue:)  init?(rawValue: String)
+ProfileAnchor.route  case route
+ProfileAnchor.seaLevel  case seaLevel
+ProfileAnchor.window  case window
+ProfileCharacteristics  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ProfileCharacteristics  struct ProfileCharacteristics
+ProfileCharacteristics.==(_:_:)  static func == (lhs: ProfileCharacteristics, rhs: ProfileCharacteristics) -> Bool
+ProfileCharacteristics.altitudeMax  var altitudeMax: Int?
+ProfileCharacteristics.altitudeMin  var altitudeMin: Int?
+ProfileCharacteristics.ascent  var ascent: Int?
+ProfileCharacteristics.descent  var descent: Int?
+ProfileCharacteristics.distance  var distance: Double?
+ProfileCharacteristics.duration  var duration: Double?
+ProfileCharacteristics.durationPartial  var durationPartial: Bool
+ProfileCharacteristics.hash(into:)  func hash(into hasher: inout Hasher)
+ProfileCharacteristics.init(distance:duration:durationPartial:ascent:descent:altitudeMin:altitudeMax:slopeMin:slopeMax:stopDuration:trailDifficultyMin:trailDifficultyMax:)  init(distance: Double?, duration: Double?, durationPartial: Bool, ascent: Int?, descent: Int?, altitudeMin: Int?, altitudeMax: Int?, slopeMin: Double?, slopeMax: Double?, stopDuration: Int?, trailDifficultyMin: RestSchema.TrailDifficultyType?, trailDifficultyMax: RestSchema.TrailDifficultyType?)
+ProfileCharacteristics.slopeMax  var slopeMax: Double?
+ProfileCharacteristics.slopeMin  var slopeMin: Double?
+ProfileCharacteristics.stopDuration  var stopDuration: Int?
+ProfileCharacteristics.trailDifficultyMax  var trailDifficultyMax: RestSchema.TrailDifficultyType?
+ProfileCharacteristics.trailDifficultyMin  var trailDifficultyMin: RestSchema.TrailDifficultyType?
+ProfileClass  : ProfileSpan, Swift.Equatable, Swift.Hashable, Swift.Sendable
+ProfileClass  struct ProfileClass
+ProfileClass.==(_:_:)  static func == (lhs: ProfileClass, rhs: ProfileClass) -> Bool
+ProfileClass.color  var color: String
+ProfileClass.from  var from: Double
+ProfileClass.hash(into:)  func hash(into hasher: inout Hasher)
+ProfileClass.init(from:to:color:label:)  init(from: Double, to: Double, color: String, label: String)
+ProfileClass.label  var label: String
+ProfileClass.to  var to: Double
+ProfilePlace  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ProfilePlace  struct ProfilePlace
+ProfilePlace.==(_:_:)  static func == (lhs: ProfilePlace, rhs: ProfilePlace) -> Bool
+ProfilePlace.color  var color: String?
+ProfilePlace.details  var details: WaypointDetails?
+ProfilePlace.divides  var divides: Bool?
+ProfilePlace.dividesRoute  var dividesRoute: Bool { get }
+ProfilePlace.glyph  var glyph: RestSchema.WaypointIcon?
+ProfilePlace.hash(into:)  func hash(into hasher: inout Hasher)
+ProfilePlace.id  var id: String { get }
+ProfilePlace.init(_:)  init(_ place: ItineraryPlace)
+ProfilePlace.init(_:name:color:glyph:divides:isPinned:metrics:details:)  init(_ placement: ProfileWaypoint, name: String? = nil, color: String? = nil, glyph: RestSchema.WaypointIcon? = nil, divides: Bool? = nil, isPinned: Bool = true, metrics: ItinerarySegmentRowMetrics? = nil, details: WaypointDetails? = nil)
+ProfilePlace.isPinned  var isPinned: Bool
+ProfilePlace.metrics  var metrics: ItinerarySegmentRowMetrics?
+ProfilePlace.name  var name: String?
+ProfilePlace.placement  var placement: ProfileWaypoint
+ProfileRange  : ProfileSpan, Swift.Equatable, Swift.Hashable, Swift.Sendable
+ProfileRange  struct ProfileRange
+ProfileRange.==(_:_:)  static func == (lhs: ProfileRange, rhs: ProfileRange) -> Bool
+ProfileRange.from  var from: Double
+ProfileRange.hash(into:)  func hash(into hasher: inout Hasher)
+ProfileRange.init(from:to:)  init(from: Double, to: Double)
+ProfileRange.to  var to: Double
+ProfileReadout  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ProfileReadout  struct ProfileReadout
+ProfileReadout.==(_:_:)  static func == (lhs: ProfileReadout, rhs: ProfileReadout) -> Bool
+ProfileReadout.cells  var cells: [ReadoutCell]
+ProfileReadout.grade  var grade: Double?
+ProfileReadout.hash(into:)  func hash(into hasher: inout Hasher)
+ProfileReadout.init(cells:grade:stretch:)  init(cells: [ReadoutCell], grade: Double?, stretch: ProfileClass?)
+ProfileReadout.stretch  var stretch: ProfileClass?
+ProfileSpan  : Swift.Sendable
+ProfileSpan  protocol ProfileSpan : Sendable
+ProfileSpan.from  var from: Double { get set }
+ProfileSpan.to  var to: Double { get set }
+ProfileTotals  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ProfileTotals  struct ProfileTotals
+ProfileTotals.==(_:_:)  static func == (lhs: ProfileTotals, rhs: ProfileTotals) -> Bool
+ProfileTotals.ascent  var ascent: Double?
+ProfileTotals.descent  var descent: Double?
+ProfileTotals.distance  var distance: Double
+ProfileTotals.elevationMax  var elevationMax: Double?
+ProfileTotals.elevationMin  var elevationMin: Double?
+ProfileTotals.gradeMax  var gradeMax: Double?
+ProfileTotals.hash(into:)  func hash(into hasher: inout Hasher)
+ProfileTotals.init(distance:ascent:descent:elevationMin:elevationMax:gradeMax:)  init(distance: Double, ascent: Double?, descent: Double?, elevationMin: Double?, elevationMax: Double?, gradeMax: Double?)
+ProfileWaypoint  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ProfileWaypoint  enum ProfileWaypoint
+ProfileWaypoint.==(_:_:)  static func == (lhs: ProfileWaypoint, rhs: ProfileWaypoint) -> Bool
+ProfileWaypoint.atDistance(id:distance:)  case atDistance(id: String, distance: Double)
+ProfileWaypoint.atPosition(id:position:)  case atPosition(id: String, position: [Double])
+ProfileWaypoint.hash(into:)  func hash(into hasher: inout Hasher)
+ProfileWaypoint.id  var id: String { get }
+ProportionUnit  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ProportionUnit  enum ProportionUnit
+ProportionUnit.id  var id: String { get }
+ProportionUnit.init(rawValue:)  init?(rawValue: String)
+ProportionUnit.percent  case percent
+ProportionUnit.ratio  case ratio
+ReadoutCell  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ReadoutCell  struct ReadoutCell
+ReadoutCell.==(_:_:)  static func == (lhs: ReadoutCell, rhs: ReadoutCell) -> Bool
+ReadoutCell.hash(into:)  func hash(into hasher: inout Hasher)
+ReadoutCell.init(stat:value:)  init(stat: ReadoutStat, value: Double)
+ReadoutCell.stat  var stat: ReadoutStat
+ReadoutCell.value  var value: Double
+ReadoutStat  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ReadoutStat  enum ReadoutStat
+ReadoutStat.ascent  case ascent
+ReadoutStat.descent  case descent
+ReadoutStat.distance  case distance
+ReadoutStat.elevation  case elevation
+ReadoutStat.init(rawValue:)  init?(rawValue: String)
+ResolvedCharacteristics  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ResolvedCharacteristics  struct ResolvedCharacteristics
+ResolvedCharacteristics.==(_:_:)  static func == (lhs: ResolvedCharacteristics, rhs: ResolvedCharacteristics) -> Bool
+ResolvedCharacteristics.altitudeMax  var altitudeMax: Double?
+ResolvedCharacteristics.altitudeMin  var altitudeMin: Double?
+ResolvedCharacteristics.ascent  var ascent: Double?
+ResolvedCharacteristics.descent  var descent: Double?
+ResolvedCharacteristics.distance  var distance: Double?
+ResolvedCharacteristics.duration  var duration: Double?
+ResolvedCharacteristics.hash(into:)  func hash(into hasher: inout Hasher)
+ResolvedCharacteristics.init(distance:duration:ascent:descent:altitudeMin:altitudeMax:slopeMin:slopeMax:trailDifficultyMin:trailDifficultyMax:)  init(distance: Double? = nil, duration: Double? = nil, ascent: Double? = nil, descent: Double? = nil, altitudeMin: Double? = nil, altitudeMax: Double? = nil, slopeMin: Double? = nil, slopeMax: Double? = nil, trailDifficultyMin: RestSchema.TrailDifficultyType? = nil, trailDifficultyMax: RestSchema.TrailDifficultyType? = nil)
+ResolvedCharacteristics.slopeMax  var slopeMax: Double?
+ResolvedCharacteristics.slopeMin  var slopeMin: Double?
+ResolvedCharacteristics.trailDifficultyMax  var trailDifficultyMax: RestSchema.TrailDifficultyType?
+ResolvedCharacteristics.trailDifficultyMin  var trailDifficultyMin: RestSchema.TrailDifficultyType?
+ResolvedItinerary  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ResolvedItinerary  struct ResolvedItinerary
+ResolvedItinerary.==(_:_:)  static func == (lhs: ResolvedItinerary, rhs: ResolvedItinerary) -> Bool
+ResolvedItinerary.characteristics  var characteristics: ProfileCharacteristics { get }
+ResolvedItinerary.geometry  var geometry: GeoJSONGeometry? { get }
+ResolvedItinerary.hash(into:)  func hash(into hasher: inout Hasher)
+ResolvedItinerary.init(_:)  init(_ itinerary: RestSchema.ItineraryWithDetails)
+ResolvedItinerary.legs  var legs: [ItineraryLeg] { get }
+ResolvedItinerary.waypoints  var waypoints: [ItineraryPlace] { get }
+RestSchema.ManeuverType.waypoint  static let waypoint: RestSchema.ManeuverType
+RoadAccessKind  : Swift.CaseIterable, Swift.Comparable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+RoadAccessKind  enum RoadAccessKind
+RoadAccessKind.<(_:_:)  static func < (lhs: RoadAccessKind, rhs: RoadAccessKind) -> Bool
+RoadAccessKind.forbidden  case forbidden
+RoadAccessKind.id  var id: String { get }
+RoadAccessKind.init(rawValue:)  init?(rawValue: String)
+RoadAccessKind.localAccess  case localAccess
+RoadAccessKind.permit  case permit
+RoadAccessKind.private  case `private`
+RoadAccessKind.restricted  case restricted
+RoadAccessKind.service  case service
+RouteFollowingEngine  : NavigationEngine, Swift.Sendable
+RouteFollowingEngine  : where Request : Sendable : Observation.Observable
+RouteFollowingEngine  @MainActor final class RouteFollowingEngine<Request> where Request : Sendable
+RouteFollowingEngine.close()  @MainActor func close()
+RouteFollowingEngine.init(route:onChange:)  @MainActor convenience init(route: @escaping NavigationRouteSource<Request>, onChange: (@MainActor @Sendable (NavigationState) -> Void)? = nil)
+RouteFollowingEngine.reroute(_:)  @MainActor func reroute(_ request: Request)
+RouteFollowingEngine.setPosition(_:)  @MainActor func setPosition(_ position: [Double]) throws(PositionError)
+RouteFollowingEngine.start(_:)  @MainActor func start(_ request: Request)
+RouteFollowingEngine.state  @MainActor var state: NavigationState { get }
+RouteFollowingEngine.stop()  @MainActor func stop()
+RouteFollowingEngine.subscribe()  @MainActor func subscribe() -> AsyncStream<NavigationState>
+RouteGeometry  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+RouteGeometry  struct RouteGeometry
+RouteGeometry.==(_:_:)  static func == (lhs: RouteGeometry, rhs: RouteGeometry) -> Bool
+RouteGeometry.elevations  var elevations: [Double]
+RouteGeometry.hash(into:)  func hash(into hasher: inout Hasher)
+RouteGeometry.init(line:elevations:jumps:)  init(line: [[Double]], elevations: [Double] = [], jumps: [Int] = [])
+RouteGeometry.jumps  var jumps: [Int]
+RouteGeometry.line  var line: [[Double]]
+RouteProfilePoint  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+RouteProfilePoint  struct RouteProfilePoint
+RouteProfilePoint.==(_:_:)  static func == (lhs: RouteProfilePoint, rhs: RouteProfilePoint) -> Bool
+RouteProfilePoint.distanceKm  var distanceKm: Double
+RouteProfilePoint.elevation  var elevation: Double
+RouteProfilePoint.hash(into:)  func hash(into hasher: inout Hasher)
+RouteProfilePoint.init(distanceKm:elevation:)  init(distanceKm: Double, elevation: Double)
+ScriptedAnswerError  : Swift.CustomStringConvertible, Swift.Error, Swift.Sendable
+ScriptedAnswerError  struct ScriptedAnswerError
+ScriptedAnswerError.description  let description: String
+ScriptedNavigationEngine  : NavigationEngine, Swift.Sendable
+ScriptedNavigationEngine  : where Request : Sendable : Observation.Observable
+ScriptedNavigationEngine  @MainActor final class ScriptedNavigationEngine<Request> where Request : Sendable
+ScriptedNavigationEngine.close()  @MainActor func close()
+ScriptedNavigationEngine.init()  @MainActor init()
+ScriptedNavigationEngine.reroute(_:)  @MainActor func reroute(_ request: Request)
+ScriptedNavigationEngine.sent  @MainActor var sent: [ScriptedRouteRequest<Request>] { get }
+ScriptedNavigationEngine.setPosition(_:)  @MainActor func setPosition(_ position: [Double]) throws(PositionError)
+ScriptedNavigationEngine.start(_:)  @MainActor func start(_ request: Request)
+ScriptedNavigationEngine.state  @MainActor var state: NavigationState { get }
+ScriptedNavigationEngine.stop()  @MainActor func stop()
+ScriptedNavigationEngine.subscribe()  @MainActor func subscribe() -> AsyncStream<NavigationState>
+ScriptedRouteRequest  : Swift.Sendable
+ScriptedRouteRequest  @MainActor final class ScriptedRouteRequest<Request> where Request : Sendable
+ScriptedRouteRequest.answer(_:)  @MainActor func answer(_ route: NavigationRoute) throws(ScriptedAnswerError)
+ScriptedRouteRequest.fail(_:)  @MainActor func fail(_ cause: any Error) throws(ScriptedAnswerError)
+ScriptedRouteRequest.isAbandoned  @MainActor var isAbandoned: Bool { get }
+ScriptedRouteRequest.isAnswered  @MainActor var isAnswered: Bool { get }
+ScriptedRouteRequest.request  @MainActor let request: Request
+SearchBranchError  : Swift.Equatable, Swift.Error, Swift.Hashable, Swift.Sendable
+SearchBranchError  struct SearchBranchError
+SearchBranchError.==(_:_:)  static func == (lhs: SearchBranchError, rhs: SearchBranchError) -> Bool
+SearchBranchError.code  var code: DataSchema.ErrorCode?
+SearchBranchError.hash(into:)  func hash(into hasher: inout Hasher)
+SearchBranchError.init(target:code:message:)  init(target: DataSchema.SearchTarget, code: DataSchema.ErrorCode? = nil, message: String? = nil)
+SearchBranchError.message  var message: String?
+SearchBranchError.target  var target: DataSchema.SearchTarget
+SearchConfiguration  : Swift.Sendable
+SearchConfiguration  struct SearchConfiguration
+SearchConfiguration.fetch  var fetch: SearchFetch?
+SearchConfiguration.init(fetch:language:limit:targets:wording:onError:)  init(fetch: SearchFetch? = nil, language: DataSchema.Language? = nil, limit: SearchLimit? = nil, targets: [DataSchema.SearchTarget] = searchSectionOrder, wording: SearchWording = SearchWording(), onError: (@MainActor @Sendable (any Error) -> Void)? = nil)
+SearchConfiguration.language  var language: DataSchema.Language?
+SearchConfiguration.limit  var limit: SearchLimit?
+SearchConfiguration.onError  var onError: (@MainActor @Sendable (any Error) -> Void)?
+SearchConfiguration.targets  var targets: [DataSchema.SearchTarget]
+SearchConfiguration.wording  var wording: SearchWording
+SearchEngine  : Observation.Observable, Swift.Sendable
+SearchEngine  @MainActor final class SearchEngine
+SearchEngine.camera  @MainActor var camera: MapViewport? { get }
+SearchEngine.close()  @MainActor func close()
+SearchEngine.configuration  @MainActor var configuration: SearchConfiguration { get }
+SearchEngine.configure(_:)  @MainActor func configure(_ configuration: SearchConfiguration)
+SearchEngine.init(configuration:query:camera:isOpen:isConfined:pause:refreshPause:sleep:)  @MainActor init(configuration: SearchConfiguration = SearchConfiguration(), query: String = "", camera: MapViewport? = nil, isOpen: Bool = false, isConfined: Bool = false, pause: SearchPause = .standard, refreshPause: Duration = searchViewportRefreshPause, sleep: @escaping @MainActor @Sendable (Duration) async throws -> Void = {
+      try await Task.sleep(for: $0)
+    })
+SearchEngine.isConfined  @MainActor var isConfined: Bool { get }
+SearchEngine.isOpen  @MainActor var isOpen: Bool { get }
+SearchEngine.query  @MainActor var query: String { get }
+SearchEngine.retry()  @MainActor func retry()
+SearchEngine.setCamera(_:)  @MainActor func setCamera(_ camera: MapViewport?)
+SearchEngine.setConfined(_:)  @MainActor func setConfined(_ isConfined: Bool)
+SearchEngine.setOpen(_:)  @MainActor func setOpen(_ isOpen: Bool)
+SearchEngine.setQuery(_:)  @MainActor func setQuery(_ query: String)
+SearchEngine.state  @MainActor var state: SearchSnapshot { get }
+SearchEngine.subscribe()  @MainActor func subscribe() -> AsyncStream<SearchSnapshot>
+SearchFetch  typealias SearchFetch = @Sendable (DataSchema.SearchInput) async throws -> DataSchema.SearchResult
+SearchFilter  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+SearchFilter  enum SearchFilter
+SearchFilter.all  case all
+SearchFilter.id  var id: String { get }
+SearchFilter.init(rawValue:)  init?(rawValue: String)
+SearchFilter.itineraries  case itineraries
+SearchFilter.places  case places
+SearchFilter.targets  var targets: Set<DataSchema.SearchTarget> { get }
+SearchFilter.zones  case zones
+SearchHighlight  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchHighlight  enum SearchHighlight
+SearchHighlight.==(_:_:)  static func == (lhs: SearchHighlight, rhs: SearchHighlight) -> Bool
+SearchHighlight.hash(into:)  func hash(into hasher: inout Hasher)
+SearchHighlight.place(point:)  case place(point: [Double])
+SearchHighlight.poi(point:category:)  case poi(point: [Double], category: DataSchema.POICategory?)
+SearchHighlight.way(anchor:bounds:coordinates:)  case way(anchor: [Double], bounds: [Double]?, coordinates: [[Double]]?)
+SearchLabel  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchLabel  enum SearchLabel
+SearchLabel.==(_:_:)  static func == (lhs: SearchLabel, rhs: SearchLabel) -> Bool
+SearchLabel.hash(into:)  func hash(into hasher: inout Hasher)
+SearchLabel.highway(_:)  case highway(String)
+SearchLabel.placeCategory(_:)  case placeCategory(DataSchema.PlaceCategory)
+SearchLabel.poiCategory(_:)  case poiCategory(DataSchema.POICategory)
+SearchLabel.sacScale(_:)  case sacScale(String)
+SearchLabel.surface(_:)  case surface(String)
+SearchLimit  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchLimit  struct SearchLimit
+SearchLimit.init(_:)  init?(_ value: Int)
+SearchLimit.value  let value: Int
+SearchListState  : Swift.Sendable
+SearchListState  struct SearchListState
+SearchListState.failed  var failed: [SearchSection]
+SearchListState.hasFallbackNote  var hasFallbackNote: Bool
+SearchListState.init(rows:failed:isNothingFound:hasFallbackNote:status:)  init(rows: [SearchRow], failed: [SearchSection], isNothingFound: Bool, hasFallbackNote: Bool, status: SearchListStatus?)
+SearchListState.isNothingFound  var isNothingFound: Bool
+SearchListState.rows  var rows: [SearchRow]
+SearchListState.status  var status: SearchListStatus?
+SearchListStatus  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchListStatus  enum SearchListStatus
+SearchListStatus.emptyTitle  case emptyTitle
+SearchListStatus.error  case error
+SearchListStatus.key  var key: String { get }
+SearchListStatus.resultCount(_:)  case resultCount(Int)
+SearchPause  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchPause  struct SearchPause
+SearchPause.duration  let duration: Duration
+SearchPause.init(_:)  init?(_ duration: Duration)
+SearchPause.standard  static let standard: SearchPause
+SearchPick  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchPick  struct SearchPick
+SearchPick.camera  var camera: SearchPickCamera?
+SearchPick.init(camera:mark:)  init(camera: SearchPickCamera?, mark: SearchHighlight?)
+SearchPick.mark  var mark: SearchHighlight?
+SearchPickCamera  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchPickCamera  enum SearchPickCamera
+SearchPickCamera.==(_:_:)  static func == (lhs: SearchPickCamera, rhs: SearchPickCamera) -> Bool
+SearchPickCamera.fit(bounds:)  case fit(bounds: [Double])
+SearchPickCamera.fly(center:zoom:)  case fly(center: [Double], zoom: Double)
+SearchPickCamera.hash(into:)  func hash(into hasher: inout Hasher)
+SearchQueryChange  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchQueryChange  enum SearchQueryChange
+SearchQueryChange.==(_:_:)  static func == (lhs: SearchQueryChange, rhs: SearchQueryChange) -> Bool
+SearchQueryChange.ask(query:)  case ask(query: String)
+SearchQueryChange.clear  case clear
+SearchQueryChange.hash(into:)  func hash(into hasher: inout Hasher)
+SearchQueryChange.unchanged  case unchanged
+SearchRow  : Swift.Equatable, Swift.Hashable, Swift.Identifiable, Swift.Sendable
+SearchRow  struct SearchRow
+SearchRow.==(_:_:)  static func == (lhs: SearchRow, rhs: SearchRow) -> Bool
+SearchRow.activities  var activities: [DataSchema.ActivitySlug]
+SearchRow.hash(into:)  func hash(into hasher: inout Hasher)
+SearchRow.id  var id: String
+SearchRow.init(id:title:matched:secondary:activities:payload:)  init(id: String, title: String, matched: [Range<String.Index>], secondary: SearchRowSecondary?, activities: [DataSchema.ActivitySlug], payload: SearchRowPayload)
+SearchRow.matched  var matched: [Range<String.Index>]
+SearchRow.parts  var parts: [HighlightPart] { get }
+SearchRow.payload  var payload: SearchRowPayload
+SearchRow.secondary  var secondary: SearchRowSecondary?
+SearchRow.title  var title: String
+SearchRowPayload  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchRowPayload  enum SearchRowPayload
+SearchRowPayload.==(_:_:)  static func == (lhs: SearchRowPayload, rhs: SearchRowPayload) -> Bool
+SearchRowPayload.collection(collectionId:name:description:isPrivate:)  case collection(collectionId: String, name: String?, description: String?, isPrivate: Bool?)
+SearchRowPayload.hash(into:)  func hash(into hasher: inout Hasher)
+SearchRowPayload.itinerary(itineraryId:bounds:start:)  case itinerary(itineraryId: String, bounds: [Double]?, start: [Double]?)
+SearchRowPayload.place(point:bounds:)  case place(point: [Double], bounds: [Double]?)
+SearchRowPayload.poi(point:category:)  case poi(point: [Double], category: DataSchema.POICategory?)
+SearchRowPayload.way(anchor:bounds:coordinates:)  case way(anchor: [Double], bounds: [Double]?, coordinates: [[Double]]?)
+SearchRowPayload.zone(zoneId:point:bounds:)  case zone(zoneId: String, point: [Double]?, bounds: [Double]?)
+SearchRowSecondary  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SearchRowSecondary  enum SearchRowSecondary
+SearchRowSecondary.==(_:_:)  static func == (lhs: SearchRowSecondary, rhs: SearchRowSecondary) -> Bool
+SearchRowSecondary.count(itineraries:)  case count(itineraries: Int?)
+SearchRowSecondary.hash(into:)  func hash(into hasher: inout Hasher)
+SearchRowSecondary.metric(distance:ascent:)  case metric(distance: Double?, ascent: Int?)
+SearchRowSecondary.text(_:)  case text(String)
+SearchSection  : Swift.Identifiable, Swift.Sendable
+SearchSection  struct SearchSection
+SearchSection.id  var id: DataSchema.SearchTarget
+SearchSection.init(id:state:rows:)  init(id: DataSchema.SearchTarget, state: SearchSectionState, rows: [SearchRow] = [])
+SearchSection.rows  var rows: [SearchRow]
+SearchSection.state  var state: SearchSectionState
+SearchSectionState  : Swift.Sendable
+SearchSectionState  enum SearchSectionState
+SearchSectionState.failed(_:)  case failed(any Error)
+SearchSectionState.failure  var failure: (any Error)? { get }
+SearchSectionState.isLoading  var isLoading: Bool { get }
+SearchSectionState.isSettled  var isSettled: Bool { get }
+SearchSectionState.loading  case loading
+SearchSectionState.settled  case settled
+SearchSnapshot  : Swift.Sendable
+SearchSnapshot  struct SearchSnapshot
+SearchSnapshot.hasFallenBack  var hasFallenBack: Bool
+SearchSnapshot.init(query:isSearching:isSettled:hasFallenBack:sections:)  init(query: String, isSearching: Bool = false, isSettled: Bool = false, hasFallenBack: Bool = false, sections: [SearchSection] = [])
+SearchSnapshot.isSearching  var isSearching: Bool
+SearchSnapshot.isSettled  var isSettled: Bool
+SearchSnapshot.query  var query: String
+SearchSnapshot.sections  var sections: [SearchSection]
+SearchWording  : Swift.Sendable
+SearchWording  struct SearchWording
+SearchWording.init(units:resolveLabel:)  init(units: UnitPreferences? = nil, resolveLabel: @escaping @Sendable (SearchLabel) -> String? = { _ in nil })
+SearchWording.resolveLabel  var resolveLabel: @Sendable (SearchLabel) -> String?
+SearchWording.units  var units: UnitPreferences?
+SectionChipCell  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SectionChipCell  struct SectionChipCell
+SectionChipCell.==(_:_:)  static func == (lhs: SectionChipCell, rhs: SectionChipCell) -> Bool
+SectionChipCell.hash(into:)  func hash(into hasher: inout Hasher)
+SectionChipCell.init(stat:value:)  init(stat: SectionChipStat, value: Double)
+SectionChipCell.stat  var stat: SectionChipStat
+SectionChipCell.value  var value: Double
+SectionChipStat  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+SectionChipStat  enum SectionChipStat
+SectionChipStat.ascent  case ascent
+SectionChipStat.descent  case descent
+SectionChipStat.distance  case distance
+SectionChipStat.grade  case grade
+SectionChipStat.init(rawValue:)  init?(rawValue: String)
+SegmentRowCell  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SegmentRowCell  enum SegmentRowCell
+SegmentRowCell.==(_:_:)  static func == (lhs: SegmentRowCell, rhs: SegmentRowCell) -> Bool
+SegmentRowCell.altitude(band:single:)  case altitude(band: AltitudeRange?, single: Double?)
+SegmentRowCell.column  var column: SegmentTableColumn { get }
+SegmentRowCell.difficulty(text:)  case difficulty(text: RestSchema.TrailDifficultyType?)
+SegmentRowCell.distance(leg:total:)  case distance(leg: Double?, total: Double?)
+SegmentRowCell.duration(seconds:)  case duration(seconds: Double?)
+SegmentRowCell.elevation(ascent:descent:totalAscent:)  case elevation(ascent: Double?, descent: Double?, totalAscent: Double?)
+SegmentRowCell.hash(into:)  func hash(into hasher: inout Hasher)
+SegmentRowCell.profile(lit:color:)  case profile(lit: ProfileRange, color: String?)
+SegmentRowCell.segment(name:)  case segment(name: String)
+SegmentTableColumn  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+SegmentTableColumn  enum SegmentTableColumn
+SegmentTableColumn.altitude  case altitude
+SegmentTableColumn.difficulty  case difficulty
+SegmentTableColumn.distance  case distance
+SegmentTableColumn.duration  case duration
+SegmentTableColumn.elevation  case elevation
+SegmentTableColumn.init(rawValue:)  init?(rawValue: String)
+SegmentTableColumn.profile  case profile
+SegmentTableColumn.segment  case segment
+ShapePaint  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ShapePaint  struct ShapePaint
+ShapePaint.==(_:_:)  static func == (lhs: ShapePaint, rhs: ShapePaint) -> Bool
+ShapePaint.FillRule  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ShapePaint.FillRule  enum FillRule
+ShapePaint.FillRule.evenOdd  case evenOdd
+ShapePaint.FillRule.init(rawValue:)  init?(rawValue: String)
+ShapePaint.FillRule.nonZero  case nonZero
+ShapePaint.LineCap  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ShapePaint.LineCap  enum LineCap
+ShapePaint.LineCap.butt  case butt
+ShapePaint.LineCap.init(rawValue:)  init?(rawValue: String)
+ShapePaint.LineCap.round  case round
+ShapePaint.LineCap.square  case square
+ShapePaint.LineJoin  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ShapePaint.LineJoin  enum LineJoin
+ShapePaint.LineJoin.arcs  case arcs
+ShapePaint.LineJoin.bevel  case bevel
+ShapePaint.LineJoin.init(rawValue:)  init?(rawValue: String)
+ShapePaint.LineJoin.miter  case miter
+ShapePaint.LineJoin.miterClip  case miterClip
+ShapePaint.LineJoin.round  case round
+ShapePaint.fillRule  var fillRule: ShapePaint.FillRule
+ShapePaint.hash(into:)  func hash(into hasher: inout Hasher)
+ShapePaint.init(isFilled:isStroked:strokeWidth:lineCap:lineJoin:miterLimit:fillRule:)  init(isFilled: Bool, isStroked: Bool, strokeWidth: Double, lineCap: ShapePaint.LineCap, lineJoin: ShapePaint.LineJoin, miterLimit: Double, fillRule: ShapePaint.FillRule)
+ShapePaint.isFilled  var isFilled: Bool
+ShapePaint.isStroked  var isStroked: Bool
+ShapePaint.lineCap  var lineCap: ShapePaint.LineCap
+ShapePaint.lineJoin  var lineJoin: ShapePaint.LineJoin
+ShapePaint.miterLimit  var miterLimit: Double
+ShapePaint.strokeWidth  var strokeWidth: Double
+SlopeAspect  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SlopeAspect  struct SlopeAspect
+SlopeAspect.==(_:_:)  static func == (lhs: SlopeAspect, rhs: SlopeAspect) -> Bool
+SlopeAspect.aspect  var aspect: Double?
+SlopeAspect.hash(into:)  func hash(into hasher: inout Hasher)
+SlopeAspect.init(slope:aspect:)  init(slope: Double, aspect: Double?)
+SlopeAspect.slope  var slope: Double
+SlopeBucket  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SlopeBucket  struct SlopeBucket
+SlopeBucket.==(_:_:)  static func == (lhs: SlopeBucket, rhs: SlopeBucket) -> Bool
+SlopeBucket.color  var color: String
+SlopeBucket.from  var from: Double
+SlopeBucket.hash(into:)  func hash(into hasher: inout Hasher)
+SlopeBucket.init(from:key:color:)  init(from: Double, key: String, color: String)
+SlopeBucket.key  var key: String
+SlopeRampStop  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+SlopeRampStop  struct SlopeRampStop
+SlopeRampStop.==(_:_:)  static func == (lhs: SlopeRampStop, rhs: SlopeRampStop) -> Bool
+SlopeRampStop.color  var color: String
+SlopeRampStop.degrees  var degrees: Double
+SlopeRampStop.hash(into:)  func hash(into hasher: inout Hasher)
+SlopeRampStop.init(color:degrees:)  init(color: String, degrees: Double)
+SlopeUnit  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+SlopeUnit  enum SlopeUnit
+SlopeUnit.degrees  case degrees
+SlopeUnit.id  var id: String { get }
+SlopeUnit.init(rawValue:)  init?(rawValue: String)
+SlopeUnit.percentage  case percentage
+SlopeUnit.ratio  case ratio
+SpeedUnit  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+SpeedUnit  enum SpeedUnit
+SpeedUnit.id  var id: String { get }
+SpeedUnit.init(rawValue:)  init?(rawValue: String)
+SpeedUnit.kilometerPerHour  case kilometerPerHour
+SpeedUnit.meterPerSecond  case meterPerSecond
+SpeedUnit.milePerHour  case milePerHour
+SpeedUnit.minutePerKilometer  case minutePerKilometer
+SpeedUnit.minutePerMile  case minutePerMile
+StatStripCell  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+StatStripCell  enum StatStripCell
+StatStripCell.==(_:_:)  static func == (lhs: StatStripCell, rhs: StatStripCell) -> Bool
+StatStripCell.ascent(_:)  case ascent(Double)
+StatStripCell.descent(_:)  case descent(Double)
+StatStripCell.difficulty(_:)  case difficulty(RestSchema.TrailDifficultyType)
+StatStripCell.distance(_:)  case distance(Double)
+StatStripCell.duration(_:)  case duration(Double)
+StatStripCell.elevation(_:)  case elevation(Double)
+StatStripCell.grade(_:)  case grade(Double)
+StatStripCell.hash(into:)  func hash(into hasher: inout Hasher)
+StatStripCell.number  var number: Double? { get }
+StatStripCell.stat  var stat: StatStripStat { get }
+StatStripCursor  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+StatStripCursor  struct StatStripCursor
+StatStripCursor.==(_:_:)  static func == (lhs: StatStripCursor, rhs: StatStripCursor) -> Bool
+StatStripCursor.distance  var distance: Double
+StatStripCursor.elevation  var elevation: Double
+StatStripCursor.grade  var grade: Double?
+StatStripCursor.hash(into:)  func hash(into hasher: inout Hasher)
+StatStripCursor.init(distance:elevation:grade:)  init(distance: Double, elevation: Double, grade: Double?)
+StatStripStat  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+StatStripStat  enum StatStripStat
+StatStripStat.ascent  case ascent
+StatStripStat.descent  case descent
+StatStripStat.difficulty  case difficulty
+StatStripStat.distance  case distance
+StatStripStat.duration  case duration
+StatStripStat.elevation  case elevation
+StatStripStat.grade  case grade
+StatStripStat.init(rawValue:)  init?(rawValue: String)
+SteepnessClass  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+SteepnessClass  enum SteepnessClass
+SteepnessClass.from25To30  case from25To30
+SteepnessClass.from30To35  case from30To35
+SteepnessClass.from35To40  case from35To40
+SteepnessClass.from40To45  case from40To45
+SteepnessClass.from45  case from45
+SteepnessClass.fromDegrees  var fromDegrees: Double { get }
+SteepnessClass.id  var id: String { get }
+SteepnessClass.init(rawValue:)  init?(rawValue: String)
+TemperatureUnit  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+TemperatureUnit  enum TemperatureUnit
+TemperatureUnit.celsius  case celsius
+TemperatureUnit.fahrenheit  case fahrenheit
+TemperatureUnit.id  var id: String { get }
+TemperatureUnit.init(rawValue:)  init?(rawValue: String)
+TerrainNeighbours  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+TerrainNeighbours  struct TerrainNeighbours
+TerrainNeighbours.==(_:_:)  static func == (lhs: TerrainNeighbours, rhs: TerrainNeighbours) -> Bool
+TerrainNeighbours.east  var east: Double
+TerrainNeighbours.hash(into:)  func hash(into hasher: inout Hasher)
+TerrainNeighbours.init(north:south:east:west:)  init(north: Double, south: Double, east: Double, west: Double)
+TerrainNeighbours.north  var north: Double
+TerrainNeighbours.south  var south: Double
+TerrainNeighbours.west  var west: Double
+TerrainReading  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+TerrainReading  struct TerrainReading
+TerrainReading.==(_:_:)  static func == (lhs: TerrainReading, rhs: TerrainReading) -> Bool
+TerrainReading.aspect  var aspect: Double?
+TerrainReading.elevation  var elevation: Double
+TerrainReading.hash(into:)  func hash(into hasher: inout Hasher)
+TerrainReading.init(elevation:slope:aspect:)  init(elevation: Double, slope: Double, aspect: Double?)
+TerrainReading.slope  var slope: Double
+ThemeScheme  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ThemeScheme  enum ThemeScheme
+ThemeScheme.dark  case dark
+ThemeScheme.init(rawValue:)  init?(rawValue: String)
+ThemeScheme.light  case light
+ThemeToken  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ThemeToken  struct ThemeToken<Value> where Value : Hashable, Value : Sendable
+ThemeToken.==(_:_:)  static func == (lhs: ThemeToken<Value>, rhs: ThemeToken<Value>) -> Bool
+ThemeToken.dark  var dark: Value?
+ThemeToken.hash(into:)  func hash(into hasher: inout Hasher)
+ThemeToken.init(light:dark:)  init(light: Value, dark: Value? = nil)
+ThemeToken.light  var light: Value
+TimeLength  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+TimeLength  enum TimeLength
+TimeLength.init(rawValue:)  init?(rawValue: String)
+TimeLength.medium  case medium
+TimeLength.short  case short
+TimeSliderReadout  : Swift.Equatable, Swift.Sendable
+TimeSliderReadout  struct TimeSliderReadout
+TimeSliderReadout.==(_:_:)  static func == (lhs: TimeSliderReadout, rhs: TimeSliderReadout) -> Bool
+TimeSliderReadout.count  var count: Int?
+TimeSliderReadout.init(instant:word:count:)  init(instant: Date?, word: String, count: Int?)
+TimeSliderReadout.instant  var instant: Date? { get }
+TimeSliderReadout.word  var word: String
+TimeSliderRelease  : Swift.Equatable, Swift.Sendable
+TimeSliderRelease  struct TimeSliderRelease
+TimeSliderRelease.init(pin:)  init(pin: Date?)
+TimeSliderRelease.pin  var pin: Date? { get }
+TimeSliderTick  : Swift.Equatable, Swift.Sendable
+TimeSliderTick  struct TimeSliderTick
+TimeSliderTick.==(_:_:)  static func == (lhs: TimeSliderTick, rhs: TimeSliderTick) -> Bool
+TimeSliderTick.init(value:word:)  init(value: Int, word: String?)
+TimeSliderTick.value  var value: Int
+TimeSliderTick.word  var word: String?
+TimeSliderWindow  : Swift.Equatable, Swift.Sendable
+TimeSliderWindow  struct TimeSliderWindow
+TimeSliderWindow.date(at:)  func date(at value: Int) -> Date?
+TimeSliderWindow.maxValue  var maxValue: Int { get }
+TimeSliderWindow.nowValue  var nowValue: Int { get }
+TimeSliderWindow.start  var start: Date? { get }
+TimeSliderWindow.value(at:)  func value(at instant: Date?) -> Int
+TimestampedSource  : Swift.Equatable, Swift.Sendable
+TimestampedSource  struct TimestampedSource
+TimestampedSource.==(_:_:)  static func == (lhs: TimestampedSource, rhs: TimestampedSource) -> Bool
+TimestampedSource.init(sourceId:tiles:)  init(sourceId: String, tiles: [String])
+TimestampedSource.sourceId  var sourceId: String
+TimestampedSource.tiles  var tiles: [String]
+UnitPreferences  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+UnitPreferences  struct UnitPreferences
+UnitPreferences.==(_:_:)  static func == (lhs: UnitPreferences, rhs: UnitPreferences) -> Bool
+UnitPreferences.hash(into:)  func hash(into hasher: inout Hasher)
+UnitPreferences.init(language:length:pace:slope:temperature:)  init(language: String, length: RestSchema.UnitLength = .metric, pace: RestSchema.UnitPace = .perTime, slope: RestSchema.UnitSlope = .degrees, temperature: RestSchema.UnitTemperature = .celsius)
+UnitPreferences.language  var language: String
+UnitPreferences.length  var length: RestSchema.UnitLength
+UnitPreferences.pace  var pace: RestSchema.UnitPace
+UnitPreferences.slope  var slope: RestSchema.UnitSlope
+UnitPreferences.temperature  var temperature: RestSchema.UnitTemperature
+WaypointCardFacts  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointCardFacts  struct WaypointCardFacts
+WaypointCardFacts.Line  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointCardFacts.Line  struct Line
+WaypointCardFacts.Line.==(_:_:)  static func == (lhs: WaypointCardFacts.Line, rhs: WaypointCardFacts.Line) -> Bool
+WaypointCardFacts.Line.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointCardFacts.Line.href  var href: String?
+WaypointCardFacts.Line.init(label:value:href:isExternal:)  init(label: String, value: String, href: String? = nil, isExternal: Bool = false)
+WaypointCardFacts.Line.isExternal  var isExternal: Bool
+WaypointCardFacts.Line.label  var label: String
+WaypointCardFacts.Line.value  var value: String
+WaypointCardFacts.MediaLink  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointCardFacts.MediaLink  struct MediaLink
+WaypointCardFacts.MediaLink.==(_:_:)  static func == (lhs: WaypointCardFacts.MediaLink, rhs: WaypointCardFacts.MediaLink) -> Bool
+WaypointCardFacts.MediaLink.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointCardFacts.MediaLink.href  var href: String?
+WaypointCardFacts.MediaLink.init(label:url:href:)  init(label: String, url: String, href: String?)
+WaypointCardFacts.MediaLink.label  var label: String
+WaypointCardFacts.MediaLink.url  var url: String
+WaypointCardFacts.Service  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointCardFacts.Service  struct Service
+WaypointCardFacts.Service.==(_:_:)  static func == (lhs: WaypointCardFacts.Service, rhs: WaypointCardFacts.Service) -> Bool
+WaypointCardFacts.Service.amenity  var amenity: RestSchema.WaypointAmenity
+WaypointCardFacts.Service.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointCardFacts.Service.init(amenity:name:)  init(amenity: RestSchema.WaypointAmenity, name: String)
+WaypointCardFacts.Service.name  var name: String
+WaypointCardFacts.contact  var contact: [WaypointCardFacts.Line]
+WaypointCardFacts.fields  var fields: [WaypointField]
+WaypointCardFacts.headline  var headline: String?
+WaypointCardFacts.init(headline:services:timing:contact:fields:links:photos:isEmpty:)  init(headline: String?, services: [WaypointCardFacts.Service], timing: [WaypointCardFacts.Line], contact: [WaypointCardFacts.Line], fields: [WaypointField], links: [WaypointCardFacts.MediaLink], photos: [WaypointDetails.Photo], isEmpty: Bool)
+WaypointCardFacts.isEmpty  var isEmpty: Bool
+WaypointCardFacts.links  var links: [WaypointCardFacts.MediaLink]
+WaypointCardFacts.photos  var photos: [WaypointDetails.Photo]
+WaypointCardFacts.services  var services: [WaypointCardFacts.Service]
+WaypointCardFacts.timing  var timing: [WaypointCardFacts.Line]
+WaypointDetails  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointDetails  struct WaypointDetails
+WaypointDetails.==(_:_:)  static func == (lhs: WaypointDetails, rhs: WaypointDetails) -> Bool
+WaypointDetails.Contact  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointDetails.Contact  struct Contact
+WaypointDetails.Contact.==(_:_:)  static func == (lhs: WaypointDetails.Contact, rhs: WaypointDetails.Contact) -> Bool
+WaypointDetails.Contact.address  var address: String?
+WaypointDetails.Contact.bookingUrl  var bookingUrl: String?
+WaypointDetails.Contact.email  var email: String?
+WaypointDetails.Contact.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointDetails.Contact.init(address:bookingUrl:email:openingHours:phone:website:)  init(address: String? = nil, bookingUrl: String? = nil, email: String? = nil, openingHours: String? = nil, phone: String? = nil, website: String? = nil)
+WaypointDetails.Contact.openingHours  var openingHours: String?
+WaypointDetails.Contact.phone  var phone: String?
+WaypointDetails.Contact.website  var website: String?
+WaypointDetails.Link  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointDetails.Link  struct Link
+WaypointDetails.Link.==(_:_:)  static func == (lhs: WaypointDetails.Link, rhs: WaypointDetails.Link) -> Bool
+WaypointDetails.Link.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointDetails.Link.init(label:url:)  init(label: String, url: String)
+WaypointDetails.Link.label  var label: String
+WaypointDetails.Link.url  var url: String
+WaypointDetails.Media  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointDetails.Media  struct Media
+WaypointDetails.Media.init(photos:links:)  init(photos: [WaypointDetails.Photo]? = nil, links: [WaypointDetails.Link]? = nil)
+WaypointDetails.Media.links  var links: [WaypointDetails.Link]?
+WaypointDetails.Media.photos  var photos: [WaypointDetails.Photo]?
+WaypointDetails.Photo  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointDetails.Photo  struct Photo
+WaypointDetails.Photo.==(_:_:)  static func == (lhs: WaypointDetails.Photo, rhs: WaypointDetails.Photo) -> Bool
+WaypointDetails.Photo.caption  var caption: String?
+WaypointDetails.Photo.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointDetails.Photo.init(url:caption:)  init(url: String, caption: String? = nil)
+WaypointDetails.Photo.url  var url: String
+WaypointDetails.Property  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointDetails.Property  struct Property
+WaypointDetails.Property.==(_:_:)  static func == (lhs: WaypointDetails.Property, rhs: WaypointDetails.Property) -> Bool
+WaypointDetails.Property.format  var format: RestSchema.WaypointPropertyFormat?
+WaypointDetails.Property.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointDetails.Property.init(key:label:value:format:)  init(key: String, label: String, value: String, format: RestSchema.WaypointPropertyFormat? = nil)
+WaypointDetails.Property.key  var key: String
+WaypointDetails.Property.label  var label: String
+WaypointDetails.Property.value  var value: String
+WaypointDetails.Timing  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointDetails.Timing  struct Timing
+WaypointDetails.Timing.==(_:_:)  static func == (lhs: WaypointDetails.Timing, rhs: WaypointDetails.Timing) -> Bool
+WaypointDetails.Timing.cutoffAt  var cutoffAt: Date?
+WaypointDetails.Timing.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointDetails.Timing.init(cutoffAt:stopDuration:)  init(cutoffAt: Date? = nil, stopDuration: Int? = nil)
+WaypointDetails.Timing.stopDuration  var stopDuration: Int?
+WaypointDetails.amenities  var amenities: [RestSchema.WaypointAmenity]?
+WaypointDetails.contact  var contact: WaypointDetails.Contact?
+WaypointDetails.description  var description: String?
+WaypointDetails.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointDetails.init(amenities:description:timing:contact:media:properties:)  init(amenities: [RestSchema.WaypointAmenity]? = nil, description: String? = nil, timing: WaypointDetails.Timing? = nil, contact: WaypointDetails.Contact? = nil, media: WaypointDetails.Media? = nil, properties: [WaypointDetails.Property]? = nil)
+WaypointDetails.media  var media: WaypointDetails.Media?
+WaypointDetails.properties  var properties: [WaypointDetails.Property]?
+WaypointDetails.timing  var timing: WaypointDetails.Timing?
+WaypointField  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointField  struct WaypointField
+WaypointField.==(_:_:)  static func == (lhs: WaypointField, rhs: WaypointField) -> Bool
+WaypointField.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointField.href  var href: String?
+WaypointField.init(key:label:value:href:)  init(key: String, label: String, value: String, href: String? = nil)
+WaypointField.key  var key: String
+WaypointField.label  var label: String
+WaypointField.value  var value: String
+WaypointRowCell  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WaypointRowCell  enum WaypointRowCell
+WaypointRowCell.==(_:_:)  static func == (lhs: WaypointRowCell, rhs: WaypointRowCell) -> Bool
+WaypointRowCell.altitude(_:)  case altitude(Double?)
+WaypointRowCell.amenities(_:)  case amenities([RestSchema.WaypointAmenity])
+WaypointRowCell.column  var column: WaypointTableColumn { get }
+WaypointRowCell.cutoff(moment:)  case cutoff(moment: String?)
+WaypointRowCell.distance(total:)  case distance(total: Double)
+WaypointRowCell.elevation(ascent:descent:)  case elevation(ascent: Double?, descent: Double?)
+WaypointRowCell.hash(into:)  func hash(into hasher: inout Hasher)
+WaypointRowCell.profile(lit:)  case profile(lit: ProfileRange)
+WaypointRowCell.properties(_:)  case properties([WaypointField])
+WaypointRowCell.waypoint(glyph:name:)  case waypoint(glyph: String, name: String?)
+WaypointSummaryWords  : Swift.Sendable
+WaypointSummaryWords  struct WaypointSummaryWords
+WaypointSummaryWords.amenities  var amenities: String
+WaypointSummaryWords.cutoffAt  var cutoffAt: @Sendable (String) -> String
+WaypointSummaryWords.init(amenities:openingHours:cutoffAt:stop:)  init(amenities: String, openingHours: @escaping @Sendable (String) -> String, cutoffAt: @escaping @Sendable (String) -> String, stop: @escaping @Sendable (String) -> String)
+WaypointSummaryWords.openingHours  var openingHours: @Sendable (String) -> String
+WaypointSummaryWords.stop  var stop: @Sendable (String) -> String
+WaypointTableColumn  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+WaypointTableColumn  enum WaypointTableColumn
+WaypointTableColumn.altitude  case altitude
+WaypointTableColumn.amenities  case amenities
+WaypointTableColumn.cutoff  case cutoff
+WaypointTableColumn.distance  case distance
+WaypointTableColumn.elevation  case elevation
+WaypointTableColumn.init(rawValue:)  init?(rawValue: String)
+WaypointTableColumn.profile  case profile
+WaypointTableColumn.properties  case properties
+WaypointTableColumn.waypoint  case waypoint
+WordBundle  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WordBundle  struct WordBundle
+WordBundle.==(_:_:)  static func == (lhs: WordBundle, rhs: WordBundle) -> Bool
+WordBundle.elements  static let elements: WordBundle
+WordBundle.english  var english: [String : JSONValue]
+WordBundle.hash(into:)  func hash(into hasher: inout Hasher)
+WordBundle.init(english:translations:partial:)  init(english: [String : JSONValue], translations: [RestSchema.Language : [String : JSONValue]] = [:], partial: [RestSchema.Language : [String : JSONValue]] = [:])
+WordBundle.partial  var partial: [RestSchema.Language : [String : JSONValue]]
+WordBundle.translations  var translations: [RestSchema.Language : [String : JSONValue]]
+WordOverrides  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+WordOverrides  enum WordOverrides
+WordOverrides.==(_:_:)  static func == (lhs: WordOverrides, rhs: WordOverrides) -> Bool
+WordOverrides.byLanguage(_:)  case byLanguage([RestSchema.Language : [String : JSONValue]])
+WordOverrides.bySection(_:)  case bySection([String : JSONValue])
+WordOverrides.hash(into:)  func hash(into hasher: inout Hasher)
+ZoomBounds  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ZoomBounds  struct ZoomBounds
+ZoomBounds.==(_:_:)  static func == (lhs: ZoomBounds, rhs: ZoomBounds) -> Bool
+ZoomBounds.hash(into:)  func hash(into hasher: inout Hasher)
+ZoomBounds.init(minZoom:maxZoom:)  init(minZoom: Double, maxZoom: Double)
+ZoomBounds.maxZoom  var maxZoom: Double
+ZoomBounds.minZoom  var minZoom: Double
+ZoomStep  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ZoomStep  enum ZoomStep
+ZoomStep.init(rawValue:)  init?(rawValue: String)
+ZoomStep.zoomIn  case zoomIn
+ZoomStep.zoomOut  case zoomOut
+ZoomWindowEnd  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+ZoomWindowEnd  enum ZoomWindowEnd
+ZoomWindowEnd.both  case both
+ZoomWindowEnd.ceiling  case ceiling
+ZoomWindowEnd.floor  case floor
+ZoomWindowEnd.init(rawValue:)  init?(rawValue: String)
+ZoomWindowEnd.none  case none
+accuracyBounds(_:radiusMeters:)  func accuracyBounds(_ position: [Double], radiusMeters: Double) -> [Double]
+activityMarkerGlyph(_:in:)  func activityMarkerGlyph(_ activity: RestSchema.ActivitySlug, in set: GlyphSet) -> String?
+activityMarkerPrefix  let activityMarkerPrefix: String
+altitudeToZoom(_:latitude:viewportHeightPixels:)  func altitudeToZoom(_ altitudeMeters: Double, latitude: Double, viewportHeightPixels: Double = 800) -> Double
+amenityFilter(_:picked:scope:)  func amenityFilter(_ rows: [ItineraryWaypointRow], picked: [RestSchema.WaypointAmenity], scope: ElementsScope) -> AmenityFilter
+amenityGlyph(_:)  func amenityGlyph(_ amenity: RestSchema.WaypointAmenity) -> String
+amenityGlyphPrefix  let amenityGlyphPrefix: String
+amenityName(_:in:)  func amenityName(_ amenity: RestSchema.WaypointAmenity, in scope: ElementsScope) -> String
+amenityStacks(_:max:)  func amenityStacks(_ pins: [CurvePin], max: Double = defaultAmenityStackMax) -> [AmenityStack]
+anchoredDomain(_:anchor:window:)  func anchoredDomain(_ series: ElevationSeries, anchor: ProfileAnchor, window: ProfileRange? = nil) -> ElevationDomain
+applySegmentGroups(_:groups:)  func applySegmentGroups(_ segments: [RestSchema.ItinerarySegment], groups: [RestSchema.ItinerarySegmentGroup]) -> [RestSchema.ItinerarySegment]
+ascentSlopeRamp  let ascentSlopeRamp: [SlopeRampStop]
+aspectCardinal(_:)  func aspectCardinal(_ degrees: Double) -> AspectCardinal?
+assignDistinctColors(_:reserved:palette:)  func assignDistinctColors(_ count: Int, reserved: [String], palette: [String] = livelyPalette) -> [String]
+axisLabelGutter  let axisLabelGutter: Double
+badgeFallback(_:on:)  func badgeFallback(_ name: String, on surface: BadgeSurface) -> String?
+bearingDegrees(from:to:)  func bearingDegrees(from: [Double], to: [Double]) -> Double
+boundsOf(_:)  func boundsOf(_ geometries: [GeoJSONGeometry]) -> [Double]?
+boundsWithPixelPadding(_:padding:zoom:centerLatitude:)  func boundsWithPixelPadding(_ bounds: [Double], padding: PixelPadding, zoom: Double, centerLatitude: Double) -> [Double]
+buildElevationSeries(_:maxPoints:)  func buildElevationSeries(_ geometry: GeoJSONGeometry?, maxPoints: Int = maxProfilePoints) -> ElevationSeries
+buildInfoBands(_:ranges:)  func buildInfoBands<Value>(_ segments: [RestSchema.ItinerarySegment], ranges: (RestSchema.ItinerarySegment) -> [InfoRange<Value>]?) -> [InfoBand<Value>] where Value : Equatable
+cameraForBounds(_:canvas:padding:maxZoom:window:)  func cameraForBounds(_ bounds: [Double], canvas: [Double], padding: PixelPadding = PixelPadding(0), maxZoom: Double? = nil, window: ZoomBounds) -> MapViewport?
+capturesSweptViewports(swept:captured:)  func capturesSweptViewports(swept: [CameraPose], captured: [CameraPose]) -> Bool
+chainGeometry(_:)  func chainGeometry(_ legs: [ItineraryLeg]) -> GeoJSONGeometry?
+clampRange(_:totalDistance:)  func clampRange(_ window: ProfileRange, totalDistance: Double) -> ProfileRange
+classifySteepness(_:)  func classifySteepness(_ degrees: Double) -> SteepnessClass?
+climbCategoryFor(lengthMeters:avgGradePercent:)  func climbCategoryFor(lengthMeters: Double, avgGradePercent: Double) -> ClimbCategory?
+climbCloseGradePercent  let climbCloseGradePercent: Double
+climbCloseWindowKm  let climbCloseWindowKm: Double
+climbOpenGradePercent  let climbOpenGradePercent: Double
+climbOpenWindowKm  let climbOpenWindowKm: Double
+collectionRow(_:query:)  func collectionRow(_ collection: DataSchema.CollectionSearchResult, query: String) -> SearchRow?
+committedPace(_:)  func committedPace(_ segments: [RestSchema.ItinerarySegment]) -> Double?
+convertAngle(_:from:to:)  func convertAngle(_ value: Double, from: AngleUnit, to: AngleUnit) -> Double
+convertDataSize(_:from:to:)  func convertDataSize(_ value: Double, from: DataSizeUnit, to: DataSizeUnit) -> Double
+convertDuration(_:from:to:)  func convertDuration(_ value: Double, from: DurationUnit, to: DurationUnit) -> Double
+convertLength(_:from:to:)  func convertLength(_ value: Double, from: LengthUnit, to: LengthUnit) -> Double
+convertProportion(_:from:to:)  func convertProportion(_ value: Double, from: ProportionUnit, to: ProportionUnit) -> Double
+convertSlope(_:from:to:)  func convertSlope(_ value: Double, from: SlopeUnit, to: SlopeUnit) -> Double
+convertSpeed(_:from:to:)  func convertSpeed(_ value: Double, from: SpeedUnit, to: SpeedUnit) -> Double
+convertTemperature(_:from:to:)  func convertTemperature(_ value: Double, from: TemperatureUnit, to: TemperatureUnit) -> Double
+countedText(_:count:language:)  func countedText(_ word: JSONValue, count: Int, language: RestSchema.Language) -> String?
+cullCrowdedLabels(_:gutter:)  func cullCrowdedLabels(_ boxes: [AxisLabelBox], gutter: Double = axisLabelGutter) -> [String]
+cumulativeMeters(_:)  func cumulativeMeters(_ line: [[Double]]) -> [Double]
+curveStops(_:totalDistance:window:)  func curveStops(_ stretches: [CurveColor], totalDistance: Double, window: ProfileRange? = nil) -> [CurveStop]
+dataLanguageFor(_:)  func dataLanguageFor(_ tag: String?) -> DataSchema.Language
+decodeElevation(_:encoding:)  func decodeElevation(_ pixel: [UInt8], encoding: ElevationEncoding?) -> Double?
+defaultAmenityStackMax  let defaultAmenityStackMax: Double
+defaultDistanceTickCount  let defaultDistanceTickCount: Int
+defaultReadoutStats  let defaultReadoutStats: [ReadoutStat]
+defaultSectionChipStats  let defaultSectionChipStats: [SectionChipStat]
+defaultSegmentColor  let defaultSegmentColor: String
+defaultSegmentTableColumns  let defaultSegmentTableColumns: [SegmentTableColumn]
+defaultStatStripStats  let defaultStatStripStats: [StatStripStat]
+defaultWaypointColor  let defaultWaypointColor: String
+defaultWaypointIcon  let defaultWaypointIcon: RestSchema.WaypointIcon
+defaultWaypointTableColumns  let defaultWaypointTableColumns: [WaypointTableColumn]
+descentSlopeRamp  let descentSlopeRamp: [SlopeRampStop]
+describePlace(_:wording:)  func describePlace(_ place: DataSchema.Place, wording: SearchWording = SearchWording()) -> String
+describePoi(_:wording:)  func describePoi(_ poi: DataSchema.POI, wording: SearchWording = SearchWording()) -> String
+describeWay(_:wording:)  func describeWay(_ way: DataSchema.Way, wording: SearchWording = SearchWording()) -> String
+detectClimbs(_:)  func detectClimbs(_ points: [RouteProfilePoint]) -> [Climb]
+directionsGeoJson(_:)  func directionsGeoJson(_ result: DataSchema.DirectionsResult) -> GeoJSONFeatureCollection
+distanceTicks(from:to:length:target:)  func distanceTicks(from: Double, to: Double, length: RestSchema.UnitLength, target: Int = defaultDistanceTickCount) -> [DistanceTick]
+distanceToSegment(_:start:end:)  func distanceToSegment(_ point: [Double], start: [Double], end: [Double]) -> Double
+domainRoundingSteps  let domainRoundingSteps: [DomainRoundingStep]
+domainTicks(_:)  func domainTicks(_ domain: ElevationDomain) -> [Double]
+duePrompt(_:progress:)  func duePrompt(_ plan: GuidancePlan, progress: NavigationProgress?) -> GuidancePrompt?
+earthRadiusMeters  let earthRadiusMeters: Double
+effectiveZoomBounds(zoomMin:zoomMax:)  func effectiveZoomBounds(zoomMin: Double, zoomMax: Double) -> ZoomBounds
+elevationNoiseThresholdMeters  let elevationNoiseThresholdMeters: Double
+elevationTilesAt(_:source:)  func elevationTilesAt(_ position: [Double], source: ElevationSource) -> [ElevationTile]
+emptyElevationDomain  let emptyElevationDomain: ElevationDomain
+enrichmentCategorySlug  let enrichmentCategorySlug: String
+extentDomain(min:max:)  func extentDomain(min lowest: Double?, max highest: Double?) -> ElevationDomain
+featureColorProperty  let featureColorProperty: String
+featureIndexProperty  let featureIndexProperty: String
+featureKindProperty  let featureKindProperty: String
+featureWidthProperty  let featureWidthProperty: String
+filledText(_:value:)  func filledText(_ template: String, value: String) -> String
+filledText(_:values:)  func filledText(_ template: String, values: [String : String]) -> String
+findOverlay(_:slug:kind:)  func findOverlay(_ layers: TileSchema.Layers, slug: String, kind: OverlayKind? = nil) -> TileSchema.Overlay?
+followedRouteOf(_:)  func followedRouteOf(_ route: NavigationRoute) -> FollowedRoute?
+formatAltitudeRange(min:max:units:)  func formatAltitudeRange(min: Double?, max: Double?, units: UnitPreferences) -> String
+formatDateTime(_:locale:timeZone:dateLength:timeLength:)  func formatDateTime(_ instant: Date, locale: String, timeZone: String, dateLength: DateLength? = nil, timeLength: TimeLength? = nil) -> String?
+formatDistance(_:units:)  func formatDistance(_ meters: Double?, units: UnitPreferences) -> String
+formatDistanceTick(_:units:)  func formatDistanceTick(_ tick: DistanceTick, units: UnitPreferences) -> String
+formatDuration(_:units:)  func formatDuration(_ seconds: Double?, units: UnitPreferences) -> String
+formatElevation(_:units:)  func formatElevation(_ meters: Double?, units: UnitPreferences) -> String
+formatHumidity(_:units:)  func formatHumidity(_ percent: Double?, units: UnitPreferences) -> String
+formatLngLat(_:)  func formatLngLat(_ position: [Double]) -> String?
+formatNumber(_:locale:maximumFractionDigits:)  func formatNumber(_ value: Double, locale: String, maximumFractionDigits: Int = 3) -> String
+formatPaceClock(_:)  func formatPaceClock(_ minutes: Double?) -> String
+formatSlope(_:units:)  func formatSlope(_ degrees: Double?, units: UnitPreferences) -> String
+formatSnowfall(_:units:)  func formatSnowfall(_ centimeters: Double?, units: UnitPreferences) -> String
+formatSpeed(_:units:)  func formatSpeed(_ kmh: Double?, units: UnitPreferences) -> String
+formatTemperature(_:units:)  func formatTemperature(_ celsius: Double?, units: UnitPreferences) -> String
+glyphAttributes  let glyphAttributes: Set<String>
+glyphPaint(_:in:)  func glyphPaint(_ shape: GlyphShape, in set: GlyphSet) -> ShapePaint
+glyphShapeTags  let glyphShapeTags: Set<String>
+gradeAt(_:distance:)  func gradeAt(_ points: [ElevationPoint], distance: Double) -> Double?
+gradeWindowMeters  let gradeWindowMeters: Double
+groundMetersPerPixel(zoom:latitude:)  func groundMetersPerPixel(zoom: Double, latitude: Double) -> Double
+guidancePlanOf(_:)  func guidancePlanOf(_ route: FollowedRoute) -> GuidancePlan?
+haversineMeters(from:to:)  func haversineMeters(from: [Double], to: [Double]) -> Double
+highlightParts(_:query:)  func highlightParts(_ title: String, query: String) -> [HighlightPart]
+highlightRanges(_:query:)  func highlightRanges(_ title: String, query: String) -> [Range<String.Index>]
+hoveredItineraryOf(_:)  func hoveredItineraryOf(_ features: [[String : JSONValue]]) -> HoveredItinerary
+isOffRoute(_:)  func isOffRoute(_ meters: Double) -> Bool
+isOffRouteAt(_:lines:)  func isOffRouteAt(_ position: [Double], lines: [GeoJSONLineString]) -> Bool
+isSearchLimit(_:)  func isSearchLimit(_ limit: Int) -> Bool
+isSearchListShown(hasFocus:query:isDismissed:)  func isSearchListShown(hasFocus: Bool, query: String, isDismissed: Bool) -> Bool
+isWatermarkKeptClear(_:)  func isWatermarkKeptClear(_ read: OrganizationRead) -> Bool
+isWebAddress(_:)  func isWebAddress(_ address: String) -> Bool
+isochroneColor(_:)  func isochroneColor(_ index: Int) -> String
+isochroneRamp  let isochroneRamp: [String]
+isochronesGeoJson(_:)  func isochronesGeoJson(_ result: DataSchema.IsochronesResult) -> GeoJSONFeatureCollection
+itineraryBounds(_:)  func itineraryBounds(_ segments: [RestSchema.ItinerarySegment]) -> [Double]?
+itineraryGeometry(_:)  func itineraryGeometry(_ segments: [RestSchema.ItinerarySegment]) -> GeoJSONGeometry?
+itineraryRoute(_:segmentId:)  func itineraryRoute(_ segments: [RestSchema.ItinerarySegment], segmentId: String? = nil) -> RouteGeometry?
+itineraryRow(_:query:)  func itineraryRow(_ itinerary: DataSchema.ItinerarySearchResult, query: String) -> SearchRow?
+itinerarySegmentRows(_:legs:stated:)  func itinerarySegmentRows(_ series: ElevationSeries, legs: [ItineraryLeg], stated: [String : ItinerarySegmentRowMetrics] = [:]) -> [ItinerarySegmentRow]
+itinerarySegments(_:groups:)  func itinerarySegments(_ segments: [RestSchema.ItinerarySegment], groups: [RestSchema.ItinerarySegmentGroup]) -> [ItineraryLeg]
+itineraryStrokeStyle(_:paint:)  func itineraryStrokeStyle(_ stroke: ItineraryStroke, paint: MapPaint = .standard) -> LineLayerStyle
+itineraryWaypointRows(_:geometry:places:)  func itineraryWaypointRows(_ series: ElevationSeries, geometry: GeoJSONGeometry?, places: [ProfilePlace]) -> [ItineraryWaypointRow]
+itineraryWaypoints(_:)  func itineraryWaypoints(_ waypoints: [RestSchema.ItineraryWaypoint]) -> [ItineraryPlace]
+labelLanguage(_:)  func labelLanguage(_ tag: String?) -> RestSchema.Language
+labelLanguages  let labelLanguages: [RestSchema.Language]
+languageEndonyms  let languageEndonyms: [RestSchema.Language : String]
+layersPanelPress(_:row:)  func layersPanelPress(_ choice: LayersPanelChoice, row: LayersPanelRow) -> LayersPanelPress
+layersPanelSections(_:language:isLocked:picked:offersTime:)  func layersPanelSections(_ selection: LayersSelection, language: String, isLocked: (String) -> Bool = { _ in false }, picked: String? = nil, offersTime: Bool = false) -> [LayersPanelSection]
+lineBetween(_:from:to:)  func lineBetween(_ points: [ElevationPoint], from: Double, to: Double) -> GeoJSONGeometry?
+linkedWebAddress(_:)  func linkedWebAddress(_ address: String?) -> String?
+livelyPalette  let livelyPalette: [String]
+localizedName(locales:slug:language:)  func localizedName(locales: RestSchema.Locales, slug: String, language: String?) -> String
+localizedName(locales:slug:language:)  func localizedName(locales: TileSchema.Locales, slug: String, language: String?) -> String
+locateMaxZoom  let locateMaxZoom: Double
+longitudeDelta(from:to:)  func longitudeDelta(from: Double, to: Double) -> Double
+matrixGeoJson(_:result:)  func matrixGeoJson(_ input: DataSchema.MatrixInput, result: DataSchema.MatrixResult) -> GeoJSONFeatureCollection
+matrixLineMaxWidth  let matrixLineMaxWidth: Double
+matrixLineMinWidth  let matrixLineMinWidth: Double
+matrixLineWidth(_:min:max:)  func matrixLineWidth(_ value: Double, min: Double, max: Double) -> Double
+maxBoundsLongitudes(west:east:)  func maxBoundsLongitudes(west: Double, east: Double) -> [Double]
+maxLabelDepth  let maxLabelDepth: Int
+maxProfilePoints  let maxProfilePoints: Int
+metersPerDegreeMeanSphere  let metersPerDegreeMeanSphere: Double
+metersToRoute(_:lines:)  func metersToRoute(_ point: [Double], lines: [GeoJSONLineString]) -> Double
+minClimbGradePercent  let minClimbGradePercent: Double
+minClimbLengthKm  let minClimbLengthKm: Double
+minDomainSpanMeters  let minDomainSpanMeters: Double
+minRangeSpanMeters  let minRangeSpanMeters: Double
+navigationProgressAt(_:position:previous:)  func navigationProgressAt(_ route: FollowedRoute, position: [Double], previous: Double) -> NavigationProgress
+nearestSampleIndex(_:distance:)  func nearestSampleIndex(_ points: [ElevationPoint], distance: Double) -> Int?
+normalizeBoundingBox(_:)  func normalizeBoundingBox(_ bounds: [Double]) -> [Double]
+offRouteMeters  let offRouteMeters: Double
+overlayInstant(pinned:now:)  func overlayInstant(pinned: Date?, now: Date) -> Date?
+overlayKindOf(_:)  func overlayKindOf(_ category: TileSchema.CategoryOverlays) -> OverlayKind
+paceClockNumberToMinutes(_:)  func paceClockNumberToMinutes(_ value: Double?) -> Double?
+paceMinutesToClockNumber(_:)  func paceMinutesToClockNumber(_ minutes: Double?) -> Double?
+paintZoomRange(_:)  func paintZoomRange(_ sources: [TileSchema.TileSource]) -> ZoomBounds?
+parseGlyph(_:)  func parseGlyph(_ markup: String) -> [GlyphShape]
+parsePaceClock(_:)  func parsePaceClock(_ text: String) -> Double?
+pickTarget(_:)  func pickTarget(_ payload: SearchRowPayload) -> SearchPick
+placeGlyph(_:in:)  func placeGlyph(_ glyph: String?, in set: GlyphSet) -> String?
+placeOnCurve(_:geometry:domain:window:places:)  func placeOnCurve(_ series: ElevationSeries, geometry: GeoJSONGeometry?, domain: ElevationDomain, window: ProfileRange, places: [ProfilePlace]) -> CurvePlacement
+placePointColor  let placePointColor: String
+placeRow(_:query:wording:)  func placeRow(_ place: DataSchema.Place, query: String, wording: SearchWording = SearchWording()) -> SearchRow?
+placeSpans(_:totalDistance:window:)  func placeSpans<Span>(_ spans: [Span], totalDistance: Double, window: ProfileRange? = nil) -> [PlacedSpan<Span>] where Span : ProfileSpan
+placesGeoJson(_:)  func placesGeoJson(_ result: DataSchema.GeocodeResult) -> GeoJSONFeatureCollection
+poiCategoryOf(_:)  func poiCategoryOf(_ category: String) -> DataSchema.POICategory?
+poiCategoryStyles  let poiCategoryStyles: [DataSchema.POICategory : POIStyle]
+poiPanelNoteZoom(_:)  func poiPanelNoteZoom(_ minZoom: Double?) -> Double
+poiPanelRows(drawn:isKeyVisible:keys:groups:activeGroups:labels:)  func poiPanelRows(drawn: [String], isKeyVisible: (String) -> Bool, keys: [String]? = nil, groups: [POIPanelGroup]? = nil, activeGroups: [String]? = nil, labels: [String : String] = [:]) -> POIPanelRows
+poiResultPointColor  let poiResultPointColor: String
+poiRow(_:query:wording:)  func poiRow(_ poi: DataSchema.POI, query: String, wording: SearchWording = SearchWording()) -> SearchRow?
+poiSourceLayers  let poiSourceLayers: [String]
+poiStyleOf(_:)  func poiStyleOf(_ category: DataSchema.POICategory) -> POIStyle?
+poiTileCategories  let poiTileCategories: [String : DataSchema.POICategory]
+pointZoom  let pointZoom: Double
+poisGeoJson(_:)  func poisGeoJson(_ result: DataSchema.PoisResult) -> GeoJSONFeatureCollection
+poisOverlaySlug  let poisOverlaySlug: String
+positionAtMeters(_:meters:)  func positionAtMeters(_ line: [[Double]], meters: Double) -> [Double]
+positionAtMeters(_:meters:)  func positionAtMeters(_ route: FollowedRoute, meters: Double) -> [Double]
+preferenceChoices(_:)  func preferenceChoices(_ preferences: UnitPreferences) -> [PreferenceChoice]
+preferencePress(_:pressing:)  func preferencePress(_ preferences: UnitPreferences, pressing value: PreferenceValue) -> PreferencePress
+profileAreaPath(_:domain:window:)  func profileAreaPath(_ series: ElevationSeries, domain: ElevationDomain, window: ProfileRange? = nil) -> [PlotCommand]
+profileBaseline  let profileBaseline: Double
+profileBottomInset  let profileBottomInset: Double
+profileCharacteristics(_:waypoints:)  func profileCharacteristics(_ segments: [RestSchema.ItinerarySegment], waypoints: [RestSchema.ItineraryWaypoint] = []) -> ProfileCharacteristics
+profileDomain(_:window:)  func profileDomain(_ series: ElevationSeries, window: ProfileRange? = nil) -> ElevationDomain
+profilePolyline(_:domain:window:)  func profilePolyline(_ series: ElevationSeries, domain: ElevationDomain, window: ProfileRange? = nil) -> [PlotPoint]
+profileReadout(_:at:stats:stretches:)  func profileReadout(_ series: ElevationSeries, at point: ElevationPoint, stats: [ReadoutStat] = defaultReadoutStats, stretches: [ProfileClass] = []) -> ProfileReadout
+profileScrubColumns  let profileScrubColumns: Int
+profileTopInset  let profileTopInset: Double
+profileTotals(_:)  func profileTotals(_ series: ElevationSeries) -> ProfileTotals
+profileViewBox  let profileViewBox: Double
+profileX(_:totalDistance:window:)  func profileX(_ meters: Double, totalDistance: Double, window: ProfileRange? = nil) -> Double
+profileY(_:domain:)  func profileY(_ elevation: Double, domain: ElevationDomain) -> Double
+promptMeters  let promptMeters: Double
+promptSlackMeters  let promptSlackMeters: Double
+rangeTotals(_:from:to:)  func rangeTotals(_ series: ElevationSeries, from: Double, to: Double) -> ProfileTotals
+readDirectionsSteps(_:coordinateCount:)  func readDirectionsSteps(_ steps: [DataSchema.DirectionsStep]?, coordinateCount: Int) -> NavigationStepsReading
+readItineraryDirectionsSteps(_:coordinateCount:)  func readItineraryDirectionsSteps(_ steps: [RestSchema.ItineraryDirectionsStep]?, coordinateCount: Int) -> NavigationStepsReading
+readItineraryRoute(_:waypoints:)  func readItineraryRoute(_ segments: [RestSchema.ItinerarySegment], waypoints: [RestSchema.ItineraryWaypoint]) -> NavigationRoute?
+refusesMaxBounds(_:)  func refusesMaxBounds(_ edges: [Double]) -> Bool
+relabelTextField(_:language:)  func relabelTextField(_ textField: JSONValue?, language: RestSchema.Language) -> JSONValue?
+resolveBundle(_:language:overrides:handedOver:)  func resolveBundle(_ bundle: WordBundle, language: RestSchema.Language = .en, overrides: WordOverrides? = nil, handedOver: [RestSchema.Language : [String : JSONValue]] = [:]) -> [String : JSONValue]
+resolveCharacteristics(_:stated:)  func resolveCharacteristics(_ derived: ProfileTotals, stated: ProfileCharacteristics?) -> ResolvedCharacteristics
+resolveWaypoints(_:waypoints:)  func resolveWaypoints(_ geometry: GeoJSONGeometry?, waypoints: [ProfileWaypoint]) -> [PlacedWaypoint]
+roadAccessColor(_:)  func roadAccessColor(_ kind: RoadAccessKind) -> HexColor
+roadAccessFeatures(_:info:)  func roadAccessFeatures(_ geometry: GeoJSONGeometry?, info: [RestSchema.RoadAccessInfo]?) -> [GeoJSONFeature]
+roadAccessGlyph(_:)  func roadAccessGlyph(_ kind: RoadAccessKind) -> String
+roadAccessKindOf(_:)  func roadAccessKindOf(_ values: [DataSchema.RoadAccessRestrictionType]) -> RoadAccessKind?
+roadAccessKindOf(_:)  func roadAccessKindOf(_ values: [RestSchema.RoadAccessRestrictionType]) -> RoadAccessKind?
+roadAccessValueKinds  let roadAccessValueKinds: [RestSchema.RoadAccessRestrictionType : RoadAccessKind?]
+routeLengthMeters(_:)  func routeLengthMeters(_ line: [[Double]]) -> Double
+rowAt(_:distance:)  func rowAt<Row>(_ rows: [Row], distance: Double) -> Row? where Row : ProfileSpan
+rowStandsFor(_:id:)  func rowStandsFor(_ row: ItinerarySegmentRow, id: String?) -> Bool
+scopeOf(_:stating:)  func scopeOf(_ outer: ElementsScope, stating statement: ElementsScopeStatement) -> ElementsScope
+scrubDistance(column:window:)  func scrubDistance(column: Int, window: ProfileRange) -> Double
+scrubGrid(_:window:)  func scrubGrid(_ points: [ElevationPoint], window: ProfileRange) -> [Int?]
+searchBoundsCosineFloor  let searchBoundsCosineFloor: Double
+searchBoundsMaxSpanDegrees  let searchBoundsMaxSpanDegrees: Double
+searchLimitMax  let searchLimitMax: Int
+searchListState(_:filter:)  func searchListState(_ snapshot: SearchSnapshot, filter: SearchFilter) -> SearchListState
+searchQueryChangeOf(settled:typed:)  func searchQueryChangeOf(settled: String, typed: String) -> SearchQueryChange
+searchSectionOrder  let searchSectionOrder: [DataSchema.SearchTarget]
+searchTypingPause  let searchTypingPause: Duration
+searchViewportBounds(center:zoom:)  func searchViewportBounds(center: [Double], zoom: Double) -> [Double]
+searchViewportRefreshPause  let searchViewportRefreshPause: Duration
+sectionChipCells(_:stats:)  func sectionChipCells(_ metrics: ItinerarySegmentRowMetrics, stats: [SectionChipStat] = defaultSectionChipStats) -> [SectionChipCell]
+sectionGrade(_:)  func sectionGrade(_ metrics: ItinerarySegmentRowMetrics) -> Double?
+sectionsForFilter(_:filter:)  func sectionsForFilter(_ sections: [DataSchema.SearchTarget], filter: SearchFilter) -> [DataSchema.SearchTarget]
+segmentColorAt(_:palette:)  func segmentColorAt(_ position: Double, palette: [String] = livelyPalette) -> String
+segmentColorAt(_:palette:)  func segmentColorAt(_ position: Int, palette: [String] = livelyPalette) -> String
+segmentGroupIdPrefix  let segmentGroupIdPrefix: String
+segmentRowCell(_:column:)  func segmentRowCell(_ row: ItinerarySegmentRow, column: SegmentTableColumn) -> SegmentRowCell
+selectBoundary(_:center:)  func selectBoundary(_ boundaries: [RestSchema.Boundaries], center: [Double]) -> RestSchema.Boundaries?
+slopeAspectFromNeighbours(_:latitude:spacingDegrees:)  func slopeAspectFromNeighbours(_ neighbours: TerrainNeighbours, latitude: Double, spacingDegrees: Double) -> SlopeAspect
+slopeBuckets  let slopeBuckets: [SlopeBucket]
+slopeRampColor(_:)  func slopeRampColor(_ degrees: Double) -> String
+slopeStretches(_:buckets:)  func slopeStretches(_ points: [ElevationPoint], buckets: [SlopeBucket] = slopeBuckets) -> [ProfileClass]
+specificationBounds(_:)  func specificationBounds(_ bbox: [Double]?) -> [Double]?
+splitDuration(_:)  func splitDuration(_ seconds: Double?) -> DurationSplit?
+statStripCells(_:cursor:stats:)  func statStripCells(_ characteristics: ResolvedCharacteristics, cursor: StatStripCursor?, stats: [StatStripStat] = defaultStatStripStats) -> [StatStripCell]
+steepnessOverlaySlug  let steepnessOverlaySlug: String
+stepInstruction(_:)  func stepInstruction(_ step: NavigationStep) -> NavigationInstruction
+stretchAt(_:distance:)  func stretchAt<Span>(_ stretches: [Span], distance: Double) -> Span? where Span : ProfileSpan
+suggestionAlternativeColor  let suggestionAlternativeColor: String
+suggestionChosenColor  let suggestionChosenColor: String
+suggestionsGeoJson(_:chosen:)  func suggestionsGeoJson(_ result: DataSchema.SuggestionsResult, chosen: Int = 0) -> GeoJSONFeatureCollection
+surfaceColor(_:)  func surfaceColor(_ surface: RestSchema.SurfaceType) -> HexColor
+surfaceColors  let surfaceColors: [RestSchema.SurfaceType : HexColor]
+terrainFromElevationTiles(_:source:tiles:)  func terrainFromElevationTiles(_ position: [Double], source: ElevationSource, tiles: [ElevationTile]) -> TerrainReading?
+terrainNeighbourDegrees  let terrainNeighbourDegrees: Double
+themeTokenValue(_:in:)  func themeTokenValue<Value>(_ token: ThemeToken<Value>, in scheme: ThemeScheme) -> Value where Value : Hashable, Value : Sendable
+tileLayerRank(_:ranks:)  func tileLayerRank(_ layer: TileSchema.TileLayer, ranks: [String : Int] = tileSourceLayerRanks) -> Int
+tileSourceLayerRanks  let tileSourceLayerRanks: [String : Int]
+timeSliderReadout(_:at:)  func timeSliderReadout(_ window: TimeSliderWindow, at value: Int) -> TimeSliderReadout
+timeSliderRelease(_:at:)  func timeSliderRelease(_ window: TimeSliderWindow, at value: Int) -> TimeSliderRelease?
+timeSliderTicks(_:)  func timeSliderTicks(_ window: TimeSliderWindow) -> [TimeSliderTick]
+timeSliderWindow(now:)  func timeSliderWindow(now: Date) -> TimeSliderWindow
+timeZoneViewport(_:)  func timeZoneViewport(_ timeZone: String) -> MapViewport?
+timestampedSources(_:overlay:at:)  func timestampedSources(_ catalogue: TileSchema.Layers, overlay: String?, at instant: Date) -> [TimestampedSource]
+toggleAmenity(_:in:)  func toggleAmenity(_ amenity: RestSchema.WaypointAmenity, in picked: [RestSchema.WaypointAmenity]) -> [RestSchema.WaypointAmenity]
+trailDifficultyRank(_:)  func trailDifficultyRank(_ difficulty: RestSchema.TrailDifficultyType) -> Int?
+trimWhiteSpace(_:)  func trimWhiteSpace(_ text: String) -> String
+unclassifiedColor  let unclassifiedColor: HexColor
+watermarkClearance  let watermarkClearance: Double
+watermarkHeight  let watermarkHeight: Double
+watermarkInset  let watermarkInset: Double
+watermarkWidth  let watermarkWidth: Double
+wayRow(_:query:wording:)  func wayRow(_ way: DataSchema.Way, query: String, wording: SearchWording = SearchWording()) -> SearchRow?
+wayTypeColor(_:)  func wayTypeColor(_ wayType: RestSchema.WayType) -> HexColor
+wayTypeColors  let wayTypeColors: [RestSchema.WayType : HexColor]
+waypointAmenities  let waypointAmenities: [RestSchema.WaypointAmenity]
+waypointBelongingMeters  let waypointBelongingMeters: Double
+waypointCard(_:scope:units:formatCutoffAt:)  func waypointCard(_ details: WaypointDetails?, scope: ElementsScope, units: UnitPreferences, formatCutoffAt: ((Date) -> String)? = nil) -> WaypointCardFacts
+waypointDeclaresNothing(_:)  func waypointDeclaresNothing(_ waypoint: RestSchema.ItineraryWaypoint) -> Bool
+waypointFallbackGlyph  let waypointFallbackGlyph: String
+waypointHeadline(_:words:units:formatCutoffAt:)  func waypointHeadline(_ waypoint: RestSchema.ItineraryWaypoint, words: WaypointSummaryWords, units: UnitPreferences, formatCutoffAt: ((Date) -> String)? = nil) -> String?
+waypointIconPrefix  let waypointIconPrefix: String
+waypointPropertyLink(_:)  func waypointPropertyLink(_ property: WaypointDetails.Property) -> String?
+waypointPropertyValue(_:units:formatInstant:)  func waypointPropertyValue(_ property: WaypointDetails.Property, units: UnitPreferences, formatInstant: ((Date) -> String)? = nil) -> String
+waypointProximityMeters  let waypointProximityMeters: Double
+waypointRowCell(_:column:glyphs:units:formatCutoffAt:)  func waypointRowCell(_ row: ItineraryWaypointRow, column: WaypointTableColumn, glyphs: GlyphSet, units: UnitPreferences, formatCutoffAt: ((Date) -> String)? = nil) -> WaypointRowCell
+waypointSpriteId(icon:color:)  func waypointSpriteId(icon: RestSchema.WaypointIcon, color: String) -> String
+waypointSummary(_:words:units:formatCutoffAt:)  func waypointSummary(_ waypoint: RestSchema.ItineraryWaypoint, words: WaypointSummaryWords, units: UnitPreferences, formatCutoffAt: ((Date) -> String)? = nil) -> String?
+webMercatorCircumferenceMeters  let webMercatorCircumferenceMeters: Double
+webMercatorMaxLatitude  let webMercatorMaxLatitude: Double
+webMercatorTileSizePixels  let webMercatorTileSizePixels: Double
+wordOverridesOf(_:)  func wordOverridesOf(_ words: [String : JSONValue]) -> WordOverrides?
+wrapLongitude(_:)  func wrapLongitude(_ longitude: Double) -> Double
+wrapLongitudePastRange(_:)  func wrapLongitudePastRange(_ longitude: Double) -> Double
+zoneRow(_:query:)  func zoneRow(_ zone: DataSchema.ZoneSearchResult, query: String) -> SearchRow?
+zoomControlsDisabled(at:)  func zoomControlsDisabled(at end: ZoomWindowEnd) -> [ZoomStep]
+zoomIntoRange(_:window:)  func zoomIntoRange(_ zoom: Double, window: ZoomBounds) -> Double?
+zoomLimitReached(_:window:)  func zoomLimitReached(_ zoom: Double, window: ZoomBounds) -> ZoomWindowEnd
+zoomToAltitude(_:latitude:viewportHeightPixels:)  func zoomToAltitude(_ zoom: Double, latitude: Double, viewportHeightPixels: Double = 800) -> Double

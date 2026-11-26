@@ -1,0 +1,22 @@
+{
+  "platform": "ios",
+  "scenario": 2,
+  "build": "swift build -c release --package-path Examples/Trail --scratch-path .build/trail-ios-release-6.4 --product Trail --triple arm64-apple-ios --sdk \"$(xcrun --sdk iphoneos --show-sdk-path)\" -Xlinker -map -Xlinker .build/trail-ios-release-6.4/Trail.map",
+  "xcode": "27.2 (27B52)",
+  "swift": "6.4.2 (swiftlang-6.4.2.1.9 clang-2100.4.1.1)",
+  "linked": 6206727,
+  "products": {
+    "MountayaAdmin": 0,
+    "MountayaClient": 2610698,
+    "MountayaElements": 1870951,
+    "MountayaGeo": 1382647,
+    "MountayaNavigation": 81409
+  },
+  "brought": {
+    "Crypto": {
+      "package": "swift-crypto",
+      "version": "5.1.1",
+      "bytes": 1438
+    }
+  }
+}

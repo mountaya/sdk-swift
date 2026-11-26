@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Trail's Info.plist, which the build completes with what Xcode generates. It carries the three
+  settings the app reads, written by the build from Trail.xcconfig and Local.xcconfig; the sentence
+  iOS shows as it asks for the device's location while the app is in use, which Trail asks for only
+  when Start is pressed with Replay off; and the loading of local addresses over plain HTTP, so the
+  simulator reaches the session server on this Mac. It declares no UIBackgroundModes: Trail
+  navigates in the foreground alone, and the README says how an app opts into background updates.
+-->
+<plist version="1.0">
+<dict>
+	<key>MOUNTAYA_PUBLISHABLE_KEY</key>
+	<string>$(MOUNTAYA_PUBLISHABLE_KEY)</string>
+	<key>MOUNTAYA_ITINERARY_ID</key>
+	<string>$(MOUNTAYA_ITINERARY_ID)</string>
+	<key>MOUNTAYA_SESSION_URL</key>
+	<string>$(MOUNTAYA_SESSION_URL)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Trail follows the itinerary from where you are while it is open, once you press Start with Replay off.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+</dict>
+</plist>

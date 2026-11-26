@@ -1,0 +1,16 @@
+// Trail's settings (the contract's sdk/trail.yaml). Copy this file to Local.xcconfig beside it,
+// which git ignores, fill in what you have, and build again; leave a value empty to go without
+// it. An xcconfig reads `//` as the start of a comment, so an address is written `https:/$()/…`.
+
+// Your organization's publishable key, with the tiles, publishing and data scopes. Without it
+// Trail shows a notice in place of the map and the search, and runs the rest on its demo
+// itinerary.
+MOUNTAYA_PUBLISHABLE_KEY =
+
+// A published itinerary your key reads, shown and followed in place of the demo itinerary.
+MOUNTAYA_ITINERARY_ID =
+
+// Where the app asks for a session token, which search needs: the session server's
+// (mise run trail:session), http:/$()/localhost:8787/session from the iOS simulator, or your own
+// backend's. Without it search stays disabled.
+MOUNTAYA_SESSION_URL =

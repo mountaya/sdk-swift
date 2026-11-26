@@ -1,0 +1,12 @@
+// Trail's settings, the contract's sdk/trail.yaml `settings` an app reads, which the app target's
+// Debug and Release configurations take. Each is empty here, and Local.xcconfig beside this file,
+// which git ignores, sets the ones you have: copy Local.xcconfig.example there. The build writes
+// each into the app's Info.plist (Info.plist beside this file), which the app reads once as it
+// starts; an environment variable of the same name, set in the scheme or by a test, stands over
+// it. No setting is ever committed.
+
+MOUNTAYA_PUBLISHABLE_KEY =
+MOUNTAYA_ITINERARY_ID =
+MOUNTAYA_SESSION_URL =
+
+#include? "Local.xcconfig"

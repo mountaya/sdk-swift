@@ -1,0 +1,516 @@
+// The public API of MountayaElements, printed by BoundaryTests from the compiler's symbol graph.
+// Never edit it: a change to the API is printed again with `mise run api:update`, and the
+// diff is the review. A line removed or changed is a break (SPEC.md section 10).
+AnalysisHandle  : Swift.Sendable
+AnalysisHandle  : where Result : Equatable, Result : Sendable : Swift.Equatable
+AnalysisHandle  struct AnalysisHandle<Result> where Result : Sendable
+AnalysisHandle.id  let id: String
+AnalysisHandle.init(id:result:)  init(id: String, result: Result)
+AnalysisHandle.result  let result: Result
+CameraFit  : Swift.Equatable, Swift.Sendable
+CameraFit  struct CameraFit
+CameraFit.==(_:_:)  static func == (lhs: CameraFit, rhs: CameraFit) -> Bool
+CameraFit.duration  var duration: Duration?
+CameraFit.init(padding:maxZoom:duration:)  init(padding: PixelPadding? = nil, maxZoom: Double? = nil, duration: Duration? = nil)
+CameraFit.maxZoom  var maxZoom: Double?
+CameraFit.padding  var padding: PixelPadding?
+CameraMotion  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+CameraMotion  enum CameraMotion
+CameraMotion.ease(duration:)  case ease(duration: Duration? = nil)
+CameraMotion.fly  case fly
+CameraMotion.jump  case jump
+CameraTarget  : Swift.Equatable, Swift.Sendable
+CameraTarget  struct CameraTarget
+CameraTarget.==(_:_:)  static func == (lhs: CameraTarget, rhs: CameraTarget) -> Bool
+CameraTarget.bearing  var bearing: Double?
+CameraTarget.center  var center: [Double]?
+CameraTarget.init(center:zoom:bearing:pitch:)  init(center: [Double]? = nil, zoom: Double? = nil, bearing: Double? = nil, pitch: Double? = nil)
+CameraTarget.pitch  var pitch: Double?
+CameraTarget.zoom  var zoom: Double?
+CompassControl  : Swift.Sendable, SwiftUICore.View
+CompassControl  @MainActor struct CompassControl
+CompassControl.body  @MainActor var body: some View { get }
+CompassControl.init(map:strings:onTap:)  @MainActor init(map: MapEngine?, strings: [String : String]? = nil, onTap: (() -> Void)? = nil)
+CursorMarkerPin  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+CursorMarkerPin  struct CursorMarkerPin
+CursorMarkerPin.==(_:_:)  static func == (lhs: CursorMarkerPin, rhs: CursorMarkerPin) -> Bool
+CursorMarkerPin.color  var color: String?
+CursorMarkerPin.glyph  var glyph: String
+CursorMarkerPin.hash(into:)  func hash(into hasher: inout Hasher)
+CursorMarkerPin.init(color:glyph:)  init(color: String?, glyph: String)
+CursorMarkerPoint  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+CursorMarkerPoint  struct CursorMarkerPoint
+CursorMarkerPoint.==(_:_:)  static func == (lhs: CursorMarkerPoint, rhs: CursorMarkerPoint) -> Bool
+CursorMarkerPoint.color  var color: String?
+CursorMarkerPoint.glyph  var glyph: String
+CursorMarkerPoint.hash(into:)  func hash(into hasher: inout Hasher)
+CursorMarkerPoint.id  var id: String
+CursorMarkerPoint.init(id:lngLat:color:glyph:)  init(id: String, lngLat: [Double], color: String? = nil, glyph: String = cursorMarkerGlyph)
+CursorMarkerPoint.lngLat  var lngLat: [Double]
+CursorMarkerTarget  @MainActor protocol CursorMarkerTarget : AnyObject
+CursorMarkerTarget.addMarker(_:)  @MainActor func addMarker(_ marker: MapMarker) throws(MapError)
+CursorMarkerTarget.editMarker(_:position:color:glyph:label:)  @MainActor func editMarker(_ id: String, position: [Double]?, color: String?, glyph: String?, label: String?) throws(MapError)
+CursorMarkerTarget.removeMarker(_:)  @MainActor func removeMarker(_ id: String)
+DeviceGeolocation  : Geolocation, Swift.Sendable
+DeviceGeolocation  @MainActor final class DeviceGeolocation
+DeviceGeolocation.init()  @MainActor init()
+DeviceGeolocation.locate()  @MainActor func locate() async -> GeolocationFix
+DeviceGeolocation.permission()  @MainActor func permission() async -> GeolocationPermission
+DirectionsControl  : Swift.Sendable, SwiftUICore.View
+DirectionsControl  @MainActor struct DirectionsControl
+DirectionsControl.body  @MainActor var body: some View { get }
+DirectionsControl.init(strings:onTap:)  @MainActor init(strings: [String : String]? = nil, onTap: @escaping () -> Void)
+DownloadControl  : Swift.Sendable, SwiftUICore.View
+DownloadControl  @MainActor struct DownloadControl
+DownloadControl.body  @MainActor var body: some View { get }
+DownloadControl.init(strings:onTap:)  @MainActor init(strings: [String : String]? = nil, onTap: @escaping () -> Void)
+EnvironmentValues.mountayaClock  var mountayaClock: any WallClock { get set }
+EnvironmentValues.mountayaScope  var mountayaScope: ElementsScope { get set }
+EnvironmentValues.mountayaTokens  var mountayaTokens: ElementTokens { get set }
+GeolocateControl  : Swift.Sendable, SwiftUICore.View
+GeolocateControl  @MainActor struct GeolocateControl
+GeolocateControl.body  @MainActor var body: some View { get }
+GeolocateControl.init(map:isLocating:strings:onTap:onError:)  @MainActor init(map: MapEngine?, isLocating: Bool? = nil, strings: [String : String]? = nil, onTap: (() -> Void)? = nil, onError: ((any Error) -> Void)? = nil)
+Geolocation  @MainActor protocol Geolocation
+Geolocation.locate()  @MainActor func locate() async -> GeolocationFix
+Geolocation.permission()  @MainActor func permission() async -> GeolocationPermission
+GeolocationFix  : Swift.Equatable, Swift.Sendable
+GeolocationFix  enum GeolocationFix
+GeolocationFix.==(_:_:)  static func == (lhs: GeolocationFix, rhs: GeolocationFix) -> Bool
+GeolocationFix.located(position:accuracyMeters:)  case located(position: [Double], accuracyMeters: Double)
+GeolocationFix.refused(_:)  case refused(GeolocationRefusal)
+GeolocationPermission  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+GeolocationPermission  enum GeolocationPermission
+GeolocationPermission.denied  case denied
+GeolocationPermission.granted  case granted
+GeolocationPermission.init(rawValue:)  init?(rawValue: String)
+GeolocationPermission.prompt  case prompt
+GeolocationPermission.unknown  case unknown
+GeolocationRefusal  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+GeolocationRefusal  enum GeolocationRefusal
+GeolocationRefusal.denied  case denied
+GeolocationRefusal.init(rawValue:)  init?(rawValue: String)
+GeolocationRefusal.noApi  case noApi
+GeolocationRefusal.unavailable  case unavailable
+GeometrySlot  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+GeometrySlot  enum GeometrySlot
+GeometrySlot.emphasis  case emphasis
+GeometrySlot.highlight  case highlight
+GeometrySlot.init(rawValue:)  init?(rawValue: String)
+GeometrySlot.preview  case preview
+Glyph  : Swift.Sendable, SwiftUICore.View
+Glyph  @MainActor struct Glyph
+Glyph.body  @MainActor var body: some View { get }
+Glyph.init(_:in:size:color:label:)  @MainActor init(_ name: String, in set: GlyphSet? = nil, size: CGFloat = 16, color: Color? = nil, label: String? = nil)
+InertGeolocation  : Geolocation, Swift.Sendable
+InertGeolocation  @MainActor struct InertGeolocation
+InertGeolocation.init()  @MainActor init()
+InertGeolocation.locate()  @MainActor func locate() async -> GeolocationFix
+InertGeolocation.permission()  @MainActor func permission() async -> GeolocationPermission
+ItineraryProfile  : Swift.Sendable, SwiftUICore.View
+ItineraryProfile  @MainActor struct ItineraryProfile
+ItineraryProfile.body  @MainActor var body: some View { get }
+ItineraryProfile.init(engine:legs:map:units:stats:coloring:bands:parts:anchor:window:highlighted:emphasisColor:markerId:markerColor:formatCutoffAt:strings:onHover:onWaypointTap:onSegmentTap:onError:)  @MainActor init(engine: ItineraryResourceEngine, legs: [ItineraryLeg]? = nil, map: MapEngine? = nil, units: UnitPreferences? = nil, stats: [StatStripStat] = defaultStatStripStats, coloring: ProfileColoring = .plain, bands: [ProfileClass] = [], parts: ProfileParts = .standard, anchor: ProfileAnchor = .route, window: Binding<ProfileRange?>? = nil, highlighted: String? = nil, emphasisColor: String? = nil, markerId: String = profileCursorMarkerId, markerColor: String? = nil, formatCutoffAt: ((Date) -> String)? = nil, strings: [String : String]? = nil, onHover: ((ElevationPoint?) -> Void)? = nil, onWaypointTap: ((String) -> Void)? = nil, onSegmentTap: ((String) -> Void)? = nil, onError: ((any Error) -> Void)? = nil)
+ItineraryProfile.init(itineraryId:cache:surface:legs:map:units:stats:coloring:bands:parts:anchor:window:highlighted:emphasisColor:markerId:markerColor:formatCutoffAt:strings:onHover:onWaypointTap:onSegmentTap:onError:)  @MainActor init(itineraryId: String?, cache: ItineraryResourceCache, surface: RestSchema.ReadSurface? = nil, legs: [ItineraryLeg]? = nil, map: MapEngine? = nil, units: UnitPreferences? = nil, stats: [StatStripStat] = defaultStatStripStats, coloring: ProfileColoring = .plain, bands: [ProfileClass] = [], parts: ProfileParts = .standard, anchor: ProfileAnchor = .route, window: Binding<ProfileRange?>? = nil, highlighted: String? = nil, emphasisColor: String? = nil, markerId: String = profileCursorMarkerId, markerColor: String? = nil, formatCutoffAt: ((Date) -> String)? = nil, strings: [String : String]? = nil, onHover: ((ElevationPoint?) -> Void)? = nil, onWaypointTap: ((String) -> Void)? = nil, onSegmentTap: ((String) -> Void)? = nil, onError: ((any Error) -> Void)? = nil)
+ItinerarySegmentTable  : Swift.Sendable, SwiftUICore.View
+ItinerarySegmentTable  @MainActor struct ItinerarySegmentTable
+ItinerarySegmentTable.body  @MainActor var body: some View { get }
+ItinerarySegmentTable.init(engine:legs:map:units:columns:highlighted:emphasisColor:markerId:markerColor:strings:onHover:onSegmentTap:onError:)  @MainActor init(engine: ItineraryResourceEngine, legs: [ItineraryLeg]? = nil, map: MapEngine? = nil, units: UnitPreferences? = nil, columns: [SegmentTableColumn] = defaultSegmentTableColumns, highlighted: String? = nil, emphasisColor: String? = nil, markerId: String = segmentTableCursorMarkerId, markerColor: String? = nil, strings: [String : String]? = nil, onHover: ((ItinerarySegmentRow?) -> Void)? = nil, onSegmentTap: ((String) -> Void)? = nil, onError: ((any Error) -> Void)? = nil)
+ItinerarySegmentTable.init(itineraryId:cache:surface:legs:map:units:columns:highlighted:emphasisColor:markerId:markerColor:strings:onHover:onSegmentTap:onError:)  @MainActor init(itineraryId: String?, cache: ItineraryResourceCache, surface: RestSchema.ReadSurface? = nil, legs: [ItineraryLeg]? = nil, map: MapEngine? = nil, units: UnitPreferences? = nil, columns: [SegmentTableColumn] = defaultSegmentTableColumns, highlighted: String? = nil, emphasisColor: String? = nil, markerId: String = segmentTableCursorMarkerId, markerColor: String? = nil, strings: [String : String]? = nil, onHover: ((ItinerarySegmentRow?) -> Void)? = nil, onSegmentTap: ((String) -> Void)? = nil, onError: ((any Error) -> Void)? = nil)
+ItinerarySparkline  : Swift.Sendable, SwiftUICore.View
+ItinerarySparkline  @MainActor struct ItinerarySparkline
+ItinerarySparkline.body  @MainActor var body: some View { get }
+ItinerarySparkline.init(series:lit:color:)  @MainActor init(series: ElevationSeries, lit: ProfileRange? = nil, color: String? = nil)
+ItineraryWaypointTable  : Swift.Sendable, SwiftUICore.View
+ItineraryWaypointTable  @MainActor struct ItineraryWaypointTable
+ItineraryWaypointTable.body  @MainActor var body: some View { get }
+ItineraryWaypointTable.init(engine:map:units:columns:picked:markerId:markerColor:formatCutoffAt:strings:onHover:onWaypointTap:onError:)  @MainActor init(engine: ItineraryResourceEngine, map: MapEngine? = nil, units: UnitPreferences? = nil, columns: [WaypointTableColumn] = defaultWaypointTableColumns, picked: Binding<[RestSchema.WaypointAmenity]>? = nil, markerId: String = waypointTableCursorMarkerId, markerColor: String? = nil, formatCutoffAt: ((Date) -> String)? = nil, strings: [String : String]? = nil, onHover: ((ItineraryWaypointRow?) -> Void)? = nil, onWaypointTap: ((String) -> Void)? = nil, onError: ((any Error) -> Void)? = nil)
+ItineraryWaypointTable.init(itineraryId:cache:surface:map:units:columns:picked:markerId:markerColor:formatCutoffAt:strings:onHover:onWaypointTap:onError:)  @MainActor init(itineraryId: String?, cache: ItineraryResourceCache, surface: RestSchema.ReadSurface? = nil, map: MapEngine? = nil, units: UnitPreferences? = nil, columns: [WaypointTableColumn] = defaultWaypointTableColumns, picked: Binding<[RestSchema.WaypointAmenity]>? = nil, markerId: String = waypointTableCursorMarkerId, markerColor: String? = nil, formatCutoffAt: ((Date) -> String)? = nil, strings: [String : String]? = nil, onHover: ((ItineraryWaypointRow?) -> Void)? = nil, onWaypointTap: ((String) -> Void)? = nil, onError: ((any Error) -> Void)? = nil)
+LayersPanel  : Swift.Sendable, SwiftUICore.View
+LayersPanel  @MainActor struct LayersPanel
+LayersPanel.body  @MainActor var body: some View { get }
+LayersPanel.init(selection:isLocked:offersTime:thumbnail:strings:onLockedTap:)  @MainActor init(selection: LayersSelectionEngine, isLocked: ((String) -> Bool)? = nil, offersTime: Bool = false, thumbnail: ((LayersPanelChoice, String) -> Image?)? = nil, strings: [String : String]? = nil, onLockedTap: ((String) -> Void)? = nil)
+LegEmphasisTarget  @MainActor protocol LegEmphasisTarget : AnyObject
+LegEmphasisTarget.clearGeometry(in:)  @MainActor func clearGeometry(in slot: GeometrySlot)
+LegEmphasisTarget.setGeometry(_:in:color:)  @MainActor func setGeometry(_ geometry: GeoJSONGeometry?, in slot: GeometrySlot, color: String?)
+MapControls  : Swift.Sendable, SwiftUICore.View
+MapControls  @MainActor struct MapControls<Content> where Content : View
+MapControls.body  @MainActor var body: some View { get }
+MapControls.init(_:zoom:compass:geolocate:layers:pois:preferences:corner:openPanel:unitPreferences:offersTime:thumbnail:strings:)  @MainActor init(_ map: MapEngine?, zoom: Bool = true, compass: Bool = true, geolocate: Bool = false, layers: Bool = true, pois: Bool = false, preferences: Bool = true, corner: MapCorner = .topRight, openPanel: Binding<MapPanel?>? = nil, unitPreferences: Binding<UnitPreferences>? = nil, offersTime: Bool = false, thumbnail: ((LayersPanelChoice, String) -> Image?)? = nil, strings: [String : String]? = nil)  in an extension where Content == EmptyView
+MapControls.init(_:zoom:compass:geolocate:layers:pois:preferences:corner:openPanel:unitPreferences:offersTime:thumbnail:strings:content:)  @MainActor init(_ map: MapEngine?, zoom: Bool = true, compass: Bool = true, geolocate: Bool = false, layers: Bool = true, pois: Bool = false, preferences: Bool = true, corner: MapCorner = .topRight, openPanel: Binding<MapPanel?>? = nil, unitPreferences: Binding<UnitPreferences>? = nil, offersTime: Bool = false, thumbnail: ((LayersPanelChoice, String) -> Image?)? = nil, strings: [String : String]? = nil, @ViewBuilder content: () -> Content)
+MapCorner  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.Sendable
+MapCorner  enum MapCorner
+MapCorner.bottomLeft  case bottomLeft
+MapCorner.bottomRight  case bottomRight
+MapCorner.topLeft  case topLeft
+MapCorner.topRight  case topRight
+MapEngine  : CursorMarkerTarget, LegEmphasisTarget, MountayaGeo.GeolocateControlTarget, MountayaGeo.LayersSelectionTarget, Observation.Observable, Swift.Sendable
+MapEngine  @MainActor final class MapEngine
+MapEngine.addDirections(_:fit:)  @discardableResult @MainActor func addDirections(_ input: DataSchema.DirectionsInput, fit: CameraFit? = nil) async throws -> AnalysisHandle<DataSchema.DirectionsResult>
+MapEngine.addDirections(_:fit:)  @discardableResult @MainActor func addDirections(_ result: DataSchema.DirectionsResult, fit: CameraFit? = nil) async throws -> AnalysisHandle<DataSchema.DirectionsResult>
+MapEngine.addEnrichment(_:)  @MainActor func addEnrichment(_ slug: String) async throws
+MapEngine.addIsochrones(_:fit:)  @discardableResult @MainActor func addIsochrones(_ input: DataSchema.IsochronesInput, fit: CameraFit? = nil) async throws -> AnalysisHandle<DataSchema.IsochronesResult>
+MapEngine.addIsochrones(_:fit:)  @discardableResult @MainActor func addIsochrones(_ result: DataSchema.IsochronesResult, fit: CameraFit? = nil) async throws -> AnalysisHandle<DataSchema.IsochronesResult>
+MapEngine.addLayer(_:)  @MainActor func addLayer(_ layer: MapLayer)
+MapEngine.addMarker(_:)  @MainActor func addMarker(_ marker: MapMarker) throws(MapError)
+MapEngine.addMatrix(_:answered:fit:)  @discardableResult @MainActor func addMatrix(_ input: DataSchema.MatrixInput, answered: DataSchema.MatrixResult? = nil, fit: CameraFit? = nil) async throws -> AnalysisHandle<DataSchema.MatrixResult>
+MapEngine.addPlaces(_:fit:)  @discardableResult @MainActor func addPlaces(_ input: DataSchema.GeocodeInput, fit: CameraFit? = nil) async throws -> AnalysisHandle<DataSchema.GeocodeResult>
+MapEngine.addPlaces(_:fit:)  @discardableResult @MainActor func addPlaces(_ result: DataSchema.GeocodeResult, fit: CameraFit? = nil) async throws -> AnalysisHandle<DataSchema.GeocodeResult>
+MapEngine.addSource(_:)  @MainActor func addSource(_ source: MapSource)
+MapEngine.addSuggestions(_:chosen:fit:)  @discardableResult @MainActor func addSuggestions(_ input: DataSchema.SuggestionsInput, chosen: Int = 0, fit: CameraFit? = nil) async throws -> AnalysisHandle<DataSchema.SuggestionsResult>
+MapEngine.addSuggestions(_:chosen:fit:)  @discardableResult @MainActor func addSuggestions(_ result: DataSchema.SuggestionsResult, chosen: Int = 0, fit: CameraFit? = nil) async throws -> AnalysisHandle<DataSchema.SuggestionsResult>
+MapEngine.beginWaypointEdit(_:at:)  @MainActor func beginWaypointEdit(_ waypointId: String, at position: [Double]? = nil) throws(MapError)
+MapEngine.clearCollection()  @MainActor func clearCollection()
+MapEngine.clearDirections()  @MainActor func clearDirections()
+MapEngine.clearEnrichments()  @MainActor func clearEnrichments()
+MapEngine.clearGeometry(in:)  @MainActor func clearGeometry(in slot: GeometrySlot)
+MapEngine.clearIsochrones()  @MainActor func clearIsochrones()
+MapEngine.clearItinerary()  @MainActor func clearItinerary()
+MapEngine.clearMarkers()  @MainActor func clearMarkers()
+MapEngine.clearMatrix()  @MainActor func clearMatrix()
+MapEngine.clearOverlay()  @MainActor func clearOverlay()
+MapEngine.clearPlaces()  @MainActor func clearPlaces()
+MapEngine.clearPointsOfInterest()  @MainActor func clearPointsOfInterest()
+MapEngine.clearSpecifications()  @MainActor func clearSpecifications()
+MapEngine.clearSuggestions()  @MainActor func clearSuggestions()
+MapEngine.close()  @MainActor func close()
+MapEngine.credits  @MainActor var credits: [String] { get }
+MapEngine.drawnLayerKeys(rank:)  @MainActor func drawnLayerKeys(rank: Int? = nil) -> [String]
+MapEngine.ease(to:)  @MainActor func ease(to target: CameraTarget) throws(MapError)
+MapEngine.easeIntoZoomRange(_:)  @MainActor func easeIntoZoomRange(_ window: ZoomBounds)
+MapEngine.editDirections(_:patch:fit:)  @discardableResult @MainActor func editDirections(_ id: String, patch: ((inout DataSchema.DirectionsInput) -> Void)? = nil, fit: CameraFit? = nil) async throws -> DataSchema.DirectionsResult
+MapEngine.editGeometry(in:geometry:color:)  @MainActor func editGeometry(in slot: GeometrySlot, geometry: GeoJSONGeometry? = nil, color: String? = nil)
+MapEngine.editIsochrones(_:patch:fit:)  @discardableResult @MainActor func editIsochrones(_ id: String, patch: ((inout DataSchema.IsochronesInput) -> Void)? = nil, fit: CameraFit? = nil) async throws -> DataSchema.IsochronesResult
+MapEngine.editLayer(_:paint:layout:)  @MainActor func editLayer(_ id: String, paint: [String : JSONValue?] = [:], layout: [String : JSONValue?] = [:]) throws(MapError)
+MapEngine.editMarker(_:position:color:glyph:label:)  @MainActor func editMarker(_ id: String, position: [Double]? = nil, color: String? = nil, glyph: String? = nil, label: String? = nil) throws(MapError)
+MapEngine.editMatrix(_:patch:fit:)  @discardableResult @MainActor func editMatrix(_ id: String, patch: ((inout DataSchema.MatrixInput) -> Void)? = nil, fit: CameraFit? = nil) async throws -> DataSchema.MatrixResult
+MapEngine.editPlaces(_:patch:fit:)  @discardableResult @MainActor func editPlaces(_ id: String, patch: ((inout DataSchema.GeocodeInput) -> Void)? = nil, fit: CameraFit? = nil) async throws -> DataSchema.GeocodeResult
+MapEngine.editPointsOfInterest(patch:fit:)  @discardableResult @MainActor func editPointsOfInterest(patch: ((inout DataSchema.PoisInput) -> Void)? = nil, fit: CameraFit? = nil) async throws -> DataSchema.PoisResult
+MapEngine.editSuggestions(_:patch:chosen:fit:)  @discardableResult @MainActor func editSuggestions(_ id: String, patch: ((inout DataSchema.SuggestionsInput) -> Void)? = nil, chosen: Int? = nil, fit: CameraFit? = nil) async throws -> DataSchema.SuggestionsResult
+MapEngine.elevation(at:)  @MainActor func elevation(at position: [Double]) async throws -> Double?
+MapEngine.endWaypointEdit()  @discardableResult @MainActor func endWaypointEdit() -> WaypointEdit?
+MapEngine.enrichments  @MainActor var enrichments: [String] { get }
+MapEngine.events()  @MainActor func events() -> AsyncStream<MapEvent>
+MapEngine.features(at:)  @MainActor func features(at point: [Double]) -> [QueriedFeature]
+MapEngine.fitBounds(_:with:)  @MainActor func fitBounds(_ bounds: [Double], with fit: CameraFit = CameraFit()) throws(MapError)
+MapEngine.fly(to:)  @MainActor func fly(to target: CameraTarget) throws(MapError)
+MapEngine.geometry(in:)  @MainActor func geometry(in slot: GeometrySlot) -> SlotGeometry
+MapEngine.glyphs  @MainActor let glyphs: GlyphSet
+MapEngine.init(client:style:terrainVariant:camera:labelLanguage:paint:glyphs:geolocation:transformRequest:)  @MainActor init(client: Mountaya, style: URL? = nil, terrainVariant: TileSchema.TerrainVariant = .light, camera: CameraPose = CameraPose(center: [0, 0], zoom: 0, pitch: 0, bearing: 0), labelLanguage: RestSchema.Language? = nil, paint: MapPaint = .standard, glyphs: GlyphSet = .marker, geolocation: any Geolocation = DeviceGeolocation(), transformRequest: (@Sendable (MapRequest) -> MapRequest)? = nil)
+MapEngine.instant  @MainActor var instant: Date? { get }
+MapEngine.isAccessRestrictionsVisible  @MainActor var isAccessRestrictionsVisible: Bool { get }
+MapEngine.isKeyVisible(_:)  @MainActor func isKeyVisible(_ key: String) -> Bool
+MapEngine.isLayerVisible(_:)  @MainActor func isLayerVisible(_ id: String) -> Bool
+MapEngine.isLocationRefused()  @MainActor func isLocationRefused() async -> Bool
+MapEngine.itineraries(at:)  @MainActor func itineraries(at point: [Double]) -> [QueriedFeature]
+MapEngine.jump(to:)  @MainActor func jump(to target: CameraTarget) throws(MapError)
+MapEngine.layerIds(forKey:)  @MainActor func layerIds(forKey key: String) -> [String]
+MapEngine.layersManifest  @MainActor var layersManifest: TileSchema.Layers? { get }
+MapEngine.loadLayers()  @discardableResult @MainActor func loadLayers() async throws -> TileSchema.Layers
+MapEngine.loadOrganization()  @discardableResult @MainActor func loadOrganization() async throws -> RestSchema.Organization?
+MapEngine.locate()  @discardableResult @MainActor func locate() async throws(MapError) -> [Double]
+MapEngine.organization  @MainActor var organization: RestSchema.Organization? { get }
+MapEngine.organizationRead  @MainActor var organizationRead: OrganizationRead { get }
+MapEngine.paint  @MainActor let paint: MapPaint
+MapEngine.placeWaypoint(at:through:)  @MainActor func placeWaypoint(at position: [Double], through projection: ScreenProjection) throws(MapError)
+MapEngine.pois(at:)  @MainActor func pois(at point: [Double]) -> [QueriedFeature]
+MapEngine.poisAnalysisId  @MainActor static let poisAnalysisId: String
+MapEngine.project(_:)  @MainActor func project(_ position: [Double]) -> [Double]
+MapEngine.removeAnalysis(_:)  @MainActor func removeAnalysis(_ id: String)
+MapEngine.removeEnrichment(_:)  @MainActor func removeEnrichment(_ slug: String)
+MapEngine.removeLayer(_:)  @MainActor func removeLayer(_ id: String)
+MapEngine.removeMarker(_:)  @MainActor func removeMarker(_ id: String)
+MapEngine.removeSource(_:)  @MainActor func removeSource(_ id: String)
+MapEngine.removeSpecification(named:)  @MainActor func removeSpecification(named name: String)
+MapEngine.resetNorth()  @MainActor func resetNorth()
+MapEngine.setAccessRestrictionsVisibility(_:)  @MainActor func setAccessRestrictionsVisibility(_ visible: Bool)
+MapEngine.setActiveSegments(_:)  @MainActor func setActiveSegments(_ lines: [[[Double]]])
+MapEngine.setCollection(_:fit:)  @discardableResult @MainActor func setCollection(_ id: String, fit: CameraFit? = nil) async throws -> Bool
+MapEngine.setGeometry(_:in:color:)  @MainActor func setGeometry(_ geometry: GeoJSONGeometry?, in slot: GeometrySlot, color: String? = nil)
+MapEngine.setInstant(_:)  @MainActor func setInstant(_ instant: Date?)
+MapEngine.setItineraries(_:)  @MainActor func setItineraries(_ shown: Bool) async throws
+MapEngine.setItinerary(_:fit:)  @discardableResult @MainActor func setItinerary(_ id: String, fit: CameraFit? = nil) async throws -> Bool
+MapEngine.setKeyVisibility(_:visible:)  @MainActor func setKeyVisibility(_ key: String, visible: Bool)
+MapEngine.setLabelLanguage(_:)  @MainActor func setLabelLanguage(_ language: RestSchema.Language?)
+MapEngine.setLayerVisibility(_:visible:)  @MainActor func setLayerVisibility(_ id: String, visible: Bool)
+MapEngine.setLayersOrganization(_:)  @MainActor func setLayersOrganization(_ organizationId: String?)
+MapEngine.setMaxBounds(_:)  @MainActor func setMaxBounds(_ bounds: [Double]?) throws(MapError)
+MapEngine.setOverlay(_:)  @MainActor func setOverlay(_ slug: String) async throws
+MapEngine.setPointsOfInterest(_:fit:)  @discardableResult @MainActor func setPointsOfInterest(_ input: DataSchema.PoisInput, fit: CameraFit? = nil) async throws -> DataSchema.PoisResult
+MapEngine.setPointsOfInterest(_:fit:)  @discardableResult @MainActor func setPointsOfInterest(_ result: DataSchema.PoisResult, fit: CameraFit? = nil) async throws -> DataSchema.PoisResult
+MapEngine.setSearchHighlight(_:accent:)  @MainActor func setSearchHighlight(_ highlight: SearchHighlight?, accent: HexColor = themeTokenValue(ElementTokens.standard.accent, in: .light))
+MapEngine.setSpecification(_:named:)  @MainActor func setSpecification(_ specification: TileSchema.TileSpecification, named name: String) throws(MapError)
+MapEngine.setStyle(_:)  @MainActor func setStyle(_ style: URL?)
+MapEngine.setTerrain(_:)  @MainActor func setTerrain(_ slug: String? = nil) async throws
+MapEngine.setTerrainVariant(_:)  @MainActor func setTerrainVariant(_ variant: TileSchema.TerrainVariant) async throws
+MapEngine.setZones(_:)  @MainActor func setZones(_ shown: Bool) async throws
+MapEngine.setZoomBounds(min:max:)  @MainActor func setZoomBounds(min: ZoomLimit = .kept, max: ZoomLimit = .kept) throws(MapError)
+MapEngine.specifications  @MainActor var specifications: [String] { get }
+MapEngine.state  @MainActor var state: MapState { get }
+MapEngine.subscribe()  @MainActor func subscribe() -> AsyncStream<MapState>
+MapEngine.terrain  @MainActor var terrain: String? { get }
+MapEngine.unproject(_:)  @MainActor func unproject(_ point: [Double]) -> [Double]
+MapEngine.zones(at:)  @MainActor func zones(at point: [Double]) -> [QueriedFeature]
+MapEngine.zoomIn()  @MainActor func zoomIn()
+MapEngine.zoomOut()  @MainActor func zoomOut()
+MapError  : Swift.CustomStringConvertible, Swift.Equatable, Swift.Error, Swift.Hashable, Swift.Sendable
+MapError  struct MapError
+MapError.==(_:_:)  static func == (lhs: MapError, rhs: MapError) -> Bool
+MapError.Kind  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+MapError.Kind  @nonexhaustive enum Kind
+MapError.Kind.analysisNotFound  case analysisNotFound
+MapError.Kind.closed  case closed
+MapError.Kind.fixRefused(_:)  case fixRefused(GeolocationRefusal)
+MapError.Kind.kindMismatch  case kindMismatch
+MapError.Kind.layerNotFound  case layerNotFound
+MapError.Kind.markerNotFound  case markerNotFound
+MapError.Kind.maxBoundsRefused  case maxBoundsRefused
+MapError.Kind.noInput  case noInput
+MapError.Kind.numberRefused  case numberRefused
+MapError.Kind.overlayNotFound  case overlayNotFound
+MapError.Kind.positionRefused  case positionRefused
+MapError.Kind.terrainNotFound  case terrainNotFound
+MapError.Kind.typeRefused  case typeRefused
+MapError.Kind.zoomBoundsRefused  case zoomBoundsRefused
+MapError.description  var description: String { get }
+MapError.hash(into:)  func hash(into hasher: inout Hasher)
+MapError.init(kind:name:)  init(kind: MapError.Kind, name: String)
+MapError.kind  let kind: MapError.Kind
+MapError.name  let name: String
+MapEvent  : Swift.Equatable, Swift.Sendable
+MapEvent  enum MapEvent
+MapEvent.==(_:_:)  static func == (lhs: MapEvent, rhs: MapEvent) -> Bool
+MapEvent.accessRefused(status:url:)  case accessRefused(status: Int, url: String)
+MapEvent.accessRestored  case accessRestored
+MapEvent.failure(url:status:cause:)  case failure(url: String, status: Int?, cause: (any Error)? = nil)
+MapEvent.featureHover(position:features:)  case featureHover(position: [Double], features: [QueriedFeature])
+MapEvent.featureTap(position:features:)  case featureTap(position: [Double], features: [QueriedFeature])
+MapEvent.layersChange(_:)  case layersChange(TileSchema.Layers?)
+MapEvent.longTap(_:)  case longTap(MapTap)
+MapEvent.tap(_:)  case tap(MapTap)
+MapLayer  : Swift.Equatable, Swift.Identifiable, Swift.Sendable
+MapLayer  struct MapLayer
+MapLayer.==(_:_:)  static func == (lhs: MapLayer, rhs: MapLayer) -> Bool
+MapLayer.filter  var filter: JSONValue?
+MapLayer.id  var id: String
+MapLayer.init(_:source:ranks:)  init(_ layer: TileSchema.TileLayer, source: String, ranks: [String : Int] = tileSourceLayerRanks)
+MapLayer.init(id:type:source:sourceLayer:key:rank:paint:layout:filter:zoom:)  init(id: String, type: TileSchema.TileLayerType, source: String, sourceLayer: String? = nil, key: String? = nil, rank: Int, paint: [String : JSONValue] = [:], layout: [String : JSONValue] = [:], filter: JSONValue? = nil, zoom: ZoomBounds? = nil)
+MapLayer.isHidden  var isHidden: Bool { get }
+MapLayer.key  var key: String?
+MapLayer.layout  var layout: [String : JSONValue]
+MapLayer.paint  var paint: [String : JSONValue]
+MapLayer.rank  var rank: Int
+MapLayer.source  var source: String
+MapLayer.sourceLayer  var sourceLayer: String?
+MapLayer.type  var type: TileSchema.TileLayerType
+MapLayer.zoom  var zoom: ZoomBounds?
+MapMarker  : Swift.Equatable, Swift.Identifiable, Swift.Sendable
+MapMarker  struct MapMarker
+MapMarker.==(_:_:)  static func == (lhs: MapMarker, rhs: MapMarker) -> Bool
+MapMarker.color  var color: String?
+MapMarker.glyph  var glyph: String?
+MapMarker.id  var id: String
+MapMarker.init(id:position:color:glyph:label:)  init(id: String, position: [Double], color: String? = nil, glyph: String? = nil, label: String? = nil)
+MapMarker.label  var label: String?
+MapMarker.position  var position: [Double]
+MapPanel  : Swift.Equatable, Swift.ExpressibleByExtendedGraphemeClusterLiteral, Swift.ExpressibleByStringLiteral, Swift.ExpressibleByUnicodeScalarLiteral, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+MapPanel  struct MapPanel
+MapPanel.==(_:_:)  static func == (lhs: MapPanel, rhs: MapPanel) -> Bool
+MapPanel.hash(into:)  func hash(into hasher: inout Hasher)
+MapPanel.init(rawValue:)  init(rawValue: String)
+MapPanel.init(stringLiteral:)  init(stringLiteral value: String)
+MapPanel.layers  static let layers: MapPanel
+MapPanel.pois  static let pois: MapPanel
+MapPanel.preferences  static let preferences: MapPanel
+MapPanel.rawValue  let rawValue: String
+MapRequest  : Swift.CustomDebugStringConvertible, Swift.CustomReflectable, Swift.CustomStringConvertible, Swift.Equatable, Swift.Sendable
+MapRequest  struct MapRequest
+MapRequest.==(_:_:)  static func == (lhs: MapRequest, rhs: MapRequest) -> Bool
+MapRequest.customMirror  var customMirror: Mirror { get }
+MapRequest.debugDescription  var debugDescription: String { get }
+MapRequest.description  var description: String { get }
+MapRequest.headers  var headers: [String : String]
+MapRequest.init(url:headers:)  init(url: URL, headers: [String : String] = [:])
+MapRequest.url  var url: URL
+MapSource  : Swift.Equatable, Swift.Identifiable, Swift.Sendable
+MapSource  struct MapSource
+MapSource.==(_:_:)  static func == (lhs: MapSource, rhs: MapSource) -> Bool
+MapSource.Kind  : Swift.Equatable, Swift.Sendable
+MapSource.Kind  enum Kind
+MapSource.Kind.==(_:_:)  static func == (lhs: MapSource.Kind, rhs: MapSource.Kind) -> Bool
+MapSource.Kind.geoJson(_:)  case geoJson(GeoJSONFeatureCollection)
+MapSource.Kind.raster(tiles:tileSize:zoom:)  case raster(tiles: [String], tileSize: Int?, zoom: ZoomBounds)
+MapSource.Kind.rasterDem(tiles:tileSize:zoom:)  case rasterDem(tiles: [String], tileSize: Int?, zoom: ZoomBounds)
+MapSource.Kind.vector(tiles:zoom:)  case vector(tiles: [String], zoom: ZoomBounds)
+MapSource.attribution  var attribution: String?
+MapSource.id  var id: String
+MapSource.init(_:)  init(_ source: TileSchema.TileSource) throws(MapError)
+MapSource.init(id:kind:attribution:)  init(id: String, kind: MapSource.Kind, attribution: String? = nil)
+MapSource.kind  var kind: MapSource.Kind
+MapState  : Swift.Equatable, Swift.Sendable
+MapState  struct MapState
+MapState.==(_:_:)  static func == (lhs: MapState, rhs: MapState) -> Bool
+MapState.activeSegments  var activeSegments: [[[Double]]]
+MapState.camera  var camera: CameraPose
+MapState.init(style:terrain:terrainVariant:camera:labelLanguage:sources:layers:markers:maxBounds:zoomBounds:activeSegments:waypointEdit:isAccessRequired:)  init(style: URL?, terrain: String? = nil, terrainVariant: TileSchema.TerrainVariant = .light, camera: CameraPose, labelLanguage: RestSchema.Language, sources: [MapSource] = [], layers: [MapLayer] = [], markers: [MapMarker] = [], maxBounds: [Double]? = nil, zoomBounds: ZoomBounds = ZoomBounds(minZoom: 0, maxZoom: 25.5), activeSegments: [[[Double]]] = [], waypointEdit: WaypointEdit? = nil, isAccessRequired: Bool = false)
+MapState.isAccessRequired  var isAccessRequired: Bool
+MapState.labelLanguage  var labelLanguage: RestSchema.Language
+MapState.layers  var layers: [MapLayer]
+MapState.markers  var markers: [MapMarker]
+MapState.maxBounds  var maxBounds: [Double]?
+MapState.sources  var sources: [MapSource]
+MapState.style  var style: URL?
+MapState.terrain  var terrain: String?
+MapState.terrainVariant  var terrainVariant: TileSchema.TerrainVariant
+MapState.waypointEdit  var waypointEdit: WaypointEdit?
+MapState.zoomBounds  var zoomBounds: ZoomBounds
+MapTap  : Swift.Equatable, Swift.Sendable
+MapTap  struct MapTap
+MapTap.==(_:_:)  static func == (lhs: MapTap, rhs: MapTap) -> Bool
+MapTap.init(position:point:marker:)  init(position: [Double], point: [Double], marker: String? = nil)
+MapTap.marker  let marker: String?
+MapTap.point  let point: [Double]
+MapTap.position  let position: [Double]
+MapView  : Swift.Sendable, SwiftUICore.View
+MapView  @MainActor struct MapView
+MapView.body  @MainActor var body: some View { get }
+MapView.init(_:readout:onReady:onTap:onCameraChange:)  @MainActor init(_ engine: MapEngine, readout: Bool = true, onReady: ((MLNMapView) -> Void)? = nil, onTap: ((MapTap) -> Void)? = nil, onCameraChange: ((CameraPose) -> Void)? = nil)
+POIPanel  : Swift.Sendable, SwiftUICore.View
+POIPanel  @MainActor struct POIPanel
+POIPanel.body  @MainActor var body: some View { get }
+POIPanel.init(map:keys:groups:activeGroups:labels:minZoom:showsAllToggle:strings:onToggle:onToggleGroup:onToggleAll:)  @MainActor init(map: MapEngine?, keys: [String]? = nil, groups: [POIPanelGroup]? = nil, activeGroups: [String]? = nil, labels: [String : String] = [:], minZoom: Double? = nil, showsAllToggle: Bool = false, strings: [String : String]? = nil, onToggle: ((String, Bool) -> Void)? = nil, onToggleGroup: ((String, Bool) -> Void)? = nil, onToggleAll: ((Bool) -> Void)? = nil)
+PanelControl  : Swift.Sendable, SwiftUICore.View
+PanelControl  @MainActor struct PanelControl<Content> where Content : View
+PanelControl.body  @MainActor var body: some View { get }
+PanelControl.init(_:label:glyph:help:content:)  @MainActor init(_ panel: MapPanel, label: String, glyph: String, help: String = "", @ViewBuilder content: () -> Content)
+PreferencesPanel  : Swift.Sendable, SwiftUICore.View
+PreferencesPanel  @MainActor struct PreferencesPanel
+PreferencesPanel.body  @MainActor var body: some View { get }
+PreferencesPanel.init(preferences:map:strings:)  @MainActor init(preferences: Binding<UnitPreferences>, map: MapEngine? = nil, strings: [String : String]? = nil)
+ProfileColoring  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ProfileColoring  enum ProfileColoring
+ProfileColoring.classes(_:)  case classes([ProfileClass])
+ProfileColoring.plain  case plain
+ProfileColoring.slope(_:)  case slope([SlopeBucket] = slopeBuckets)
+ProfileColoring.stretches(_:)  case stretches([CurveColor])
+ProfileParts  : Swift.Equatable, Swift.ExpressibleByArrayLiteral, Swift.Hashable, Swift.OptionSet, Swift.RawRepresentable, Swift.Sendable, Swift.SetAlgebra
+ProfileParts  struct ProfileParts
+ProfileParts.amenities  static let amenities: ProfileParts
+ProfileParts.distanceAxis  static let distanceAxis: ProfileParts
+ProfileParts.elevationAxis  static let elevationAxis: ProfileParts
+ProfileParts.init(rawValue:)  init(rawValue: Int)
+ProfileParts.navigator  static let navigator: ProfileParts
+ProfileParts.rawValue  let rawValue: Int
+ProfileParts.sections  static let sections: ProfileParts
+ProfileParts.standard  static let standard: ProfileParts
+ProfileParts.tooltip  static let tooltip: ProfileParts
+QueriedFeature  : Swift.Equatable, Swift.Sendable
+QueriedFeature  struct QueriedFeature
+QueriedFeature.==(_:_:)  static func == (lhs: QueriedFeature, rhs: QueriedFeature) -> Bool
+QueriedFeature.ID  : Swift.Equatable, Swift.Sendable
+QueriedFeature.ID  enum ID
+QueriedFeature.ID.==(_:_:)  static func == (lhs: QueriedFeature.ID, rhs: QueriedFeature.ID) -> Bool
+QueriedFeature.ID.number(_:)  case number(Double)
+QueriedFeature.ID.string(_:)  case string(String)
+QueriedFeature.geometry  let geometry: GeoJSONGeometry
+QueriedFeature.id  let id: QueriedFeature.ID?
+QueriedFeature.init(id:properties:geometry:layer:sourceLayer:)  init(id: QueriedFeature.ID? = nil, properties: [String : JSONValue], geometry: GeoJSONGeometry, layer: String, sourceLayer: String? = nil)
+QueriedFeature.layer  let layer: String
+QueriedFeature.properties  let properties: [String : JSONValue]
+QueriedFeature.sourceLayer  let sourceLayer: String?
+ScreenProjection  : Swift.Sendable
+ScreenProjection  struct ScreenProjection
+ScreenProjection.init(point:position:)  init(point: @escaping @MainActor @Sendable ([Double]) -> [Double], position: @escaping @MainActor @Sendable ([Double]) -> [Double])
+ScreenProjection.point  let point: @MainActor @Sendable ([Double]) -> [Double]
+ScreenProjection.position  let position: @MainActor @Sendable ([Double]) -> [Double]
+ScriptedMapSurface  : Swift.Sendable
+ScriptedMapSurface  @MainActor final class ScriptedMapSurface
+ScriptedMapSurface.BaseSource  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+ScriptedMapSurface.BaseSource  struct BaseSource
+ScriptedMapSurface.BaseSource.attribution  var attribution: String?
+ScriptedMapSurface.BaseSource.init(attribution:isDrawn:)  init(attribution: String?, isDrawn: Bool)
+ScriptedMapSurface.BaseSource.isDrawn  var isDrawn: Bool
+ScriptedMapSurface.Frame  : Swift.Equatable, Swift.Sendable
+ScriptedMapSurface.Frame  struct Frame
+ScriptedMapSurface.Frame.==(_:_:)  static func == (lhs: ScriptedMapSurface.Frame, rhs: ScriptedMapSurface.Frame) -> Bool
+ScriptedMapSurface.Frame.bounds  let bounds: [Double]
+ScriptedMapSurface.Frame.fit  let fit: CameraFit
+ScriptedMapSurface.Frame.init(bounds:fit:)  init(bounds: [Double], fit: CameraFit)
+ScriptedMapSurface.Label  : Swift.Equatable, Swift.Sendable
+ScriptedMapSurface.Label  struct Label
+ScriptedMapSurface.Label.==(_:_:)  static func == (lhs: ScriptedMapSurface.Label, rhs: ScriptedMapSurface.Label) -> Bool
+ScriptedMapSurface.Label.id  let id: String
+ScriptedMapSurface.Label.init(id:textField:)  init(id: String, textField: JSONValue)
+ScriptedMapSurface.Label.textField  let textField: JSONValue
+ScriptedMapSurface.Move  : Swift.Equatable, Swift.Sendable
+ScriptedMapSurface.Move  struct Move
+ScriptedMapSurface.Move.init(target:motion:)  init(target: CameraTarget, motion: CameraMotion)
+ScriptedMapSurface.Move.motion  let motion: CameraMotion
+ScriptedMapSurface.Move.target  let target: CameraTarget
+ScriptedMapSurface.baseLabels  @MainActor var baseLabels: [ScriptedMapSurface.Label]
+ScriptedMapSurface.baseSources  @MainActor var baseSources: [ScriptedMapSurface.BaseSource]
+ScriptedMapSurface.canvas  @MainActor var canvas: [Double]
+ScriptedMapSurface.drawFrame()  @MainActor func drawFrame()
+ScriptedMapSurface.failRequest(url:status:source:superseded:cause:)  @MainActor func failRequest(url: String?, status: Int?, source: String?, superseded: Bool = false, cause: (any Error)? = nil)
+ScriptedMapSurface.failStyle()  @MainActor func failStyle()
+ScriptedMapSurface.frames  @MainActor var frames: [ScriptedMapSurface.Frame] { get }
+ScriptedMapSurface.heldSources  @MainActor var heldSources: [String]?
+ScriptedMapSurface.hover(at:position:)  @MainActor func hover(at point: [Double], position: [Double])
+ScriptedMapSurface.init(drawing:canvas:zoomLimits:)  @MainActor init(drawing engine: MapEngine, canvas: [Double] = [800, 600], zoomLimits: ZoomBounds = ZoomBounds(minZoom: 0, maxZoom: 25.5))
+ScriptedMapSurface.leave(at:position:)  @MainActor func leave(at point: [Double], position: [Double])
+ScriptedMapSurface.liveLayers  @MainActor var liveLayers: [String]?
+ScriptedMapSurface.loadStyle()  @MainActor func loadStyle()
+ScriptedMapSurface.loadTile(of:)  @MainActor func loadTile(of source: String)
+ScriptedMapSurface.longTap(at:position:)  @MainActor func longTap(at point: [Double], position: [Double])
+ScriptedMapSurface.moves  @MainActor var moves: [ScriptedMapSurface.Move] { get }
+ScriptedMapSurface.projection  @MainActor var projection: ScreenProjection
+ScriptedMapSurface.queries  @MainActor var queries: [[String]] { get }
+ScriptedMapSurface.relabelled  @MainActor var relabelled: [String] { get }
+ScriptedMapSurface.rendered  @MainActor var rendered: [QueriedFeature]
+ScriptedMapSurface.tap(at:position:)  @MainActor func tap(at point: [Double], position: [Double])
+ScriptedMapSurface.zoomLimits  @MainActor let zoomLimits: ZoomBounds
+SearchControl  : Swift.Sendable, SwiftUICore.View
+SearchControl  @MainActor struct SearchControl
+SearchControl.body  @MainActor var body: some View { get }
+SearchControl.init(map:engine:query:isConfined:targets:language:limit:units:wording:fetch:strings:onSelect:onError:)  @MainActor init(map: MapEngine?, engine: SearchEngine? = nil, query: Binding<String>? = nil, isConfined: Binding<Bool>? = nil, targets: [DataSchema.SearchTarget] = searchSectionOrder, language: DataSchema.Language? = nil, limit: SearchLimit? = nil, units: UnitPreferences? = nil, wording: SearchWording? = nil, fetch: SearchFetch? = nil, strings: [String : String]? = nil, onSelect: ((SearchRow) -> Void)? = nil, onError: ((any Error) -> Void)? = nil)
+SlotGeometry  : Swift.Equatable, Swift.Sendable
+SlotGeometry  struct SlotGeometry
+SlotGeometry.==(_:_:)  static func == (lhs: SlotGeometry, rhs: SlotGeometry) -> Bool
+SlotGeometry.color  var color: String
+SlotGeometry.geometry  var geometry: GeoJSONGeometry?
+SlotGeometry.init(geometry:color:)  init(geometry: GeoJSONGeometry?, color: String)
+View.mountayaScope(_:)  @MainActor func mountayaScope(_ statement: ElementsScopeStatement) -> some View
+View.mountayaTokens(_:)  @MainActor func mountayaTokens(_ tokens: ElementTokens) -> some View
+WaypointCard  : Swift.Sendable, SwiftUICore.View
+WaypointCard  @MainActor struct WaypointCard
+WaypointCard.body  @MainActor var body: some View { get }
+WaypointCard.init(place:units:formatCutoffAt:strings:)  @MainActor init(place: ItineraryPlace, units: UnitPreferences? = nil, formatCutoffAt: ((Date) -> String)? = nil, strings: [String : String]? = nil)
+WaypointCard.init(place:units:formatCutoffAt:strings:photo:)  @MainActor init<Photo>(place: ItineraryPlace, units: UnitPreferences? = nil, formatCutoffAt: ((Date) -> String)? = nil, strings: [String : String]? = nil, @ViewBuilder photo: @escaping (WaypointDetails.Photo) -> Photo) where Photo : View
+WaypointEdit  : Swift.Equatable, Swift.Sendable
+WaypointEdit  struct WaypointEdit
+WaypointEdit.==(_:_:)  static func == (lhs: WaypointEdit, rhs: WaypointEdit) -> Bool
+WaypointEdit.init(waypointId:position:isSnapped:)  init(waypointId: String, position: [Double]? = nil, isSnapped: Bool = false)
+WaypointEdit.isSnapped  var isSnapped: Bool
+WaypointEdit.position  var position: [Double]?
+WaypointEdit.waypointId  let waypointId: String
+ZoomControl  : Swift.Sendable, SwiftUICore.View
+ZoomControl  @MainActor struct ZoomControl
+ZoomControl.body  @MainActor var body: some View { get }
+ZoomControl.init(map:strings:onZoomInTap:onZoomOutTap:)  @MainActor init(map: MapEngine?, strings: [String : String]? = nil, onZoomInTap: (() -> Void)? = nil, onZoomOutTap: (() -> Void)? = nil)
+ZoomLimit  : Swift.Equatable, Swift.ExpressibleByFloatLiteral, Swift.ExpressibleByIntegerLiteral, Swift.Sendable
+ZoomLimit  enum ZoomLimit
+ZoomLimit.==(_:_:)  static func == (lhs: ZoomLimit, rhs: ZoomLimit) -> Bool
+ZoomLimit.init(floatLiteral:)  init(floatLiteral value: Double)
+ZoomLimit.init(integerLiteral:)  init(integerLiteral value: Int)
+ZoomLimit.kept  case kept
+ZoomLimit.released  case released
+ZoomLimit.zoom(_:)  case zoom(Double)
+cursorMarkerGlyph  let cursorMarkerGlyph: String
+hideCursorMarker(on:pinned:id:)  @MainActor func hideCursorMarker(on map: some CursorMarkerTarget, pinned: CursorMarkerPin?, id: String)
+locateFixWait  let locateFixWait: Duration
+locateMaxFixAge  let locateMaxFixAge: Duration
+profileCursorMarkerId  let profileCursorMarkerId: String
+segmentTableCursorMarkerId  let segmentTableCursorMarkerId: String
+showCursorMarker(on:pinned:point:)  @MainActor func showCursorMarker(on map: some CursorMarkerTarget, pinned: CursorMarkerPin?, point: CursorMarkerPoint) throws(MapError) -> CursorMarkerPin
+waypointTableCursorMarkerId  let waypointTableCursorMarkerId: String
+writeLegEmphasis(on:isLit:stretch:color:)  @MainActor func writeLegEmphasis(on map: some LegEmphasisTarget, isLit: Bool, stretch: GeoJSONGeometry?, color: String? = nil) -> Bool

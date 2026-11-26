@@ -1,0 +1,792 @@
+{
+  "modelVersion": 2,
+  "contract": "v9.9.9",
+  "rest": {
+    "origin": "https://api.example.com",
+    "operations": [
+      {
+        "operationId": "getThing",
+        "method": "GET",
+        "path": "/v1/things/{thing_id}",
+        "namespace": "studio.things",
+        "unit": "core",
+        "scope": "resources",
+        "idempotent": true,
+        "timeoutMs": 30000,
+        "idempotencyKey": false,
+        "conditional": false,
+        "notModified": true,
+        "credentials": {
+          "actingUser": "none",
+          "acceptsShareToken": true,
+          "requiresSession": false,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "pathParameters": [
+          { "name": "thing_id", "type": { "kind": "string", "format": "uuid" }, "description": "The thing." }
+        ],
+        "queryParameters": [
+          { "name": "expand", "required": false, "type": { "kind": "boolean" }, "description": "Whether to expand." },
+          { "name": "fields", "required": false, "type": { "kind": "array", "items": { "kind": "string" } } },
+          { "name": "at", "required": false, "type": { "kind": "string", "format": "date-time" } },
+          { "name": "kind", "required": false, "type": { "kind": "ref", "name": "ThingKind" }, "deprecated": true, "description": "The kind to read. Use the path instead." }
+        ],
+        "headerParameters": [],
+        "success": {
+          "kind": "envelope",
+          "data": { "type": { "kind": "ref", "name": "Thing" } },
+          "responses": [{ "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }, { "name": "ETag", "required": true, "type": { "kind": "string" } }] }]
+        },
+        "errors": [{ "status": 404 }, { "status": 401 }],
+        "summary": "Get a thing",
+        "description": "Returns one thing."
+      },
+      {
+        "operationId": "listThings",
+        "method": "GET",
+        "path": "/v1/things",
+        "namespace": "studio.things",
+        "unit": "core",
+        "scope": "resources",
+        "idempotent": true,
+        "timeoutMs": 30000,
+        "idempotencyKey": false,
+        "conditional": false,
+        "credentials": {
+          "actingUser": "optional",
+          "acceptsShareToken": false,
+          "requiresSession": true,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": true
+        },
+        "pathParameters": [],
+        "queryParameters": [
+          { "name": "limit", "required": true, "type": { "kind": "integer", "format": "int32" }, "default": 20 },
+          { "name": "speed", "required": false, "type": { "kind": "number", "format": "double" } },
+          { "name": "cursor", "required": false, "type": { "kind": "string" } },
+          { "name": "sort", "required": false, "type": { "kind": "string", "name": "ListThingsSort", "enum": ["name", "-name"], "enumNames": ["ListThingsSortName", "ListThingsSortNameDescending"] } }
+        ],
+        "headerParameters": [],
+        "pagination": { "sort": ["name", "-name"], "defaultSort": "name" },
+        "success": {
+          "kind": "envelope",
+          "data": { "type": { "kind": "array", "items": { "kind": "ref", "name": "Thing" } } },
+          "metadata": { "required": true, "type": { "kind": "ref", "name": "PageMeta" } },
+          "responses": [{ "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }]
+        },
+        "errors": [{ "status": 400 }]
+      },
+      {
+        "operationId": "patchThing",
+        "method": "PATCH",
+        "path": "/v1/things/{thing_id}",
+        "namespace": "studio.things",
+        "unit": "core",
+        "scope": "resources",
+        "idempotent": false,
+        "timeoutMs": 30000,
+        "idempotencyKey": true,
+        "conditional": true,
+        "credentials": {
+          "actingUser": "required",
+          "acceptsShareToken": false,
+          "requiresSession": true,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "pathParameters": [{ "name": "thing_id", "type": { "kind": "string", "format": "uuid" } }],
+        "queryParameters": [],
+        "headerParameters": [],
+        "requestBody": {
+          "required": true,
+          "content": [{ "mediaType": "application/json", "type": { "kind": "ref", "name": "ThingPatch" } }]
+        },
+        "success": { "kind": "envelope", "responses": [{ "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }] },
+        "errors": [{ "status": 412 }, { "status": 409, "metadata": { "required": true, "type": { "kind": "ref", "name": "ListMeta" } } }],
+        "tasks": ["thing.update"],
+        "summary": "Update a thing. Patching is replaced by putThing, which this release adds beside it.",
+        "deprecated": true
+      },
+      {
+        "operationId": "postThing",
+        "method": "POST",
+        "path": "/v1/things",
+        "namespace": "studio.things",
+        "unit": "core",
+        "scope": "resources",
+        "idempotent": false,
+        "timeoutMs": 55000,
+        "idempotencyKey": true,
+        "conditional": false,
+        "credentials": {
+          "actingUser": "required",
+          "acceptsShareToken": false,
+          "requiresSession": true,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "pathParameters": [],
+        "queryParameters": [],
+        "headerParameters": [],
+        "requestBody": {
+          "required": true,
+          "content": [{ "mediaType": "application/json", "type": { "kind": "ref", "name": "ThingCreate" } }]
+        },
+        "success": {
+          "kind": "envelope",
+          "data": { "type": { "kind": "ref", "name": "Thing", "nullable": true } },
+          "responses": [{ "status": 201, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }, { "name": "Location", "required": true, "type": { "kind": "string" } }] }, { "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }]
+        },
+        "errors": [],
+        "tasks": ["thing.create"]
+      },
+      {
+        "operationId": "getThingEvents",
+        "method": "GET",
+        "path": "/v1/things/{thing_id}/events",
+        "namespace": "studio.things",
+        "unit": "core",
+        "scope": "resources",
+        "idempotent": true,
+        "idempotencyKey": false,
+        "conditional": false,
+        "credentials": {
+          "actingUser": "required",
+          "acceptsShareToken": false,
+          "requiresSession": true,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "pathParameters": [{ "name": "thing_id", "type": { "kind": "string", "format": "uuid" } }],
+        "queryParameters": [],
+        "headerParameters": [
+          { "name": "X-Trace", "required": false, "type": { "kind": "string" }, "description": "A trace the caller names." }
+        ],
+        "success": { "kind": "event-stream", "event": { "kind": "ref", "name": "Event" }, "responses": [{ "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }] },
+        "errors": []
+      },
+      {
+        "operationId": "getThingExport",
+        "method": "GET",
+        "path": "/v1/kinds/{kind}/things/{thing_id}/export",
+        "namespace": "admin.exports",
+        "unit": "admin",
+        "scope": "management",
+        "idempotent": true,
+        "timeoutMs": 30000,
+        "idempotencyKey": false,
+        "conditional": false,
+        "credentials": {
+          "actingUser": "none",
+          "acceptsShareToken": false,
+          "requiresSession": false,
+          "requiresSecretKey": false,
+          "takesNoCredential": true,
+          "pendingInvitee": false
+        },
+        "pathParameters": [
+          { "name": "thing_id", "type": { "kind": "string", "format": "uuid" } },
+          { "name": "kind", "type": { "kind": "ref", "name": "ThingKind" } }
+        ],
+        "queryParameters": [],
+        "headerParameters": [],
+        "success": { "kind": "binary", "mediaTypes": ["text/csv"], "responses": [{ "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }] },
+        "errors": []
+      },
+      {
+        "operationId": "postThingUpload",
+        "method": "POST",
+        "path": "/v1/things/uploads/multipart/in-a-path-long-enough-that-its-literal-is-broken/across-two-lines/confirm",
+        "namespace": "admin.exports",
+        "unit": "admin",
+        "scope": "management",
+        "idempotent": false,
+        "timeoutMs": 55000,
+        "idempotencyKey": true,
+        "conditional": false,
+        "credentials": {
+          "actingUser": "none",
+          "acceptsShareToken": false,
+          "requiresSession": false,
+          "requiresSecretKey": true,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "pathParameters": [],
+        "queryParameters": [],
+        "headerParameters": [],
+        "requestBody": {
+          "required": true,
+          "content": [
+            {
+              "mediaType": "multipart/form-data",
+              "type": {
+                "kind": "object",
+                "name": "PostThingUploadMultipartBody",
+                "properties": [
+                  { "name": "file", "required": true, "type": { "kind": "string", "format": "binary" } },
+                  { "name": "kind", "required": true, "type": { "kind": "ref", "name": "ThingKind" } },
+                  { "name": "sizes", "required": false, "type": { "kind": "array", "items": { "kind": "integer" } } },
+                  { "name": "note", "required": false, "type": { "kind": "string" } }
+                ]
+              },
+              "encoding": [{ "property": "file", "contentType": "application/gpx+xml" }]
+            },
+            { "mediaType": "application/json", "type": { "kind": "ref", "name": "ThingCreate" } }
+          ]
+        },
+        "success": {
+          "kind": "envelope",
+          "data": { "type": { "kind": "null" } },
+          "metadata": { "required": false, "type": { "kind": "ref", "name": "ListMeta" } },
+          "responses": [{ "status": 202, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }]
+        },
+        "errors": [],
+        "tasks": ["thing.upload.confirm", "thing.upload.import"]
+      },
+      {
+        "operationId": "deleteThing",
+        "method": "DELETE",
+        "path": "/v1/things/{thing_id}",
+        "namespace": "admin.exports",
+        "unit": "admin",
+        "scope": "management",
+        "idempotent": true,
+        "timeoutMs": 30000,
+        "idempotencyKey": true,
+        "conditional": true,
+        "credentials": {
+          "actingUser": "required",
+          "acceptsShareToken": false,
+          "requiresSession": true,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "pathParameters": [{ "name": "thing_id", "type": { "kind": "string", "format": "uuid" } }],
+        "queryParameters": [],
+        "headerParameters": [],
+        "requestBody": {
+          "required": false,
+          "content": [{ "mediaType": "application/json", "type": { "kind": "ref", "name": "ThingCreate" } }]
+        },
+        "success": { "kind": "envelope", "data": { "type": { "kind": "null" } }, "responses": [{ "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }] },
+        "errors": [{ "status": 500 }, { "status": 404 }],
+        "tasks": ["thing.delete"]
+      }
+    ],
+    "templates": [],
+    "schemas": [
+      {
+        "name": "Event",
+        "kind": "union",
+        "usage": ["response"],
+        "unit": "core",
+        "description": "Something that happened to a thing.",
+        "discriminator": "type",
+        "members": [
+          { "value": "started", "type": "EventStarted" },
+          { "value": "stopped", "type": "EventStopped" }
+        ]
+      },
+      {
+        "name": "EventStarted",
+        "kind": "object",
+        "usage": ["response"],
+        "unit": "core",
+        "properties": [
+          { "name": "type", "required": true, "type": { "kind": "ref", "name": "EventType" }, "discriminatorValue": "started" },
+          { "name": "at", "required": true, "type": { "kind": "string", "format": "date-time" } }
+        ]
+      },
+      {
+        "name": "EventStopped",
+        "kind": "object",
+        "usage": ["response"],
+        "unit": "core",
+        "properties": [
+          { "name": "type", "required": true, "type": { "kind": "ref", "name": "EventType" }, "discriminatorValue": "stopped" },
+          { "name": "reason", "required": false, "type": { "kind": "string", "nullable": true } }
+        ]
+      },
+      {
+        "name": "EventType",
+        "kind": "enum",
+        "usage": ["response"],
+        "unit": "core",
+        "valueType": "string",
+        "members": [
+          { "value": "started", "name": "EventTypeStarted" },
+          { "value": "stopped", "name": "EventTypeStopped" }
+        ]
+      },
+      {
+        "name": "GeoPoint",
+        "kind": "geojson",
+        "usage": ["response"],
+        "unit": "core",
+        "geometry": "Point"
+      },
+      {
+        "name": "ListMeta",
+        "kind": "object",
+        "usage": ["response"],
+        "unit": "core",
+        "description": "Where a page sits.",
+        "properties": [{ "name": "total", "required": true, "type": { "kind": "integer", "format": "int32" } }]
+      },
+      {
+        "name": "PageMeta",
+        "kind": "object",
+        "usage": ["response"],
+        "unit": "core",
+        "description": "Where a page sits, and the cursor of the next.",
+        "extends": ["ListMeta"],
+        "properties": [
+          { "name": "total", "required": true, "type": { "kind": "integer", "format": "int32" }, "from": "ListMeta" },
+          { "name": "next_cursor", "required": true, "type": { "kind": "string", "nullable": true } }
+        ]
+      },
+      {
+        "name": "Names",
+        "kind": "alias",
+        "usage": ["response"],
+        "unit": "core",
+        "description": "A name per locale.",
+        "type": { "kind": "map", "values": { "kind": "string", "nullable": true } }
+      },
+      {
+        "name": "OkResponse",
+        "kind": "object",
+        "role": "envelope",
+        "usage": ["response"],
+        "unit": "core",
+        "properties": [{ "name": "data", "required": true, "type": { "kind": "any" } }]
+      },
+      {
+        "name": "Error",
+        "kind": "object",
+        "role": "envelope",
+        "usage": ["response"],
+        "unit": "core",
+        "properties": [
+          { "name": "message", "required": true, "type": { "kind": "string" } },
+          {
+            "name": "extensions",
+            "required": true,
+            "type": {
+              "kind": "object",
+              "name": "ErrorExtensions",
+              "properties": [
+                {
+                  "name": "code",
+                  "required": true,
+                  "type": { "kind": "string", "name": "ErrorExtensionsCode", "enum": ["BAD_REQUEST", "LIMIT_REACHED", "NOT_FOUND"] }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Thing",
+        "kind": "object",
+        "usage": ["response"],
+        "unit": "core",
+        "description": "A thing, as the API returns it.",
+        "properties": [
+          { "name": "id", "required": true, "type": { "kind": "string", "format": "uuid" }, "description": "Its identifier.", "readOnly": true },
+          { "name": "created_at", "required": true, "type": { "kind": "string", "format": "date-time" } },
+          { "name": "updated_at", "required": false, "type": { "kind": "string", "format": "date-time", "nullable": true } },
+          { "name": "website", "required": false, "type": { "kind": "string", "format": "uri" } },
+          { "name": "count", "required": true, "type": { "kind": "integer", "format": "int64" } },
+          { "name": "ratio", "required": false, "type": { "kind": "number", "format": "double" } },
+          { "name": "tags", "required": true, "type": { "kind": "array", "items": { "kind": "string" } } },
+          { "name": "stamps", "required": false, "type": { "kind": "array", "items": { "kind": "string", "format": "date-time" } } },
+          { "name": "names", "required": false, "type": { "kind": "ref", "name": "Names" } },
+          { "name": "extras", "required": false, "type": { "kind": "any" } },
+          { "name": "kind", "required": true, "type": { "kind": "ref", "name": "ThingKind" } },
+          { "name": "size", "required": false, "type": { "kind": "ref", "name": "TileSize" } },
+          { "name": "point", "required": false, "type": { "kind": "ref", "name": "GeoPoint", "nullable": true } },
+          { "name": "meta", "required": false, "type": { "kind": "object", "name": "ThingMeta", "properties": [{ "name": "source", "required": true, "type": { "kind": "string" } }] } },
+          { "name": "choice", "required": false, "type": { "kind": "union", "name": "ThingChoice", "members": [{ "kind": "string" }, { "kind": "integer" }] } },
+          { "name": "level", "required": false, "type": { "kind": "string", "name": "ThingLevel", "enum": ["LOW", "HIGH"] } },
+          { "name": "fixed", "required": true, "type": { "kind": "string", "const": "thing" } },
+          { "name": "flags", "required": false, "type": { "kind": "map", "keys": { "kind": "ref", "name": "ThingKind" }, "values": { "kind": "boolean" } } },
+          { "name": "old", "required": false, "type": { "kind": "string" }, "deprecated": true, "description": "The former name. Use `names` instead." },
+          { "name": "default", "required": false, "type": { "kind": "boolean" } }
+        ]
+      },
+      {
+        "name": "ThingCreate",
+        "kind": "object",
+        "usage": ["request"],
+        "unit": "core",
+        "closed": true,
+        "properties": [
+          { "name": "name", "required": true, "type": { "kind": "string" } },
+          { "name": "parent_id", "required": true, "type": { "kind": "string", "format": "uuid", "nullable": true } },
+          { "name": "note", "required": false, "type": { "kind": "string", "nullable": true } },
+          { "name": "secret", "required": false, "type": { "kind": "string" }, "writeOnly": true, "secret": true }
+        ]
+      },
+      {
+        "name": "ThingKind",
+        "kind": "enum",
+        "usage": ["request", "response"],
+        "unit": "core",
+        "description": "What kind a thing is.",
+        "valueType": "string",
+        "members": [
+          { "value": "small-one", "name": "ThingKindSmallOne", "description": "A small one." },
+          { "value": "big", "name": "ThingKindBig", "deprecated": true, "description": "A big one. Retired: every big thing is now two small ones." },
+          { "value": "2xl", "name": "ThingKind2xl", "description": "An extra-large one." }
+        ]
+      },
+      {
+        "name": "ThingPatch",
+        "kind": "object",
+        "usage": ["request"],
+        "unit": "core",
+        "closed": true,
+        "properties": [
+          { "name": "name", "required": false, "type": { "kind": "string", "nullable": true } },
+          { "name": "when", "required": false, "type": { "kind": "string", "format": "date-time", "nullable": true } },
+          { "name": "note", "required": false, "type": { "kind": "string" } }
+        ]
+      },
+      {
+        "name": "ThingScope",
+        "kind": "enum",
+        "usage": ["request", "response"],
+        "unit": "core",
+        "description": "What a key reaches.",
+        "valueType": "string",
+        "members": [
+          { "value": "read", "name": "ThingScopeRead", "description": "Reads." },
+          { "value": "write", "name": "ThingScopeWrite", "description": "Writes.", "includes": ["read"], "needs": ["audit", "tiles"] },
+          { "value": "audit", "name": "ThingScopeAudit", "description": "Audits." },
+          { "value": "internal", "name": "ThingScopeInternal", "description": "Reaches what only Mountaya reaches." }
+        ]
+      },
+      {
+        "name": "TileSize",
+        "kind": "enum",
+        "usage": ["response"],
+        "unit": "core",
+        "valueType": "integer",
+        "format": "int32",
+        "members": [
+          { "value": 256, "name": "TileSize256" },
+          { "value": 512, "name": "TileSize512" }
+        ]
+      },
+      {
+        "name": "WebhookEvent",
+        "kind": "object",
+        "usage": ["response"],
+        "unit": "admin",
+        "description": "A change recorded, as it is delivered to an endpoint.",
+        "properties": [
+          { "name": "id", "required": true, "type": { "kind": "string", "format": "uuid" }, "description": "Identifier of the event." },
+          { "name": "object", "required": true, "type": { "kind": "string", "const": "webhook_event" }, "description": "Always `webhook_event`." },
+          { "name": "type", "required": true, "type": { "kind": "ref", "name": "WebhookEventType" }, "description": "What happened." },
+          { "name": "created_at", "required": true, "type": { "kind": "string", "format": "date-time" }, "description": "When the change was made." },
+          { "name": "data", "required": true, "type": { "kind": "ref", "name": "WebhookEventData" }, "description": "The object, and what the change moved." },
+          { "name": "request_id", "required": true, "type": { "kind": "string", "nullable": true }, "description": "The request that made the change, null for a change made on its own." },
+          { "name": "livemode", "required": false, "type": { "kind": "boolean" }, "description": "Whether the change was made in a live organization." },
+          { "name": "legacy_id", "required": false, "type": { "kind": "string" }, "deprecated": true, "description": "The former identifier of the event. Use `id` instead." }
+        ]
+      },
+      {
+        "name": "WebhookEventData",
+        "kind": "object",
+        "usage": ["response"],
+        "unit": "admin",
+        "description": "What a webhook event says about its object.",
+        "properties": [
+          { "name": "object", "required": true, "type": { "kind": "ref", "name": "WebhookEventObject" }, "description": "The object once the change was made." },
+          { "name": "previous_attributes", "required": false, "type": { "kind": "map", "values": { "kind": "any" } }, "description": "The fields of `data.object` the change moved, each with the value it held before." }
+        ]
+      },
+      {
+        "name": "ThingEventObject",
+        "kind": "object",
+        "usage": ["response"],
+        "unit": "admin",
+        "description": "A thing as a webhook event carries it.",
+        "properties": [
+          { "name": "object", "required": true, "type": { "kind": "string", "const": "thing" }, "discriminatorValue": "thing", "description": "Always `thing`." },
+          { "name": "id", "required": true, "type": { "kind": "string", "format": "uuid" }, "description": "Its identifier." },
+          { "name": "count", "required": true, "type": { "kind": "integer", "format": "int64" } },
+          { "name": "updated_at", "required": true, "type": { "kind": "string", "format": "date-time", "nullable": true } },
+          { "name": "kind", "required": true, "type": { "kind": "ref", "name": "ThingKind" } },
+          { "name": "old", "required": false, "type": { "kind": "string" }, "deprecated": true, "description": "The former name. Use `names` instead." }
+        ]
+      },
+      {
+        "name": "WebhookEventObject",
+        "kind": "union",
+        "usage": ["response"],
+        "unit": "admin",
+        "description": "The object a webhook event carries, told apart by its `object`.",
+        "discriminator": "object",
+        "members": [{ "value": "thing", "type": "ThingEventObject" }]
+      },
+      {
+        "name": "WebhookEventType",
+        "kind": "enum",
+        "usage": ["request", "response"],
+        "unit": "admin",
+        "description": "What happened.",
+        "valueType": "string",
+        "members": [
+          { "value": "thing.created", "name": "WebhookEventTypeThingCreated" },
+          { "value": "thing.updated", "name": "WebhookEventTypeThingUpdated" }
+        ]
+      }
+    ],
+    "webhooks": [
+      {
+        "type": "thing.created",
+        "unit": "admin",
+        "envelope": "WebhookEvent",
+        "object": "ThingEventObject",
+        "summary": "A thing was created.",
+        "description": "A thing was created.\n\n`data.object` is a `Thing`."
+      },
+      {
+        "type": "thing.updated",
+        "unit": "admin",
+        "envelope": "WebhookEvent",
+        "object": "ThingEventObject",
+        "previousAttributes": ["count", "updated_at", "kind", "old"],
+        "summary": "A thing's count, update time, kind or former name changed.",
+        "description": "A thing changed.\n\n`data.object` is a `Thing`."
+      }
+    ]
+  },
+  "tiles": {
+    "origin": "https://tiles.example.com",
+    "operations": [
+      {
+        "operationId": "getSpec",
+        "method": "GET",
+        "path": "/v1/spec",
+        "unit": "core",
+        "scope": "tiles",
+        "idempotent": true,
+        "timeoutMs": 30000,
+        "idempotencyKey": false,
+        "conditional": false,
+        "credentials": {
+          "actingUser": "none",
+          "acceptsShareToken": true,
+          "requiresSession": false,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "pathParameters": [],
+        "queryParameters": [],
+        "headerParameters": [],
+        "success": { "kind": "envelope", "data": { "type": { "kind": "ref", "name": "Spec" } }, "responses": [{ "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }] },
+        "errors": [{ "status": 404 }]
+      }
+    ],
+    "templates": [
+      {
+        "operationId": "getTile",
+        "method": "GET",
+        "path": "/v1/{z}/{x}/{y}",
+        "unit": "core",
+        "scope": "tiles",
+        "idempotent": true,
+        "timeoutMs": 30000,
+        "idempotencyKey": false,
+        "conditional": false,
+        "credentials": {
+          "actingUser": "none",
+          "acceptsShareToken": true,
+          "requiresSession": false,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "pathParameters": [
+          { "name": "y", "type": { "kind": "integer", "format": "int32" } },
+          { "name": "z", "type": { "kind": "integer", "format": "int32" } },
+          { "name": "x", "type": { "kind": "integer", "format": "int32" } }
+        ],
+        "queryParameters": [
+          { "name": "timestamp", "required": false, "type": { "kind": "string", "format": "date-time" } }
+        ],
+        "headerParameters": [],
+        "success": { "kind": "binary", "mediaTypes": ["application/x-protobuf"], "responses": [{ "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }] },
+        "errors": []
+      },
+      {
+        "operationId": "getStyle",
+        "method": "GET",
+        "path": "/v1/style",
+        "unit": "core",
+        "scope": "tiles",
+        "idempotent": true,
+        "timeoutMs": 30000,
+        "idempotencyKey": false,
+        "conditional": false,
+        "credentials": {
+          "actingUser": "none",
+          "acceptsShareToken": true,
+          "requiresSession": false,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "pathParameters": [],
+        "queryParameters": [],
+        "headerParameters": [],
+        "success": {
+          "kind": "binary",
+          "mediaTypes": ["application/json"],
+          "documents": [{ "mediaType": "application/json", "type": { "kind": "ref", "name": "Spec" } }],
+          "responses": [{ "status": 200, "headers": [{ "name": "X-Request-Id", "required": true, "type": { "kind": "string" }, "description": "The request's id." }] }]
+        },
+        "errors": [{ "status": 404 }]
+      }
+    ],
+    "schemas": [
+      {
+        "name": "Error",
+        "kind": "object",
+        "role": "envelope",
+        "usage": ["response"],
+        "unit": "core",
+        "properties": [
+          { "name": "message", "required": true, "type": { "kind": "string" } },
+          {
+            "name": "extensions",
+            "required": true,
+            "type": {
+              "kind": "object",
+              "name": "ErrorExtensions",
+              "properties": [
+                {
+                  "name": "code",
+                  "required": true,
+                  "type": { "kind": "string", "name": "ErrorExtensionsCode", "enum": ["NOT_FOUND", "TILE_GONE"] }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Spec",
+        "kind": "object",
+        "usage": ["response"],
+        "unit": "core",
+        "properties": [{ "name": "url", "required": true, "type": { "kind": "string", "format": "uri" } }]
+      }
+    ]
+  },
+  "data": {
+    "origin": "https://data.example.com",
+    "endpoint": "/graphql",
+    "operations": [
+      {
+        "name": "lookup",
+        "input": "LookupInput",
+        "inputType": "LookupInput!",
+        "resultType": "LookupResult",
+        "scopes": ["DATA"],
+        "timeoutMs": 30000,
+        "credentials": {
+          "actingUser": "none",
+          "acceptsShareToken": false,
+          "requiresSession": true,
+          "requiresSecretKey": false,
+          "takesNoCredential": false,
+          "pendingInvitee": false
+        },
+        "success": { "responses": [{ "status": 200, "headers": [] }] },
+        "selection": [
+          { "name": "items", "fields": [{ "name": "name" }, { "name": "when" }] },
+          { "name": "total" }
+        ],
+        "document": "query Lookup($input: LookupInput!) {\n  lookup(input: $input) {\n    items {\n      name\n      when\n    }\n    total\n  }\n}\n",
+        "description": "Looks things up."
+      }
+    ],
+    "objects": [
+      {
+        "name": "LookupItem",
+        "fields": [
+          { "name": "name", "type": { "kind": "ref", "name": "String", "nullable": true } },
+          { "name": "when", "type": { "kind": "ref", "name": "DateTime", "nullable": true } },
+          { "name": "where", "type": { "kind": "ref", "name": "GeoJSON", "nullable": true } },
+          { "name": "link", "type": { "kind": "ref", "name": "URL" } },
+          { "name": "id", "type": { "kind": "ref", "name": "ID" } },
+          { "name": "score", "type": { "kind": "ref", "name": "Float" } },
+          { "name": "ok", "type": { "kind": "ref", "name": "Boolean" } },
+          { "name": "kind", "type": { "kind": "ref", "name": "LookupKind" }, "deprecated": true }
+        ]
+      },
+      {
+        "name": "LookupResult",
+        "description": "What a lookup found.",
+        "fields": [
+          { "name": "items", "type": { "kind": "array", "items": { "kind": "ref", "name": "LookupItem" } } },
+          { "name": "total", "type": { "kind": "ref", "name": "Int" } },
+          { "name": "grid", "type": { "kind": "array", "items": { "kind": "array", "items": { "kind": "ref", "name": "Float", "nullable": true } } } }
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "name": "LookupInput",
+        "fields": [
+          { "name": "query", "required": true, "type": { "kind": "ref", "name": "String" } },
+          { "name": "limit", "required": false, "type": { "kind": "ref", "name": "Int" }, "default": 10 },
+          { "name": "kinds", "required": false, "type": { "kind": "array", "nullable": true, "items": { "kind": "ref", "name": "LookupKind" } } }
+        ]
+      }
+    ],
+    "enums": [
+      {
+        "name": "ErrorCode",
+        "description": "The vocabulary of `extensions.code` on an error entry.",
+        "members": [
+          { "name": "BAD_REQUEST", "description": "The request was malformed." },
+          { "name": "GRAPHQL_PARSE_FAILED" },
+          { "name": "NOT_FOUND" }
+        ]
+      },
+      {
+        "name": "LookupKind",
+        "members": [
+          { "name": "FAST" },
+          { "name": "SLOW", "deprecated": true, "description": "Slow. Avoid it." },
+          { "name": "ROUND_TRIP" },
+          { "name": "MTB_0" }
+        ]
+      }
+    ],
+    "scalars": [
+      { "name": "Boolean", "builtin": true },
+      { "name": "DateTime", "wire": { "kind": "string", "format": "date-time" } },
+      { "name": "Float", "builtin": true },
+      { "name": "GeoJSON", "wire": { "kind": "geojson", "geometry": "Geometry" } },
+      { "name": "ID", "builtin": true },
+      { "name": "Int", "builtin": true },
+      { "name": "String", "builtin": true },
+      { "name": "URL", "wire": { "kind": "string", "format": "uri" } }
+    ]
+  }
+}

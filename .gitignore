@@ -1,0 +1,28 @@
+# SwiftPM's build directory, which also holds the scratch paths the gates give the Linux
+# containers and the other Apple platforms, and what Xcode writes beside a manifest.
+.build/
+.swiftpm/
+*.xcodeproj/
+xcuserdata/
+DerivedData/
+
+# Trail's Xcode project is committed, the one a developer runs it from; the settings a developer
+# keeps for it, a key among them, never are: Examples/Trail/Config/Local.xcconfig.example is the
+# file to copy.
+!Examples/Trail/Trail.xcodeproj/
+Examples/Trail/Config/Local.xcconfig
+
+# >>> mountaya-ai: local agent state, rendered by ai/scripts/apply.mjs
+.claude/settings.local.json
+.claude/worktrees/
+.claude/.flags/
+.claude/.logs/
+.entire/agent-guide.md
+.playwright-mcp/
+.DS_Store
+.env
+.env.*
+!.env.example
+.claude/scheduled_tasks.lock
+/*/**/.claude/
+# <<< mountaya-ai

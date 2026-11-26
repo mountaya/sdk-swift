@@ -1,0 +1,46 @@
+{
+  "//": "A miniature of sdk/elements/words.json: a section, a group, a template, a counted word, and a word that needs escaping.",
+  "endonyms": {
+    "en": "English",
+    "fr": "Français",
+    "ja": "日本語"
+  },
+  "languages": {
+    "en": {
+      "controls": {
+        "close": "Close",
+        "quote": "Say \"hi\"\\now"
+      },
+      "search": {
+        "resultCount": {
+          "one": "{count} result",
+          "other": "{count} results"
+        }
+      },
+      "tooltips": {
+        "zoomIn": {
+          "description": "Zoom in by one level.",
+          "title": "Zoom in"
+        }
+      }
+    },
+    "fr": {
+      "controls": {
+        "close": "Fermer",
+        "quote": "Dire « salut »"
+      },
+      "search": {
+        "resultCount": {
+          "one": "{count} résultat",
+          "other": "{count} résultats"
+        }
+      },
+      "tooltips": {
+        "zoomIn": {
+          "description": "Zoomer d'un niveau.",
+          "title": "Zoomer"
+        }
+      }
+    }
+  }
+}

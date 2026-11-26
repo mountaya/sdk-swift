@@ -1,0 +1,176 @@
+// Printed by `swift run GenerateClient` from `sdk/model.json`, contract v0.9.0,
+// model digest f9ded6dd4ca71cb8f89c6974c42adec77509ee9a19e5afd01c31b6ea9dcc33ea.
+// Never edit it: a wrong shape is a defect in `mountaya/schemas`, fixed there and printed
+// again. Every name is the contract's, an enum member's by its words (SPEC.md section 3).
+
+import Foundation
+import MountayaClient
+
+extension AdminSchema {
+  /// A webhook endpoint as `postOrganizationWebhookEndpoint` answers it: the
+  /// endpoint, and the secret its deliveries are signed with. This is the one
+  /// answer that carries the secret, and it is never kept for the request's
+  /// `Idempotency-Key`, so store it before anything else.
+  ///
+  /// It prints every property but its secrets, each printed as `<redacted>`, however it is printed
+  /// (`sdk/SPEC.md` §1).
+  public struct WebhookEndpointWithSecret: Sendable, Hashable, Codable,
+    CustomDebugStringConvertible, CustomReflectable
+  {
+    /// Identifier of the endpoint, the `webhook_endpoint_id` a delivery names.
+    public var id: String
+    /// Identifier of the organization the endpoint belongs to.
+    public var organization_id: String
+    /// The URL Mountaya delivers to: `https`, on a host that resolves to a public
+    /// address, answered within 10 seconds. A redirect is never followed.
+    public var url: URI
+    /// What the endpoint is for, as the organization wrote it, null when it has
+    /// none.
+    public var description: String?
+    /// The event types the endpoint is sent: each a member of
+    /// `WebhookEventType`, a family followed by `.*` for every type of the
+    /// family, such as `organization.member.*`, or `*` for every public type,
+    /// those added to the contract later included.
+    public var enabled_events: [String]
+    /// Whether Mountaya delivers to the endpoint.
+    public var status: AdminSchema.WebhookEndpointStatus
+    /// Why the endpoint is disabled, null while it is enabled.
+    public var disabled_reason: AdminSchema.WebhookEndpointDisabledReason?
+    /// When the endpoint was disabled, null while it is enabled.
+    public var disabled_at: Date?
+    /// When the endpoint's run of failed deliveries began, null while its last
+    /// delivery succeeded. At 24 hours Mountaya records
+    /// `organization.webhook_endpoint.failing` and emails the organization's
+    /// owners and admins; at 72 hours it disables the endpoint. A delivery that
+    /// succeeds after the run was reported records
+    /// `organization.webhook_endpoint.recovered`. Read it before enabling a
+    /// disabled endpoint again, which clears it, to redeliver from it.
+    public var failing_since: Date?
+    /// The version of the endpoint, the one the `ETag` of a read of it carries,
+    /// opaque and compared whole. It moves on every change to the endpoint's
+    /// configuration and status, and never with its health: a delivery failing or
+    /// succeeding again moves `failing_since` and leaves it as it is. Send it as
+    /// `If-Match` to make `patchOrganizationWebhookEndpoint` or
+    /// `deleteOrganizationWebhookEndpoint` conditional.
+    public var etag: String
+    /// The member who created the endpoint, null when their account has been
+    /// deleted.
+    public var created_by: RestSchema.RelationToUser?
+    /// When the endpoint was created.
+    public var created_at: Date
+    /// When the endpoint's configuration or status last changed. Its health,
+    /// `failing_since`, does not move it.
+    public var updated_at: Date
+    /// The endpoint's signing secret: `whsk_` and 64 lowercase hexadecimal
+    /// characters. Every delivery's `Mountaya-Signature` is the HMAC-SHA256
+    /// of the delivery keyed by it, as that header says. It is shown here
+    /// once.
+    ///
+    /// It is a secret: the type prints it as `<redacted>` wherever it is printed, in a log, a
+    /// debugger's description or a dump, and a caller reads it as it is.
+    public var secret: String
+
+    /// Creates a `WebhookEndpointWithSecret` from the properties the contract requires, the
+    /// optional ones being set in `configure`.
+    public init(
+      id: String,
+      organization_id: String,
+      url: URI,
+      description: String?,
+      enabled_events: [String],
+      status: AdminSchema.WebhookEndpointStatus,
+      disabled_reason: AdminSchema.WebhookEndpointDisabledReason?,
+      disabled_at: Date?,
+      failing_since: Date?,
+      etag: String,
+      created_by: RestSchema.RelationToUser?,
+      created_at: Date,
+      updated_at: Date,
+      secret: String,
+      configure: (inout Self) -> Void = { _ in }
+    ) {
+      self.id = id
+      self.organization_id = organization_id
+      self.url = url
+      self.description = description
+      self.enabled_events = enabled_events
+      self.status = status
+      self.disabled_reason = disabled_reason
+      self.disabled_at = disabled_at
+      self.failing_since = failing_since
+      self.etag = etag
+      self.created_by = created_by
+      self.created_at = created_at
+      self.updated_at = updated_at
+      self.secret = secret
+      configure(&self)
+    }
+
+    /// Reads a `WebhookEndpointWithSecret` from the JSON object the contract describes.
+    public init(from decoder: any Decoder) throws {
+      let container = try decoder.container(keyedBy: WireKey.self)
+      self.id = try container.decode(String.self, forKey: "id")
+      self.organization_id = try container.decode(String.self, forKey: "organization_id")
+      self.url = try container.decode(URI.self, forKey: "url")
+      self.description = try container.decodeIfPresent(String.self, forKey: "description")
+      self.enabled_events = try container.decode([String].self, forKey: "enabled_events")
+      self.status = try container.decode(AdminSchema.WebhookEndpointStatus.self, forKey: "status")
+      self.disabled_reason = try container.decodeIfPresent(
+        AdminSchema.WebhookEndpointDisabledReason.self, forKey: "disabled_reason")
+      self.disabled_at = try container.decodeWiredIfPresent(Date.self, forKey: "disabled_at")
+      self.failing_since = try container.decodeWiredIfPresent(Date.self, forKey: "failing_since")
+      self.etag = try container.decode(String.self, forKey: "etag")
+      self.created_by = try container.decodeIfPresent(
+        RestSchema.RelationToUser.self, forKey: "created_by")
+      self.created_at = try container.decodeWired(Date.self, forKey: "created_at")
+      self.updated_at = try container.decodeWired(Date.self, forKey: "updated_at")
+      self.secret = try container.decode(String.self, forKey: "secret")
+    }
+
+    /// Writes a `WebhookEndpointWithSecret` as the JSON object the contract describes.
+    public func encode(to encoder: any Encoder) throws {
+      var container = encoder.container(keyedBy: WireKey.self)
+      try container.encode(self.id, forKey: "id")
+      try container.encode(self.organization_id, forKey: "organization_id")
+      try container.encode(self.url, forKey: "url")
+      try container.encodeNullable(self.description, forKey: "description")
+      try container.encode(self.enabled_events, forKey: "enabled_events")
+      try container.encode(self.status, forKey: "status")
+      try container.encodeNullable(self.disabled_reason, forKey: "disabled_reason")
+      try container.encodeWiredNullable(self.disabled_at, forKey: "disabled_at")
+      try container.encodeWiredNullable(self.failing_since, forKey: "failing_since")
+      try container.encode(self.etag, forKey: "etag")
+      try container.encodeNullable(self.created_by, forKey: "created_by")
+      try container.encodeWired(self.created_at, forKey: "created_at")
+      try container.encodeWired(self.updated_at, forKey: "updated_at")
+      try container.encode(self.secret, forKey: "secret")
+    }
+
+    /// debugDescription is the value as a log may show it, which `print`, `String(describing:)` and
+    /// `dump` all write: every property but its secrets, each printed as `<redacted>`.
+    public var debugDescription: String {
+      var fields: [String] = []
+      fields.append("id: \(String(reflecting: self.id))")
+      fields.append("organization_id: \(String(reflecting: self.organization_id))")
+      fields.append("url: \(String(reflecting: self.url))")
+      fields.append("description: \(String(reflecting: self.description))")
+      fields.append("enabled_events: \(String(reflecting: self.enabled_events))")
+      fields.append("status: \(String(reflecting: self.status))")
+      fields.append("disabled_reason: \(String(reflecting: self.disabled_reason))")
+      fields.append("disabled_at: \(String(reflecting: self.disabled_at))")
+      fields.append("failing_since: \(String(reflecting: self.failing_since))")
+      fields.append("etag: \(String(reflecting: self.etag))")
+      fields.append("created_by: \(String(reflecting: self.created_by))")
+      fields.append("created_at: \(String(reflecting: self.created_at))")
+      fields.append("updated_at: \(String(reflecting: self.updated_at))")
+      fields.append("secret: <redacted>")
+      return "WebhookEndpointWithSecret(\(fields.joined(separator: ", ")))"
+    }
+
+    /// customMirror has no children, so `dump` and a debugger's variable view print the redacted
+    /// description rather than the secrets.
+    public var customMirror: Mirror {
+      Mirror(self, children: [], displayStyle: .struct)
+    }
+  }
+}

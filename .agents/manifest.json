@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "mountaya-swift"
+  ],
+  "mcp": [],
+  "permissions": {
+    "deny": [
+      "Bash(mise run release:*)",
+      "Bash(bash scripts/release.sh:*)",
+      "Bash(mise run clean:toolchains:*)",
+      "Bash(bash scripts/clean-toolchains.sh:*)",
+      "Bash(mise run android:packages:*)",
+      "Bash(mise run android:emulator:*)",
+      "Bash(android sdk install:*)",
+      "Bash(sdkmanager:*)",
+      "Bash(avdmanager create:*)",
+      "Edit(./Sources/*/Generated/**)",
+      "Edit(./THIRD-PARTY-NOTICES.txt)",
+      "Edit(./Tests/Consumer/Sources/ReadmeSnippets/ReadmeSnippets.swift)",
+      "Edit(./Tests/BoundaryTests/Baseline/**)"
+    ]
+  },
+  "siblings": [
+    "ai",
+    "schemas"
+  ],
+  "ciJobs": [
+    {
+      "name": "linux",
+      "run": "mise run ci:linux"
+    }
+  ],
+  "mirror": {
+    "tags": [
+      "v*"
+    ]
+  }
+}

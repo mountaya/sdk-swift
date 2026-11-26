@@ -1,0 +1,263 @@
+# The one place a tool version is written for this repository. `mise run ci` is the gate.
+#
+# Swift is installed by mise on Linux only. On macOS the compiler is Xcode's, which mise cannot
+# install and which every Apple platform build goes through, so there the version is asserted
+# by `toolchain:check` instead of installed: a second compiler beside Xcode's would be two
+# toolchains under one pin. The Linux containers take their tag from the same variables.
+#
+# Every pin is the newest stable release that works. Where a newer one exists and does not
+# work, the comment beside the pin names what stops it. `swift_floor` and `min_version` are
+# floors, not pins. A package dependency in Package.swift follows the same rule.
+
+min_version = "2026.9.15"
+
+[vars]
+# The toolchain every gate runs on.
+swift = "6.4.2"
+# The tools version Package.swift declares, which is the oldest toolchain a consumer may
+# build with. The suites run on it in a container, so the floor is a claim something checked.
+swift_floor = "6.2.3"
+xcode = "27.2"
+# The simulator `test:ios`, `test:ios:elements` and `test:trail` run the navigation engine's and
+# the map's renderer tests and Trail's journey on, at the iOS runtime Xcode ships.
+ios_simulator = "iPhone 18 Pro"
+ios_runtime = "27.0"
+
+[tools]
+swift = { version = "{{vars.swift}}", os = ["linux"] }
+# Reads CI's runs and runs its gate on local changes (`depot ci run --workflow .depot/workflows/ci.yml`).
+depot = "2.103.29"
+# Fetches, in CI, the git bundles of the siblings siblings.lock pins (`sh .agents/siblings checkout`).
+oras = "1.4.0"
+
+[tasks."toolchain:check"]
+description = "Refuse a toolchain other than the pinned one"
+run = "bash scripts/check-toolchain.sh {{vars.swift}} {{vars.xcode}}"
+
+# What the builds leave behind in the repository and no longer use: a toolchain's build directory
+# once neither pin names it, a platform build no task makes, and the resolve-only `.build` of the
+# packages under Tests/. The gate runs it first, so a pin that moves frees its old builds. It
+# deletes nothing outside the repository. `mise run clean -- --all` deletes every build directory
+# instead, and `mise run clean -- --dry-run` only lists.
+[tasks.clean]
+description = "Delete what the builds left behind in the repository and no longer use; --all deletes every build directory"
+run = "bash scripts/clean.sh {{vars.swift}} {{vars.swift_floor}}"
+
+# What the Linux runs leave outside the repository: the `swift:<version>-noble` images, in Docker's
+# disk, of a Swift no Mountaya checkout pins any more. It lists them and deletes them only with
+# `-- --yes`, and no task runs it: the images are the machine's, so it is the person's to run, and
+# an agent is denied it.
+[tasks."clean:toolchains"]
+description = "List the Linux images of a Swift no Mountaya checkout pins; -- --yes deletes them. Yours to run, never the gate's"
+run = "bash scripts/clean-toolchains.sh"
+
+[tasks."disk:check"]
+description = "Refuse to start the gate where the disk it builds on lacks room for it"
+run = "bash scripts/check-disk.sh"
+
+[tasks.build]
+description = "Build every target, the tests included"
+run = "swift build --build-tests"
+
+[tasks.test]
+description = "Run every suite on the host"
+run = "swift test --disable-xctest"
+
+# Trail's session server (Examples/Trail/Session), a macOS program over Network.framework, is a
+# package of its own: its tests answer the client through an HTTPExchange of their own and listen
+# on the loopback address, with no network and no live key. The gate runs them after the host
+# suites, on macOS, where it runs.
+[tasks."test:trail:session"]
+description = "The tests of Trail's session server, a package of its own, on macOS"
+run = "swift test --disable-xctest --package-path Examples/Trail/Session --scratch-path .build/trail-session"
+
+[tasks."test:linux"]
+description = "Run every suite in the Linux container at the pinned toolchain"
+run = "bash scripts/test-linux.sh {{vars.swift}}"
+
+[tasks."test:linux:floor"]
+description = "Run every suite in the Linux container at the floor"
+run = "bash scripts/test-linux.sh {{vars.swift_floor}}"
+
+[tasks."build:platforms"]
+description = "Build the shipped targets for iOS, tvOS, watchOS, visionOS and Mac Catalyst"
+run = "bash scripts/build-platforms.sh"
+
+# The voice over the system's speech exists only in an iOS build, whose audio session no other
+# host holds: the root package builds MountayaNavigation for the device, in the platform build's
+# own scratch directory, and for the simulator with its own settings, warnings as errors, and the
+# package of the Speech topic's tests runs them on the simulator. `xcodebuild` would build every
+# test target of the root package for the simulator, the gate's tools among them, which cannot
+# build for iOS, so the tests are a package of their own.
+[tasks."test:ios"]
+description = "Build MountayaNavigation for iOS, and run its Speech tests on the simulator"
+run = [
+  "swift build --target MountayaNavigation --triple arm64-apple-ios --sdk \"$(xcrun --sdk iphoneos --show-sdk-path)\" --scratch-path .build/platforms/ios",
+  "swift build --target MountayaNavigation --triple arm64-apple-ios-simulator --sdk \"$(xcrun --sdk iphonesimulator --show-sdk-path)\" --scratch-path .build/platforms/ios-simulator",
+  "cd Tests/MountayaNavigationTests/Speech && xcodebuild test -scheme speech-Package -destination 'platform=iOS Simulator,name={{vars.ios_simulator}},OS={{vars.ios_runtime}}' -derivedDataPath ../../../.build/speech-derived -collect-test-diagnostics never",
+]
+
+# The map view over MapLibre exists only in an iOS build with the Elements trait. The root package
+# builds MountayaElements with its trait for the device and the simulator with its own settings,
+# warnings as errors, and the package of the Renderer topic's tests, which turns Elements on as a
+# map-only app does, runs them on the simulator. `xcodebuild` cannot turn a root package's trait on.
+[tasks."test:ios:elements"]
+description = "Build MountayaElements for iOS with its trait, and run its Renderer tests on the simulator"
+run = [
+  "swift build --target MountayaElements --traits Elements --triple arm64-apple-ios --sdk \"$(xcrun --sdk iphoneos --show-sdk-path)\" --scratch-path .build/platforms/ios-elements",
+  "swift build --target MountayaElements --traits Elements --triple arm64-apple-ios-simulator --sdk \"$(xcrun --sdk iphonesimulator --show-sdk-path)\" --scratch-path .build/platforms/ios-simulator-elements",
+  "cd Tests/MountayaElementsTests/Renderer && xcodebuild test -scheme renderer-Package -destination 'platform=iOS Simulator,name={{vars.ios_simulator}},OS={{vars.ios_runtime}}' -derivedDataPath ../../../.build/renderer-derived -collect-test-diagnostics never",
+]
+
+# Trail, the sample app (Examples/Trail), walked through the journey of the contract's
+# sdk/trail.yaml by its UI test, on the simulator: no setting, the demo itinerary, Replay at
+# 100 m/s, a waypoint said by its name and the arrival within 30 s of Start. Xcode builds it from
+# Trail.xcodeproj, the project a developer runs it from, at the versions its Package.resolved pins.
+[tasks."test:trail"]
+description = "Trail's journey (sdk/trail.yaml), its UI test on the iOS simulator"
+run = "cd Examples/Trail && xcodebuild test -project Trail.xcodeproj -scheme Trail -destination 'platform=iOS Simulator,name={{vars.ios_simulator}},OS={{vars.ios_runtime}}' -derivedDataPath ../../.build/trail-derived -onlyUsePackageVersionsFromResolvedFile -collect-test-diagnostics never"
+
+# The suites that run on a device: the navigation's voice, the map's renderer, then Trail's
+# journey, each on the iOS simulator `ios_simulator` names. The gate runs it after the host suites.
+[tasks."test:device"]
+description = "The device suites: test:ios, test:ios:elements, then test:trail, on the iOS simulator"
+run = [{ task = "test:ios" }, { task = "test:ios:elements" }, { task = "test:trail" }]
+
+# Trail's session server (sdk/trail.yaml, `trail.session`): it reads MOUNTAYA_PUBLISHABLE_KEY and
+# MOUNTAYA_SECRET_KEY from your shell, refuses to start without either, and answers the app's
+# POST /session on 127.0.0.1:8787 with the session postSession mints, until you stop it.
+[tasks."trail:session"]
+description = "Run Trail's session server on 127.0.0.1:8787, its two keys read from your shell"
+run = "swift run --package-path Examples/Trail/Session --scratch-path .build/trail-session TrailSession"
+
+# What the SDK adds to an app (SPEC.md section 7): Trail, the sample app, built in release for an
+# iOS device, the linker's map of its executable read module by module, and each product's bytes,
+# and each module the SDK brings with its package's version, held to
+# Tests/BoundaryTests/Size/ios.json, measured to the version of sdk/trail.yaml it records. A share
+# that grows past 2% of its baseline or 16 KiB, whichever is larger, fails.
+# MOUNTAYA_SIZE_BASELINE=write records the figures after a deliberate change, or for a new Xcode.
+# It builds for an iOS device, which macOS alone does, so it runs in `ci` and never in the Linux
+# containers.
+[tasks."size:check"]
+description = "What each product adds to Trail, the sample app, in release for iOS, against Tests/BoundaryTests/Size/ios.json, on macOS"
+run = "swift run SizeGate"
+
+# The public API's baselines, Tests/BoundaryTests/Baseline/<Product>.txt, printed again after a
+# deliberate change to the API, on macOS: MountayaNavigation's and MountayaElements' from the
+# consumer built for the iOS simulator with the Elements trait. The diff is the review, and a line
+# removed or changed is a break.
+[tasks."api:update"]
+description = "Print the five products' public API baselines again after a deliberate API change, on macOS"
+run = "swift test --disable-xctest --filter PublicAPITests"
+env = { MOUNTAYA_API_BASELINE = "write" }
+
+# The Swift fences of Markdown documents this repository does not hold, the public docs' pages among
+# them: `mise run snippets -- <file.md> [...]` prints each fence of the files named into
+# .build/snippets, a file of its own, and type-checks it against the consumer package's builds of
+# the products, as the README's snippets build: for the iOS simulator with the Elements trait where
+# it imports a module of an app, MountayaElements, MountayaNavigation, SwiftUI or UIKit, and for
+# macOS otherwise. `<!-- swift:skip <reason> -->` on the line above a fence opts it out. It names
+# each fence that does not compile by its file and line, and ends on how many it compiled and
+# skipped. It reads only the paths it is handed, a relative one from the directory `mise run` was
+# started in, and no gate runs it. It runs on macOS, where Xcode builds both platforms.
+[tasks.snippets]
+description = "Type-check the Swift fences of the Markdown files named after --, against the products for macOS and the iOS simulator, on macOS"
+run = "swift run CompileSnippets"
+
+[tasks."lint:format"]
+description = "Report formatting and style violations; it repairs nothing"
+run = "swift format lint --strict --recursive Package.swift Sources Tests Tools Examples"
+
+[tasks.format]
+description = "Rewrite the sources in place; not part of the gate"
+run = "swift format --in-place --recursive Package.swift Sources Tests Tools Examples"
+
+[tasks.generate]
+description = "Print Sources/MountayaClient/Generated/ and Sources/MountayaAdmin/Generated/ from the contract's sdk/model.json, and Sources/MountayaGeo/Generated/ from its sdk/elements/"
+run = "swift run GenerateClient"
+
+[tasks."generate:check"]
+description = "Fail where the printed files differ from what sdk/model.json prints"
+run = "swift run GenerateClient --check"
+
+[tasks."lint:structure"]
+description = "The layout law of SPEC.md section 6"
+run = "swift run LintFileStructure"
+
+[tasks."lint:naming"]
+description = "The naming law of SPEC.md section 5"
+run = "swift run LintNaming"
+
+[tasks.conformance]
+description = "Run the contract's fixtures; MOUNTAYA_CONFORMANCE_ONLY narrows by id prefix"
+run = "swift test --disable-xctest --filter ConformanceTests"
+
+[tasks."conformance:report"]
+description = "Write sdk/reports/swift.json in the contract checkout, from macOS"
+run = "swift test --disable-xctest --filter ConformanceTests"
+env = { MOUNTAYA_CONFORMANCE_REPORT = "write" }
+
+# A release is a tag, made where the gate can run: no CI runner offers the pinned Xcode, so the
+# preflight runs `mise run ci` itself before anything is committed or tagged.
+# `bash scripts/release.sh --help` says what it refuses and what it does, and `--dry-run` proves
+# all of it but git and the push.
+[tasks.release]
+description = "Release a version: the preflight and the gate, then the changelog, the tag, one atomic push of main and the tag to Entire, and the wait for the mirror"
+run = "bash scripts/release.sh"
+
+# The gate, whole, which runs where you work: no CI runner offers the pinned Xcode, so CI runs its
+# Linux part alone, `ci:linux`. It runs its tasks in order and stops at the first that fails: it
+# deletes what the builds left behind in the repository and no longer use and checks the disk has
+# room for the rest, then the host suites with the capability coverage test among them, Trail's
+# session server's tests, the device suites on the iOS simulator with Trail's journey, the size of
+# Trail, the sample app, in release, then everything CI runs, in the Linux container at the pinned
+# toolchain and at the floor.
+[tasks.ci]
+description = "The gate: every lint, build and suite, on the host, the iOS simulator and the Linux containers, Trail's journey, and the app-size gate"
+run = [
+  { task = "clean" },
+  { task = "disk:check" },
+  { task = "toolchain:check" },
+  { task = "lint:format" },
+  { task = "build" },
+  { task = "generate:check" },
+  { task = "lint:structure" },
+  { task = "lint:naming" },
+  { task = "build:platforms" },
+  { task = "test" },
+  { task = "test:trail:session" },
+  { task = "test:device" },
+  { task = "size:check" },
+  { task = "ci:linux" },
+]
+
+# What CI runs on every push, on a Depot Ubuntu runner (.depot/workflows/ci.yml), and the last part
+# of the gate: everything a Linux host can check, each in the official Swift container. The lints
+# and the printed files' check at the pinned toolchain, then every suite at the pinned toolchain and
+# at the floor, the coverage tests among them, each run's conformance results held to the report
+# the macOS run wrote in the contract checkout. It leaves to the macOS gate, `mise run ci`, what
+# needs Xcode: the toolchain check, the Apple platform builds, the iOS simulator suites, the naming
+# law over the iOS build, the API baselines printed from the consumer, Trail's session server and
+# journey, and the app-size gate.
+[tasks."ci:linux"]
+description = "What CI runs: the lints, the printed files and every suite in the Linux container at the pinned toolchain and the floor, against the conformance report; leaves the Apple platform builds, the iOS simulator suites, the API baselines and the app-size gate to `ci`"
+env = { MOUNTAYA_CONFORMANCE_REPORT = "check" }
+run = [
+  "bash scripts/check-disk.sh",
+  "bash scripts/lint-linux.sh {{vars.swift}}",
+  "bash scripts/test-linux.sh {{vars.swift}}",
+  "bash scripts/test-linux.sh {{vars.swift_floor}}",
+]
+
+[tasks."ci:coverage"]
+description = "The coverage tests alone: every capability has a runner or a scope sentence, every published name is declared, and the swift column follows the scope table"
+run = "swift test --disable-xctest --filter 'everyCapabilityIsRunOrScoped|everyPublishedNameIsDeclared|swiftColumnFollowsTheScopes'"
+
+# What pre-commit runs: formatting and linting. The lint tasks compile their tools once.
+[tasks.lint]
+description = "The format check, the file structure and the naming lints"
+run = [{ task = "lint:format" }, { task = "lint:structure" }, { task = "lint:naming" }]
+
+[tasks."ci:quick"]
+description = "What pre-commit runs: formatting and linting"
+run = [{ task = "lint" }]

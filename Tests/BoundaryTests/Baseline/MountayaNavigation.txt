@@ -1,0 +1,113 @@
+// The public API of MountayaNavigation, printed by BoundaryTests from the compiler's symbol graph.
+// Never edit it: a change to the API is printed again with `mise run api:update`, and the
+// diff is the review. A line removed or changed is a break (SPEC.md section 10).
+DeviceLocationSource  : LocationSource, Observation.Observable, Swift.Sendable
+DeviceLocationSource  @MainActor final class DeviceLocationSource
+DeviceLocationSource.backgroundUpdates  @MainActor let backgroundUpdates: Bool
+DeviceLocationSource.init(rate:backgroundUpdates:onError:)  @MainActor convenience init(rate: LocationRate = .navigation, backgroundUpdates: Bool = false, onError: (@MainActor @Sendable (any Error) -> Void)? = nil)
+DeviceLocationSource.rate  @MainActor let rate: LocationRate
+DeviceLocationSource.recheckPermission()  @discardableResult @MainActor func recheckPermission() -> LocationStanding
+DeviceLocationSource.standing  @MainActor var standing: LocationStanding { get }
+DeviceLocationSource.start(_:)  @MainActor func start(_ deliver: @escaping @MainActor @Sendable ([Double]) throws -> Void)
+DeviceLocationSource.stop()  @MainActor func stop()
+DeviceNavigationEngine  : MountayaGeo.NavigationEngine, Swift.Sendable
+DeviceNavigationEngine  : where Request : Sendable : Observation.Observable
+DeviceNavigationEngine  @MainActor final class DeviceNavigationEngine<Request> where Request : Sendable
+DeviceNavigationEngine.close()  @MainActor func close()
+DeviceNavigationEngine.init(route:location:voice:)  @MainActor init(route: @escaping NavigationRouteSource<Request>, location: any LocationSource = InertLocationSource(), voice: any NavigationVoice = InertNavigationVoice())
+DeviceNavigationEngine.reroute(_:)  @MainActor func reroute(_ request: Request)
+DeviceNavigationEngine.setPosition(_:)  @MainActor func setPosition(_ position: [Double]) throws(PositionError)
+DeviceNavigationEngine.start(_:)  @MainActor func start(_ request: Request)
+DeviceNavigationEngine.state  @MainActor var state: NavigationState { get }
+DeviceNavigationEngine.stop()  @MainActor func stop()
+DeviceNavigationEngine.subscribe()  @MainActor func subscribe() -> AsyncStream<NavigationState>
+InertLocationSource  : LocationSource, Swift.Sendable
+InertLocationSource  @MainActor final class InertLocationSource
+InertLocationSource.init()  @MainActor init()
+InertLocationSource.start(_:)  @MainActor func start(_ deliver: @escaping @MainActor @Sendable ([Double]) throws -> Void)
+InertLocationSource.stop()  @MainActor func stop()
+InertNavigationVoice  : NavigationVoice, Swift.Sendable
+InertNavigationVoice  @MainActor final class InertNavigationVoice
+InertNavigationVoice.hush()  @MainActor func hush()
+InertNavigationVoice.init()  @MainActor init()
+InertNavigationVoice.say(_:)  @MainActor func say(_ instruction: NavigationInstruction)
+LocationAccuracy  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.Sendable
+LocationAccuracy  enum LocationAccuracy
+LocationAccuracy.full  case full
+LocationAccuracy.reduced  case reduced
+LocationAuthorization  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.Sendable
+LocationAuthorization  enum LocationAuthorization
+LocationAuthorization.always  case always
+LocationAuthorization.denied  case denied
+LocationAuthorization.notDetermined  case notDetermined
+LocationAuthorization.restricted  case restricted
+LocationAuthorization.whenInUse  case whenInUse
+LocationError  : Swift.CustomStringConvertible, Swift.Error, Swift.Sendable
+LocationError  struct LocationError
+LocationError.Kind  : Swift.CustomStringConvertible, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+LocationError.Kind  struct Kind
+LocationError.Kind.==(_:_:)  static func == (lhs: LocationError.Kind, rhs: LocationError.Kind) -> Bool
+LocationError.Kind.audioUndeclared  static let audioUndeclared: LocationError.Kind
+LocationError.Kind.backgroundUndeclared  static let backgroundUndeclared: LocationError.Kind
+LocationError.Kind.description  var description: String { get }
+LocationError.Kind.hash(into:)  func hash(into hasher: inout Hasher)
+LocationError.Kind.init(rawValue:)  init(rawValue: String)
+LocationError.Kind.noProvider  static let noProvider: LocationError.Kind
+LocationError.Kind.permissionRevoked  static let permissionRevoked: LocationError.Kind
+LocationError.Kind.platformFailed  static let platformFailed: LocationError.Kind
+LocationError.Kind.providerDisabled  static let providerDisabled: LocationError.Kind
+LocationError.Kind.rawValue  let rawValue: String
+LocationError.cause  let cause: (any Error)?
+LocationError.description  var description: String { get }
+LocationError.init(kind:cause:)  init(kind: LocationError.Kind, cause: (any Error)? = nil)
+LocationError.kind  let kind: LocationError.Kind
+LocationRate  : Swift.CaseIterable, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+LocationRate  enum LocationRate
+LocationRate.init(rawValue:)  init?(rawValue: String)
+LocationRate.navigation  case navigation
+LocationRate.walking  case walking
+LocationSource  @MainActor protocol LocationSource : AnyObject
+LocationSource.follow(_:)  @MainActor func follow(_ route: FollowedRoute?)
+LocationSource.start(_:)  @MainActor func start(_ deliver: @escaping @MainActor @Sendable ([Double]) throws -> Void)
+LocationSource.stop()  @MainActor func stop()
+LocationStanding  : Swift.Equatable, Swift.Hashable, Swift.Sendable
+LocationStanding  struct LocationStanding
+LocationStanding.accuracy  var accuracy: LocationAccuracy
+LocationStanding.authorization  var authorization: LocationAuthorization
+LocationStanding.init(authorization:accuracy:)  init(authorization: LocationAuthorization, accuracy: LocationAccuracy)
+NavigationVoice  @MainActor protocol NavigationVoice : AnyObject
+NavigationVoice.hush()  @MainActor func hush()
+NavigationVoice.say(_:)  @MainActor func say(_ instruction: NavigationInstruction)
+ReplayLocationSource  : LocationSource, Swift.Sendable
+ReplayLocationSource  @MainActor final class ReplayLocationSource
+ReplayLocationSource.follow(_:)  @MainActor func follow(_ route: FollowedRoute?)
+ReplayLocationSource.init(metersPerSecond:interval:clock:)  @MainActor init(metersPerSecond: Double, interval: Duration = .seconds(1), clock: any Clock<Duration> = SuspendingClock())
+ReplayLocationSource.start(_:)  @MainActor func start(_ deliver: @escaping @MainActor @Sendable ([Double]) throws -> Void)
+ReplayLocationSource.stop()  @MainActor func stop()
+SpeechError  : Swift.CustomStringConvertible, Swift.Error, Swift.Sendable
+SpeechError  struct SpeechError
+SpeechError.Kind  : Swift.CustomStringConvertible, Swift.Equatable, Swift.Hashable, Swift.RawRepresentable, Swift.Sendable
+SpeechError.Kind  struct Kind
+SpeechError.Kind.==(_:_:)  static func == (lhs: SpeechError.Kind, rhs: SpeechError.Kind) -> Bool
+SpeechError.Kind.audioRefused  static let audioRefused: SpeechError.Kind
+SpeechError.Kind.description  var description: String { get }
+SpeechError.Kind.engineUnavailable  static let engineUnavailable: SpeechError.Kind
+SpeechError.Kind.hash(into:)  func hash(into hasher: inout Hasher)
+SpeechError.Kind.init(rawValue:)  init(rawValue: String)
+SpeechError.Kind.rawValue  let rawValue: String
+SpeechError.cause  let cause: (any Error)?
+SpeechError.description  var description: String { get }
+SpeechError.init(kind:cause:)  init(kind: SpeechError.Kind, cause: (any Error)? = nil)
+SpeechError.kind  let kind: SpeechError.Kind
+SpeechNavigationVoice  : NavigationVoice, Swift.Sendable
+SpeechNavigationVoice  @MainActor final class SpeechNavigationVoice
+SpeechNavigationVoice.close()  @MainActor func close()
+SpeechNavigationVoice.hush()  @MainActor func hush()
+SpeechNavigationVoice.init(language:fallbackLanguage:onError:words:)  @MainActor init(language: String, fallbackLanguage: String? = nil, onError: (@MainActor @Sendable (any Error) -> Void)? = nil, words: @escaping (NavigationInstruction) -> String?)
+SpeechNavigationVoice.prepare()  @MainActor func prepare() async
+SpeechNavigationVoice.say(_:)  @MainActor func say(_ instruction: NavigationInstruction)
+StreamLocationSource  : LocationSource, Swift.Sendable
+StreamLocationSource  @MainActor final class StreamLocationSource<Positions> where Positions : Sendable, Positions : AsyncSequence, Positions.Element == [Double]
+StreamLocationSource.init(_:onError:)  @MainActor init(_ positions: Positions, onError: (@MainActor @Sendable (any Error) -> Void)? = nil)
+StreamLocationSource.start(_:)  @MainActor func start(_ deliver: @escaping @MainActor @Sendable ([Double]) throws -> Void)
+StreamLocationSource.stop()  @MainActor func stop()

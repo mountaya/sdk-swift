@@ -1,0 +1,40 @@
+{
+  "//": "A miniature of sdk/elements/glyphs.json: two glyphs in the marker set, one in the control set, a drawing painted by a token, a colour and a stroke, and one under an opacity and a drop shadow whose shapes are filled with a gradient and a colour.",
+  "source": { "package": "lucide-static", "version": "1.75.0" },
+  "marker": {
+    "paint": "stroke",
+    "strokeWidth": 2,
+    "viewBox": 24,
+    "glyphs": [
+      { "name": "airport", "lucide": "plane", "markup": "<path d=\"M17.8 19.2 16 11l3.5-3.5\" />" },
+      { "name": "map-pin", "lucide": "map-pin", "markup": "<path d=\"M20 10c0 4.993\" /><circle cx=\"12\" cy=\"10\" r=\"3\" />" }
+    ]
+  },
+  "control": {
+    "paint": "stroke",
+    "strokeWidth": 2,
+    "viewBox": 24,
+    "glyphs": [{ "name": "zoom-in", "lucide": "plus", "markup": "<path d=\"M5 12h14\" /><path d=\"M12 5v14\" />" }]
+  },
+  "artwork": [
+    {
+      "name": "compass-rose",
+      "viewBox": [0, 0, 32, 32],
+      "shapes": [
+        { "markup": "<rect height=\"32\" rx=\"16\" width=\"32\" />", "fill": { "token": "control-bg" } },
+        { "markup": "<path d=\"M16 7 12 16h8z\" />", "fill": { "hex": "#e9501e" } },
+        { "markup": "<path d=\"M16 25 12 16h8z\" />", "fill": { "token": "accent", "opacity": 0.45 }, "stroke": { "hex": "#000000", "opacity": 0.25, "width": 1 } }
+      ]
+    },
+    {
+      "name": "watermark",
+      "viewBox": [0, 0, 138, 58],
+      "opacity": 0.9,
+      "shadow": { "blur": 12.1452, "dx": 0, "dy": 0, "hex": "#000000", "opacity": 0.55 },
+      "shapes": [
+        { "markup": "<path d=\"M22 16h7v7h-7z\" />", "fill": { "linear": { "from": [23.7246, 40.8919], "to": [22.8662, 18.575], "stops": [{ "offset": 0, "hex": "#090b0e" }, { "offset": 1, "hex": "#dddbdc", "opacity": 0.6 }] } } },
+        { "markup": "<path d=\"M49 30h-2l-1-7z\" />", "fill": { "hex": "#ffffff" } }
+      ]
+    }
+  ]
+}

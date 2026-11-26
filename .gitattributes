@@ -1,0 +1,4 @@
+# >>> mountaya-ai: line endings, rendered by ai/scripts/apply.mjs
+* text=auto eol=lf
+*.bat -text
+# <<< mountaya-ai
