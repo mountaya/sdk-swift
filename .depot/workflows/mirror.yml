@@ -2,13 +2,15 @@
 #
 # The read-only public mirror of this repository on GitHub, kept by Depot CI:
 # https://github.com/mountaya/sdk-swift. On every push of main and of a release tag (v*), it pushes
-# Entire's main to the mirror's main, never forced, and every release tag, never moved or deleted.
+# Entire's main to the mirror's main, never forced, and every release tag, never moved or deleted,
+# then makes a GitHub Release of every release tag that has none, named as the tag is.
 # Whichever push starts it, it pushes everything, so a run dropped while it waits behind another
 # loses nothing. Nothing else pushes to the mirror, and a mirror that diverged fails the run rather
 # than being overwritten.
 #
 # Depot secrets and variables it reads, each limited to this repository:
 #   secrets    MIRROR_DEPLOY_KEY, the private half of the mirror's deploy key, which may write
+#              MIRROR_GITHUB_TOKEN, a GitHub token that may write the mirror's contents, for its Releases
 #   variables  MIRROR_URL, the mirror's SSH address
 name: mirror
 on:
@@ -31,9 +33,10 @@ jobs:
         with:
           # Every branch and tag, so Entire's main and every release tag are here whichever push this is.
           fetch-depth: 0
-      - name: Entire's main and every release tag, to the mirror
+      - name: Entire's main and every release tag, to the mirror, and a Release of each
         env:
           MIRROR_DEPLOY_KEY: ${{ secrets.MIRROR_DEPLOY_KEY }}
+          MIRROR_GITHUB_TOKEN: ${{ secrets.MIRROR_GITHUB_TOKEN }}
           MIRROR_URL: ${{ vars.MIRROR_URL }}
         run: |
           set -euo pipefail
@@ -80,6 +83,13 @@ jobs:
               "Compare the two before anything is overwritten: nothing but this workflow pushes to the mirror."
             failed=yes
           fi
+          # A run a tag started holds that tag as its checkout leaves it, pointing at the commit rather than at
+          # the annotated tag Entire holds, which the mirror would then refuse, or keep in place of Entire's. So
+          # every release tag is read again as Entire holds it before any is pushed.
+          git fetch --quiet --force origin 'refs/tags/v*:refs/tags/v*' || {
+            problem "Entire's release tags could not be read." "Re-run this run."
+            exit 1
+          }
           # Every release tag, never moved and never deleted: a tag the mirror holds at another commit stops here.
           if git push "$MIRROR_URL" 'refs/tags/v*:refs/tags/v*'; then
             echo "The mirror holds every release tag (v*)."
@@ -88,4 +98,65 @@ jobs:
               "A published tag stays where it is: release a new version instead of moving one."
             failed=yes
           fi
+          # A GitHub Release for every release tag the mirror holds as Entire does and has none of, oldest
+          # version first: named as the tag is and noted with its message past the first line, the newest
+          # version that is no pre-release marked latest, and never edited or deleted once made. The refs are
+          # pushed above first, so the mirror never waits on this token, which nothing else reads.
+          if [ -z "${MIRROR_GITHUB_TOKEN:-}" ]; then
+            problem "MIRROR_GITHUB_TOKEN is not set: the Depot CI secret holding a GitHub token that may write the contents of https://github.com/mountaya/sdk-swift, as a Release needs." "depot ci secrets add MIRROR_GITHUB_TOKEN --repo mountaya/sdk-swift < <the token's file>" "Then re-run this run: it makes every Release the mirror still lacks."
+            exit 1
+          fi
+          printf 'Authorization: Bearer %s\n' "$MIRROR_GITHUB_TOKEN" >"$ssh_dir/github-auth"
+          # github <curl argument>...: a call to GitHub's API as the token, which stays off the command line.
+          github() {
+            curl --fail --silent --show-error -H @"$ssh_dir/github-auth" -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' "$@"
+          }
+          api=https://api.github.com/repos/mountaya/sdk-swift
+          # The tag of every Release GitHub has, drafts included, a hundred a page.
+          : >"$ssh_dir/released"
+          page=1
+          while :; do
+            github "$api/releases?per_page=100&page=$page" >"$ssh_dir/page" || {
+              problem "GitHub did not list the Releases of https://github.com/mountaya/sdk-swift as MIRROR_GITHUB_TOKEN, as curl says above." "Check that the token has not expired and may write that repository's contents, then re-run this run."
+              exit 1
+            }
+            python3 -c 'import json, sys; [print(release["tag_name"]) for release in json.load(open(sys.argv[1]))]' "$ssh_dir/page" >"$ssh_dir/names"
+            cat "$ssh_dir/names" >>"$ssh_dir/released"
+            [ "$(wc -l <"$ssh_dir/names")" -ge 100 ] || break
+            page=$((page + 1))
+          done
+          git ls-remote --tags "$MIRROR_URL" >"$ssh_dir/mirrored"
+          # Every release tag, oldest version first: a tag's version is what follows its last @, or its v.
+          git tag --list 'v*' | while read -r tag; do
+            version=${tag##*@}
+            printf '%s\t%s\n' "${version#v}" "$tag"
+          done | sort -V -k1,1 | cut -f2 >"$ssh_dir/tags"
+          # The newest version that is no pre-release, which GitHub shows as the latest.
+          newest=""
+          while read -r tag; do
+            version=${tag##*@}
+            case "${version#v}" in *-*) ;; *) newest=$tag ;; esac
+          done <"$ssh_dir/tags"
+          while read -r tag; do
+            grep -qxF "$tag" "$ssh_dir/released" && continue
+            object=$(git rev-parse "refs/tags/$tag")
+            # A tag the mirror refused above, holding it at another object, gets no Release here.
+            grep -qxF "$(printf '%s\trefs/tags/%s' "$object" "$tag")" "$ssh_dir/mirrored" || continue
+            version=${tag##*@}
+            case "${version#v}" in *-*) prerelease=true ;; *) prerelease=false ;; esac
+            if [ "$tag" = "$newest" ]; then latest=true; else latest=false; fi
+            # An annotated tag's message past its first line; a lightweight tag has none of its own.
+            if [ "$(git cat-file -t "$object")" = tag ]; then
+              git tag --list --format='%(contents:body)' "$tag" >"$ssh_dir/notes"
+            else
+              : >"$ssh_dir/notes"
+            fi
+            python3 -c 'import json, sys; tag, notes, prerelease, latest = sys.argv[1:]; print(json.dumps({"tag_name": tag, "name": tag, "body": open(notes).read().strip(), "prerelease": prerelease == "true", "make_latest": latest}))' "$tag" "$ssh_dir/notes" "$prerelease" "$latest" >"$ssh_dir/release"
+            if github -H 'Content-Type: application/json' --data-binary @"$ssh_dir/release" "$api/releases" >/dev/null; then
+              echo "The mirror has a Release of $tag."
+            else
+              problem "GitHub refused the Release of $tag, as curl says above." "Check that MIRROR_GITHUB_TOKEN may write the contents of https://github.com/mountaya/sdk-swift, then re-run this run: it makes every Release the mirror still lacks."
+              failed=yes
+            fi
+          done <"$ssh_dir/tags"
           [ "$failed" = no ]

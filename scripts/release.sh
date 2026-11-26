@@ -445,7 +445,7 @@ message="$(mktemp)"
     inside { print }
   ' CHANGELOG.md | sed '/./,$!d'
 } >"$message"
-git tag --annotate "$tag" --file "$message"
+git tag --annotate --cleanup=verbatim "$tag" --file "$message"
 rm -f "$message"
 ok "Tagged $tag on $(git rev-parse --short=12 HEAD)."
 
