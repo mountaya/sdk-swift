@@ -11,6 +11,8 @@
 #   sh .agents/siblings verify [<commit>...]    pre-push: stop where CI could never fetch a pin those commits carry
 #   sh .agents/siblings at-pins                 before a release: stop unless each sibling is checked out, clean, at its pin
 #   sh .agents/siblings checkout                in CI: fetch each sibling beside this one, at its pin
+#   sh .agents/siblings impact                  the repositories checked out beside this one that the work reaches, and why
+#   sh .agents/siblings gate                    the quick gate of each of them, one at a time, before a change is done
 #
 # pin and sync refuse a sibling with uncommitted or untracked files, and a commit no remote
 # branch holds, because CI can only fetch what was pushed. A pin may name an unreleased commit
@@ -34,9 +36,9 @@
 # running, failed or cancelled, and where depot cannot say.
 # It also stops a pushed commit that carries no siblings.lock, on which CI's checkout stops.
 #
-# at-pins runs before a release commits and tags. It stops unless every sibling is checked out
+# at-pins runs before a release tags. It stops unless every sibling is checked out
 # beside this one, has no uncommitted or untracked files and has its HEAD at its pin, naming each
-# one that does not, so the release commit's pre-commit leaves siblings.lock as it is. It reads
+# one that does not, so the release tags the commit CI tested against those pins. It reads
 # only this machine: no remote, no depot.
 #
 # CI never clones a repository on Entire: a Depot CI job's token reaches only the repository it
@@ -45,6 +47,13 @@
 # Depot CI injects, and checkout fetches the bundle of the commit siblings.lock pins.
 # checkout waits up to SIBLINGS_WAIT_SECONDS (600) for a bundle its sibling's CI has not
 # published yet.
+# impact and gate read every repository of the workspace checked out beside this one. A
+# repository is changed where it has uncommitted or untracked files, commits its upstream branch
+# lacks, or a HEAD other than the commit a repository reading it pins. Every repository that reads
+# a changed one is reached too, transitively, and every one ai renders where ai changed. gate runs,
+# one repository at a time in the order the pins give, its `mise run ci:quick`, the render check
+# where ai changed and `mise run generate:check` where a sibling it reads is reached. It stops
+# while a release runs from a repository checked out beside this one.
 set -eu
 top=$(git rev-parse --show-toplevel 2>/dev/null) || { printf '%s\n' 'Not in a git work tree: .agents/siblings pins the siblings of a clone.' >&2; exit 1; }
 cd "$top"
@@ -449,9 +458,9 @@ status() {
   done
 }
 
-# at_pins: before a release commits and tags, each sibling is checked out, has no uncommitted or
-# untracked files and has its HEAD at its pin, so the release commit's pre-commit leaves siblings.lock
-# as it is. Names every sibling that is not, and what to do, then exits 1. Reads only this machine.
+# at_pins: before a release tags, each sibling is checked out, has no uncommitted or
+# untracked files and has its HEAD at its pin, so the release tags what CI tested against those
+# pins. Names every sibling that is not, and what to do, then exits 1. Reads only this machine.
 at_pins() {
   [ -f "$lock" ] || die "$lock is missing, so CI cannot know which sibling commits to test against." "sh .agents/siblings pin, then commit $lock."
   at_text=$(lock_text)
@@ -591,13 +600,15 @@ ci_run() {
     return 0
   fi
   # Every status: with none named, depot lists queued and running runs alone.
-  if ! ci_out=$("$ci_depot" ci run list --repo "$ci_repo" --sha "$2" --status queued --status running --status finished --status failed --status cancelled -n 1 --output json </dev/null 2>&1); then
+  if ! ci_out=$("$ci_depot" ci run list --repo "$ci_repo" --sha "$2" --status queued --status running --status finished --status failed --status cancelled -n 50 --output json </dev/null 2>&1); then
     ci_why="depot cannot list its CI runs: $(printf '%s\n' "$ci_out" | sed -n 1p)"
     return 0
   fi
-  # One key and its value a line, whether depot prints its JSON over many lines or one: the first
-  # status is the first run's, the latest.
-  ci_out=$(printf '%s\n' "$ci_out" | tr ',{}' '\n\n\n')
+  # Depot lists a run for each push, the latest first, and others on the same commit (a tag's push,
+  # which runs mirror.yml alone, `depot ci run` on uncommitted work, a schedule) that publish no
+  # bundle: CI's is the latest one a push of a branch started. Then one key and its value a line,
+  # whether depot prints its JSON over many lines or one.
+  ci_out=$(printf '%s\n' "$ci_out" | awk 'BEGIN { RS = "}" } /"ref": *"refs\/heads\// && /"trigger": *"push"/ { print; exit }' | tr ',{' '\n\n')
   ci=$(printf '%s\n' "$ci_out" | sed -n 's/^[[:space:]]*"status":[[:space:]]*"\([a-z_]*\)".*/\1/p' | sed -n 1p)
   ci_id=$(printf '%s\n' "$ci_out" | sed -n 's/^[[:space:]]*"run_id":[[:space:]]*"\([^"]*\)".*/\1/p' | sed -n 1p)
   [ -n "$ci" ] || ci=none
@@ -672,6 +683,212 @@ checkout() {
   done
 }
 
+# --- impact and gate: what the work checked out beside this repository reaches -------------------
+
+workspace='ai schemas sdk-typescript sdk-kotlin sdk-swift sdk-dart helix.go platform atlas website gtm'
+here='sdk-swift'
+
+# ws_dir <name>: where <name> is checked out: this clone for its own name, else beside the main
+# worktree of this one, so a linked worktree (an agent's, under .claude/worktrees/) finds them too.
+ws_base=$(dirname "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")")
+ws_dir() { if [ "$1" = "$here" ]; then echo .; else echo "$ws_base/$1"; fi; }
+ws_there() { [ -e "$(ws_dir "$1")/.git" ]; }
+# ws_git <name> <git args...>: git in that clone, with none of the GIT_* variables a hook sets.
+ws_git() {
+  ws_git_dir=$(ws_dir "$1")
+  shift
+  (
+    unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES GIT_NAMESPACE GIT_PREFIX
+    git --no-pager -C "$ws_git_dir" "$@"
+  )
+}
+# ws_pins <name>: each "<sibling> <commit>" the siblings.lock of <name> pins, and ws_reads the siblings alone.
+ws_pins() {
+  ws_pins_file="$(ws_dir "$1")/siblings.lock"
+  [ ! -f "$ws_pins_file" ] || awk '!/^#/ && NF == 2 { print $1, $2 }' "$ws_pins_file"
+}
+ws_reads() { ws_pins "$1" | awk '{ print $1 }'; }
+ws_plural() { if [ "$1" = 1 ]; then echo "1 $2"; else echo "$1 $2s"; fi; }
+# ws_task <name> <task>: whether the mise.toml of <name> declares the task.
+ws_task() { [ -f "$(ws_dir "$1")/mise.toml" ] && grep -Eq "^\[tasks\.(\"$2\"|$2)\][[:space:]]*$" "$(ws_dir "$1")/mise.toml"; }
+# ws_note <name> <why>: one reason <name> is reached, written once. ws_mark <name> <list> adds it to
+# the list, once, and ws_has <name> <list> says whether the list holds it.
+ws_note() { grep -qxF -- "$2" "$ws_tmp/$1" 2>/dev/null || printf '%s\n' "$2" >>"$ws_tmp/$1"; }
+ws_mark() { grep -qxF -- "$1" "$ws_tmp/.$2" 2>/dev/null || printf '%s\n' "$1" >>"$ws_tmp/.$2"; }
+ws_has() { grep -qxF -- "$1" "$ws_tmp/.$2" 2>/dev/null; }
+
+# ws_scan: what the work checked out here reaches, into $ws_tmp. A repository is changed where it
+# has uncommitted or untracked files, commits its upstream branch lacks, or a HEAD other than the
+# commit a repository reading it pins (.changed). It reaches every repository that reads it, and
+# a change to ai every repository ai renders (.reached), in the order their pins give (.order).
+# .missing lists those not checked out beside this one.
+ws_scan() {
+  ws_tmp=$(mktemp -d)
+  trap 'rm -rf "$ws_tmp"' EXIT
+  : >"$ws_tmp/.changed"
+  : >"$ws_tmp/.missing"
+  : >"$ws_tmp/.order"
+  for name in $workspace; do
+    if ! ws_there "$name"; then
+      echo "$name" >>"$ws_tmp/.missing"
+      continue
+    fi
+    n=$(ws_git "$name" --no-optional-locks status --porcelain --untracked-files=normal 2>/dev/null | wc -l | tr -d ' ')
+    if [ "$n" -gt 0 ]; then
+      ws_note "$name" "$(ws_plural "$n" file) uncommitted or untracked"
+      ws_mark "$name" changed
+    fi
+    if upstream=$(ws_git "$name" rev-parse -q --verify '@{upstream}' 2>/dev/null); then
+      n=$(ws_git "$name" rev-list --count "$upstream..HEAD" 2>/dev/null) || n=0
+      if [ "$n" -gt 0 ]; then
+        ws_note "$name" "$(ws_plural "$n" commit) its upstream branch lacks"
+        ws_mark "$name" changed
+      fi
+    fi
+  done
+  for reader in $workspace; do
+    ws_there "$reader" || continue
+    ws_pins "$reader" >"$ws_tmp/.pins"
+    while read -r name pin; do
+      ws_there "$name" || continue
+      at=$(ws_git "$name" rev-parse -q --verify 'HEAD^{commit}' 2>/dev/null) || continue
+      [ "$at" != "$pin" ] || continue
+      ws_note "$name" "HEAD is not the commit $reader pins ($(printf '%s' "$pin" | cut -c1-7))"
+      ws_mark "$name" changed
+    done <"$ws_tmp/.pins"
+  done
+  cp "$ws_tmp/.changed" "$ws_tmp/.reached"
+  # ai renders every repository with a manifest, whether that one pins ai or not.
+  if ws_has ai changed; then
+    for name in $workspace; do
+      if [ "$name" != ai ] && ws_there "$name" && [ -f "$(ws_dir "$name")/.agents/manifest.json" ]; then
+        ws_note "$name" "rendered from ai"
+        ws_mark "$name" reached
+      fi
+    done
+  fi
+  grew=yes
+  while [ "$grew" = yes ]; do
+    grew=no
+    for reader in $workspace; do
+      ws_there "$reader" || continue
+      for name in $(ws_reads "$reader"); do
+        ws_has "$name" reached || continue
+        ws_note "$reader" "reads $name"
+        if ! ws_has "$reader" reached; then
+          ws_mark "$reader" reached
+          grew=yes
+        fi
+      done
+    done
+  done
+  left=""
+  for name in $workspace; do
+    if ws_has "$name" reached; then left="$left $name"; fi
+  done
+  while [ -n "$left" ]; do
+    rest=""
+    placed=no
+    for name in $left; do
+      ready=yes
+      for sibling in $(ws_reads "$name"); do
+        if ws_has "$sibling" reached && ! ws_has "$sibling" order; then ready=no; fi
+      done
+      if [ "$ready" = yes ]; then
+        ws_mark "$name" order
+        placed=yes
+      else
+        rest="$rest $name"
+      fi
+    done
+    # Pins that read each other in a circle: the rest goes in the workspace's order.
+    if [ "$placed" = no ]; then
+      for name in $rest; do ws_mark "$name" order; done
+      break
+    fi
+    left=$rest
+  done
+}
+
+impact() {
+  ws_scan
+  if [ -s "$ws_tmp/.order" ]; then
+    echo "Reached, in the order gate checks them:"
+    while read -r name; do
+      printf '  %-16s %s\n' "$name" "$(paste -s -d ';' "$ws_tmp/$name" | sed 's/;/; /g')"
+    done <"$ws_tmp/.order"
+  else
+    echo "No repository checked out beside this one has work the others have not seen: nothing is reached."
+  fi
+  if [ -s "$ws_tmp/.missing" ]; then echo "Not checked out beside this one, so not looked at: $(paste -s -d ' ' "$ws_tmp/.missing")."; fi
+}
+
+# ws_locked: stops while a release runs from a repository checked out beside this one, whose suites
+# gate would compete with for the machine. A lock whose process is gone is said and passed over.
+ws_locked() {
+  for name in $workspace; do
+    ws_there "$name" || continue
+    lock_dir=$(ws_git "$name" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || continue
+    [ -f "$lock_dir/mountaya/release.lock" ] || continue
+    pid=$(sed -n 's/^pid=//p' "$lock_dir/mountaya/release.lock")
+    if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+      die "A release is running from ../$name (process $pid), and gate would compete with it for this machine." "Run gate again once the release is done."
+    fi
+    printf '! %s names a release that no longer runs: gate goes on.\n' "$lock_dir/mountaya/release.lock" >&2
+  done
+}
+
+# ws_check <name> <label> <command...>: one check gate runs in the clone of <name>. Its output goes
+# to a log, whose last lines are shown where it fails.
+ws_check() {
+  ws_check_name=$1
+  ws_check_label=$2
+  shift 2
+  ws_check_log="$ws_logs/$ws_check_name.$(printf '%s' "$ws_check_label" | tr -c 'A-Za-z0-9._-' '_').log"
+  if (
+    unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES GIT_NAMESPACE GIT_PREFIX
+    cd "$(ws_dir "$ws_check_name")" && "$@"
+  ) >"$ws_check_log" 2>&1 </dev/null; then
+    printf '✓ %-16s %s\n' "$ws_check_name" "$ws_check_label"
+  else
+    printf '✗ %-16s %s, the last lines of %s:\n' "$ws_check_name" "$ws_check_label" "$ws_check_log"
+    tail -n 15 "$ws_check_log" | sed 's/^/    /'
+    ws_failed=$((ws_failed + 1))
+  fi
+}
+
+gate() {
+  ws_locked
+  ws_scan
+  if [ ! -s "$ws_tmp/.order" ]; then
+    echo "No repository checked out beside this one has work the others have not seen: nothing to check."
+    return 0
+  fi
+  ws_logs="$(git rev-parse --path-format=absolute --git-common-dir)/mountaya/gate"
+  rm -rf "$ws_logs"
+  mkdir -p "$ws_logs"
+  ws_failed=0
+  # ai as an absolute path, which each check reaches from the clone it runs in.
+  ws_ai=$(cd "$(ws_dir ai)" 2>/dev/null && pwd) || ws_ai=""
+  for name in $(cat "$ws_tmp/.order"); do
+    if ws_task "$name" ci:quick; then
+      ws_check "$name" "mise run ci:quick" mise run ci:quick
+    else
+      printf '! %-16s declares no ci:quick task, so nothing of its gate is checked\n' "$name"
+    fi
+    if ws_has ai changed && [ -f "$(ws_dir "$name")/.agents/manifest.json" ]; then
+      ws_check "$name" "the render of ai (apply.mjs --check)" mise exec -- node "$ws_ai/scripts/apply.mjs" --check .
+    fi
+    for sibling in $(ws_reads "$name"); do
+      ws_has "$sibling" reached || continue
+      if ws_task "$name" generate:check; then ws_check "$name" "mise run generate:check" mise run generate:check; fi
+      break
+    done
+  done
+  if [ "$ws_failed" -gt 0 ]; then die "$(ws_plural "$ws_failed" check) of gate failed." "Fix each one, then run gate again."; fi
+  echo "Every repository the work reaches passes."
+}
+
 case "${1:-}" in
   pin) shift; pin "$@" ;;
   check) check ;;
@@ -680,6 +897,8 @@ case "${1:-}" in
   verify) shift; verify "$@" ;;
   at-pins) at_pins ;;
   checkout) checkout ;;
+  impact) impact ;;
+  gate) gate ;;
   -h | --help) sed -n '2,/^set -eu$/p' "$0" | sed -n 's/^# \{0,1\}//p' ;;
-  *) die "Usage: sh .agents/siblings pin [<repository>...] | check | status | sync | verify [<commit>...] | at-pins | checkout" ;;
+  *) die "Usage: sh .agents/siblings pin [<repository>...] | check | status | sync | verify [<commit>...] | at-pins | checkout | impact | gate" ;;
 esac

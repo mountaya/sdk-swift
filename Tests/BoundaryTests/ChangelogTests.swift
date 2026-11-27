@@ -72,8 +72,8 @@ struct ChangelogTests {
       """)
   }
 
-  /// The file the package's version is written in, once, which every request names it from and
-  /// `scripts/release.sh` reads it from.
+  /// The file the package's version is written in, once, which every request names it from,
+  /// `scripts/version.sh` writes it to and `scripts/release.sh` reads it from.
   static let identification = "Sources/MountayaClient/Sending/Rules/ClientIdentification.swift"
 
   @Test(

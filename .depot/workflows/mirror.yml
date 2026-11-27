@@ -151,7 +151,25 @@ jobs:
             else
               : >"$ssh_dir/notes"
             fi
-            python3 -c 'import json, sys; tag, notes, prerelease, latest = sys.argv[1:]; print(json.dumps({"tag_name": tag, "name": tag, "body": open(notes).read().strip(), "prerelease": prerelease == "true", "make_latest": latest}))' "$tag" "$ssh_dir/notes" "$prerelease" "$latest" >"$ssh_dir/release"
+            # The notes keep the hard wraps of the changelog they come from, which GitHub shows as line breaks:
+            # each paragraph and list item is joined onto one line, and headings, list markers, tables, quotes
+            # and fenced code stay as written.
+            python3 -c '
+          import json, re, sys
+          tag, notes, prerelease, latest = sys.argv[1:]
+          starts = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s|^\s*(?:#|\||>)")
+          kept = re.compile(r"^\s*(?:#|\||>|```)")
+          lines, fenced = [], False
+          for line in open(notes).read().strip().split("\n"):
+              fence = line.lstrip().startswith("```")
+              if lines and not fenced and not fence and line.strip() and lines[-1].strip() and not starts.match(line) and not kept.match(lines[-1]):
+                  lines[-1] = lines[-1].rstrip() + " " + line.strip()
+              else:
+                  lines.append(line)
+              if fence:
+                  fenced = not fenced
+          print(json.dumps({"tag_name": tag, "name": tag, "body": "\n".join(lines), "prerelease": prerelease == "true", "make_latest": latest}))
+          ' "$tag" "$ssh_dir/notes" "$prerelease" "$latest" >"$ssh_dir/release"
             if github -H 'Content-Type: application/json' --data-binary @"$ssh_dir/release" "$api/releases" >/dev/null; then
               echo "The mirror has a Release of $tag."
             else

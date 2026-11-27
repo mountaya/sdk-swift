@@ -9,8 +9,9 @@ reaches this file only when it changes something a caller can see.
 
 The five products are one release: a tag of this repository versions `MountayaClient`,
 `MountayaAdmin`, `MountayaGeo`, `MountayaNavigation` and `MountayaElements` together, and SwiftPM
-resolves it from the public mirror. `mise run release <version>` moves the notes under `[Unreleased]` to the
-version and its date, and tags it.
+resolves it from the public mirror. `mise run version <version>` moves the notes under
+`[Unreleased]` to the version and its date, and `mise run release <version>` tags the commit that
+holds them, once CI passed on it.
 
 ## [Unreleased]
 

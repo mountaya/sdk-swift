@@ -7,7 +7,11 @@ struct TaskSleeperTests {
   /// A wait long enough that a test which fails to interrupt it is caught by the bound below
   /// instead of passing late.
   private static let longWait: Duration = .seconds(60)
-  private static let promptly: Duration = .seconds(10)
+  /// The bound a cancelled wait ends within: half of `longWait`, which still tells a wait cut short
+  /// from one that slept in full. It is that wide because it measures the cooperative pool as well
+  /// as the sleeper: on Linux, while CPU-heavy suites beside this one saturate the pool, a
+  /// cancellation was measured ending 13 s after the wait began, with nothing blocking it.
+  private static let promptly: Duration = longWait / 2
 
   @Test("it waits at least the duration")
   func waitsAtLeastTheDuration() async throws {

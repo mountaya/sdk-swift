@@ -159,12 +159,14 @@ so the version is asserted rather than installed; the Linux runs use the officia
 the same version.
 
 ```bash
-mise run ci                   # the gate: clean, the disk check, toolchain, lints, builds, every suite with the coverage test, the README's snippets and floors, the hot-path budgets and the Trail scenario, Trail's session server, the device suites with Trail's journey, the size gate, then ci:linux
+mise run ci                   # the gate: ci:local, then ci:linux
+mise run ci:local             # the part CI never runs: clean, the disk check, toolchain, lints, builds, every suite with the coverage test, the README's snippets and floors, the hot-path budgets and the Trail scenario, Trail's session server, the device suites with Trail's journey, the size gate
 mise run ci:quick             # what pre-commit runs: the format check and the layout and naming laws
 mise run lint                 # lint:format, lint:structure and lint:naming
 mise run build                # every target, the tests included
 mise run format               # rewrite the sources in place; not part of the gate
-mise run ci:linux             # what CI runs on every push: the lints and both Linux legs in the container, against the conformance report
+mise run ci:linux             # what CI runs on every push: the release's test, then the lints and both Linux legs in the container, against the conformance report
+mise run test:release         # the release's fixture test: scripts/version.sh and scripts/release.sh against fakes, no network
 mise run clean                # delete what the builds left in the repository and no longer use; `-- --all` every build directory, `-- --dry-run` only lists
 mise run clean:toolchains     # the person's, denied to an agent: list the Linux images of a Swift no checkout pins; `-- --yes` deletes them
 mise run disk:check           # refuse to start the gate where the disk lacks room for it
@@ -189,8 +191,9 @@ mise run api:update           # print the five products' API baselines again aft
 mise run snippets -- <file.md> # type-check the Swift fences of Markdown files outside this repository, the docs' pages among them, on macOS; no gate runs it
 mise run conformance          # only the contract's fixtures
 mise run conformance:report   # writes sdk/reports/swift.json in the contract checkout
-mise run release <version>    # the preflight and the gate, then the changelog, the tag, the push of main and then the tag to Entire, and the wait for the mirror
-mise run release <version> --dry-run  # every check but git's, and the gate; no commit, no tag, no push
+mise run version <version>    # write the release into the files: ClientIdentification.version, the README's install lines, CHANGELOG.md; an agent may run it
+mise run release <version>    # the person's: the checks, ci:local once per commit, the tag, its push alone to Entire, and the wait for the mirror
+mise run release <version> --check  # every check, and what a release would do; it runs, tags and pushes nothing
 ```
 
 - `MOUNTAYA_CONFORMANCE_ONLY=transport.retry` narrows `conformance` to ids with that prefix.
@@ -330,22 +333,29 @@ mise run release <version> --dry-run  # every check but git's, and the gate; no 
   15 GB for a later one (`MOUNTAYA_MIN_FREE_GB` asks for another figure), naming both: a full disk
   stops a build part-way and every other program on the machine that writes. `.build` holds about
   25 GB, so never copy the repository to build it elsewhere: the copy builds its own.
-- A release is a tag, and `mise run release <version>` is the whole of it, the person's to run
-  (`bash scripts/release.sh --help`). Its preflight refuses, each refusal with what to do, a tree
-  that is no git repository, a version that is not MAJOR.MINOR.PATCH, already tagged here or on
-  Entire, or not newer than the newest tag, a mirror that holds the tag or a newer one, a version
-  other than `ClientIdentification.version`, the one every request names in `X-Mountaya-Client`, a
-  tree with changes, a commit that is not `main` at the commit Entire's `main` is at or no `origin`
-  remote, nothing under `CHANGELOG.md`'s `[Unreleased]` and no section of the version's, a sibling
-  that is not clean at its pin (`sh .agents/siblings at-pins`), a licence text that differs from
-  sdk-typescript's, and a failing gate: `mise run disk:check`, then `CI=true mise run ci`.
-  It then says what it will do and asks, moves the notes to the version and its date in a commit of
-  their own, tags `v<version>`, pushes `main` at that commit to Entire and then the tag (Entire
-  takes no atomic push), and waits, ten minutes at most, until the GitHub mirror lists the tag.
-  Nothing pushes to the mirror by hand: `.depot/workflows/mirror.yml`, rendered by `ai`, pushes
-  every push of `main` and every `v*` tag from Entire. `--dry-run` runs every check but git's, and
-  the gate, and pushes nothing; `--skip-gate` leaves the gate out of a dry run and is refused
-  without one.
+- A release is a tag, in three steps. `mise run version <version>` (`scripts/version.sh`) writes it
+  into the files, `ClientIdentification.version`, the one every request names in
+  `X-Mountaya-Client`, the README's install lines and `CHANGELOG.md`'s `[Unreleased]` notes, dated
+  under the version; it edits files alone, so an agent may run it, and run again it changes
+  nothing. The person commits that as `version: Release v<version>` and pushes `main`, and CI runs
+  on it. Then `mise run release <version>`, the person's alone (`bash scripts/release.sh --help`),
+  refuses, every refusal told together and each with what to do: a tree that is no clean `main` at
+  the commit Entire's `main` is at, a version that is not MAJOR.MINOR.PATCH or not newer than every
+  `v*` tag here, on Entire and on the mirror, a tag of it anywhere but on this commit, CI not
+  finished green on the commit (Depot), a version other than `ClientIdentification.version` or the
+  README's install lines, no dated `CHANGELOG.md` section of it, a sibling that is not clean at its
+  pin (`sh .agents/siblings at-pins`), a licence text that differs from sdk-typescript's, and, while
+  `ci:local` has not passed on the commit, no booted simulator of the one `mise.toml` names.
+  `--check` stops there and changes nothing. It then says what it will do and asks, runs
+  `mise run disk:check` and `CI=true mise run ci:local` unless they passed here on the commit
+  already (a marker under `.git/mountaya/release/`), tags `v<version>`, annotated, with the
+  version's section as its message, pushes the tag alone to Entire, and waits, ten minutes at most,
+  until the GitHub mirror lists it: the tag is the publish. It makes no commit and pushes no
+  branch, and every step reads where it stands from the clone and the remotes, so run again after a
+  stop it resumes. Nothing pushes to the mirror by hand: `.depot/workflows/mirror.yml`, rendered by
+  `ai`, pushes every push of `main` and every `v*` tag from Entire, and makes the tag's GitHub
+  Release. `mise run test:release` (`scripts/test-release.sh`), which `ci:linux` runs, holds both
+  scripts to all of it against fakes.
 
 **No failure is expected.** Every case of every runner passes on macOS, on the iOS simulator and
 in both Linux containers, and so does `every capability has a runner or a scope sentence`: every
@@ -366,7 +376,9 @@ a label changed, moves its name in the `swift` column, in `schemas`.
 Package.swift                       five products, MountayaClient, MountayaAdmin, MountayaGeo, MountayaNavigation and MountayaElements, whose view is behind the Elements trait
 LICENSE.txt, LICENCE.fr.txt         the Mountaya SDK License 1.0, verbatim, the TypeScript packages' own
 CHANGELOG.md                        the package's versions, [Unreleased] first; held to the products' names by BoundaryTests
-scripts/release.sh                  `mise run release`: the preflight, the gate, the changelog, the tag, its push and the wait for the mirror
+scripts/version.sh                  `mise run version`: the version written into ClientIdentification.version, the README and CHANGELOG.md
+scripts/release.sh                  `mise run release`: the checks, ci:local once per commit, the tag, its push and the wait for the mirror
+scripts/test-release.sh             `mise run test:release`: both scripts against fakes, in a scratch workspace, which `ci:linux` runs
 scripts/clean.sh                    `mise run clean`: what the builds left in the repository and no longer use, the gate's first step
 scripts/clean-toolchains.sh         `mise run clean:toolchains`, the person's: the Linux images of a Swift no checkout pins
 scripts/test-linux.sh, lint-linux.sh  the suites and the lints in the Linux container, which `ci:linux` runs
@@ -477,18 +489,23 @@ coverage tests then stop listing it, once the API baselines are printed again.
 
 Ask Entire Graph before searching by hand: `entire graph query --profile full "<the task in one sentence>"` finds the code for a task, and `entire graph impact --symbol <name>` shows what a change to a symbol reaches. `entire graph agent-guide` is the reference for the installed version; the `graph-first` skill says when to use which.
 
+<!-- entire-agent:begin -->
 ### Memory of past work
 
 - Start a substantial task with `entire brain brief "<task>" --json`. Look for earlier work with `entire search "<topic>" --compact`, and across every Mountaya repository with `entire brain workspace query mountaya "<query>"`.
-- Record a decision, gotcha or invariant the code cannot show with `entire brain remember "<fact>" --kind decision|gotcha|invariant --path <path>`, and read them back with `entire brain recall "<query>"`. A fact about the repository goes to Brain, which every agent shares; an agent's own memory is for the person's preferences.
+- Record a decision, gotcha or invariant the code cannot show with `entire brain remember "<fact>" --kind decision|gotcha|invariant`, and read them back with `entire brain recall "<query>"`. `--path` takes a taxonomy path (`architecture.billing.decision`), never a file; `recall --locus <file or symbol>` narrows to code. A fact about the repository goes to Brain, which every agent shares; an agent's own memory is for the person's preferences.
+- Brain records into the repository the command runs in, and Entire records a session in the repository its working directory is in. So a session that changes a sibling works inside it: `cd ../<repo>` stays there for a session that lists it among its working directories, as platform's lists every sibling, Entire then records the session there too, and the commit the person makes there links its checkpoint. Read the sibling's AGENTS.md before changing it, since its rules do not load from here. A fact about a sibling is recorded from inside it (`cd ../<repo> && entire brain remember ...`), and one that holds in every repository with `--global`.
 - Before changing a line you do not understand, ask `entire why <file>:<line>`: it names the commit, the checkpoint and the prompt behind it.
 - Brain and checkpoints say what was decided and what went wrong before. Current source and a passing test outrank both.
-- `entire brain setup` without `--no-backfill --no-daemon` installs a background service and spends model tokens distilling past sessions. Choose that deliberately.
+- `entire brain setup` without `--no-backfill --no-daemon` installs a background service and spends model tokens distilling past sessions. Choose that deliberately: `entire brain workspace watch mountaya` keeps every brain of the workspace fresh and spends none.
+<!-- entire-agent:end -->
 
 ### Review and CI
 
+- Before you report a change done, run `sh .agents/siblings gate`. It runs the quick gate (`mise run ci:quick`) of every repository checked out beside this one that the change reaches, one at a time, with the render check of each one ai renders where ai changed and `mise run generate:check` where a sibling it reads changed; `sh .agents/siblings impact` lists them first, and why. A change to ai or schemas is done once every repository it reaches passes.
 - CI runs on Depot for every push to Entire (`.depot/workflows/ci.yml`): `mise run ci:linux`, part of the gate, as one job, a check on the commit. The whole gate, `mise run ci` (tests and the build), runs only where you work. Pre-commit runs formatting and linting (`mise run ci:quick`). Run the gate yourself before you report a change done. `depot ci run list` and `depot ci logs <run>` read CI's runs, and `depot ci run --workflow .depot/workflows/ci.yml` runs CI's part on your uncommitted changes.
-- CI builds against the sibling commits `siblings.lock` pins, fetched as the bundles each sibling's own CI publishes on every push. Pre-commit stops while any sibling checked out beside this one has uncommitted or untracked files or a HEAD no remote branch holds, naming each one and what to do. It then pins each sibling whose HEAD moved forward and stages the lock, so a commit pins the sibling commits it was tested against: it stops on a HEAD behind or diverged from its pin, it keeps the pins of a commit that changes the lock itself or concludes a merge, and `SIBLINGS_ALLOW_DRIFT=<name>` leaves a pin where it is, never past uncommitted or unpushed work. Pre-push stops a push whose commit carries no lock, which CI's checkout stops on, or whose pin no remote branch holds or its sibling's CI never ran on, so no bundle of it exists. `sh .agents/siblings status` shows each pin beside its sibling's HEAD and CI run, `sh .agents/siblings pin` moves pins by hand, and `sh .agents/siblings at-pins`, which a release runs before it commits and tags, stops unless every sibling is checked out, clean and at its pin.
+- CI builds against the sibling commits `siblings.lock` pins, fetched as the bundles each sibling's own CI publishes on every push. Pre-commit stops while any sibling checked out beside this one has uncommitted or untracked files or a HEAD no remote branch holds, naming each one and what to do. It then pins each sibling whose HEAD moved forward and stages the lock, so a commit pins the sibling commits it was tested against: it stops on a HEAD behind or diverged from its pin, it keeps the pins of a commit that changes the lock itself or concludes a merge, and `SIBLINGS_ALLOW_DRIFT=<name>` leaves a pin where it is, never past uncommitted or unpushed work. Pre-push stops a push whose commit carries no lock, which CI's checkout stops on, or whose pin no remote branch holds or its sibling's CI never ran on, so no bundle of it exists. `sh .agents/siblings status` shows each pin beside its sibling's HEAD and CI run, `sh .agents/siblings pin` moves pins by hand, and `sh .agents/siblings at-pins`, which a release runs before it tags, stops unless every sibling is checked out, clean and at its pin.
+- A release of this repository runs with the rest of the workspace's, from ../platform (`mise run release`), and is a person's. `mise run version <X.Y.Z>` writes it into the files, and an agent may run it; `mise run ci:local` is the part of the gate CI cannot run, which the release runs on the commit it tags; `mise run release <X.Y.Z>` tags the pushed commit CI passed, publishes what a registry lacks and waits for the mirror, and run again it resumes where it stopped.
 - Every push of `main` and of a release tag (`v*`) also reaches the read-only public mirror, https://github.com/mountaya/sdk-swift, which Depot CI pushes (`.depot/workflows/mirror.yml`) and nothing else does. Published metadata and links for readers name the mirror; contributors clone, push and review here.
 - Review happens on Entire trails. Read one with `entire trail show <number>` and answer its findings with `entire trail finding` (the `address-findings` skill). Creating, approving and merging a trail is the person's.
 - Entire's repository, trail, login and setup commands are the person's too: suggest them, never run them.
@@ -497,7 +514,7 @@ Ask Entire Graph before searching by hand: `entire graph query --profile full "<
 
 Claude Code: model `claude-opus-5-5`, effort `xhigh`, plugins `mountaya-core@mountaya`, `entire@entire-skills`, `mountaya-swift@mountaya`, all set in `.claude/settings.json`.
 
-Any other agent: the same conventions are plain skills in the `mountaya/ai` repository (https://entire.com/et/mountaya/ai), installed for your user (`-g`) rather than into this repository. `sh .agents/setup` does it for Codex and Cursor; by hand, from a checkout beside this one:
+Any other agent: the same conventions are plain skills in the `mountaya/ai` repository (https://github.com/mountaya/ai), installed for your user (`-g`) rather than into this repository. `sh .agents/setup` does it for Codex and Cursor; by hand, from a checkout beside this one:
 
 ```bash
 npx skills add ../ai -g --skill graph-first --skill retrieve-via-ctx --skill swift-conventions

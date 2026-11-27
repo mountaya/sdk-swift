@@ -11,9 +11,9 @@ enum ClientIdentification {
   /// header is the name of the header.
   static let header = "X-Mountaya-Client"
 
-  /// version is this package's version, and the one place the source writes it. A release
-  /// refuses a version other than this one (`scripts/release.sh`), so the version is moved here,
-  /// in a commit of its own, before the tag that releases it.
+  /// version is this package's version, and the one place the source writes it:
+  /// `mise run version <X.Y.Z>` writes it here (`scripts/version.sh`), in the commit the release
+  /// then tags, and the release refuses a version other than this one (`scripts/release.sh`).
   static let version = "0.1.0"
 
   /// value is what the header carries.

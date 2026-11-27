@@ -197,23 +197,38 @@ description = "Write sdk/reports/swift.json in the contract checkout, from macOS
 run = "swift test --disable-xctest --filter ConformanceTests"
 env = { MOUNTAYA_CONFORMANCE_REPORT = "write" }
 
-# A release is a tag, made where the gate can run: no CI runner offers the pinned Xcode, so the
-# preflight runs `mise run ci` itself before anything is committed or tagged.
-# `bash scripts/release.sh --help` says what it refuses and what it does, and `--dry-run` proves
-# all of it but git and the push.
+# A release written into the files, the first of its three commands: `ClientIdentification.version`,
+# the README's install lines and CHANGELOG.md's [Unreleased] notes, dated under the version. It
+# edits files alone, so an agent may run it, and run again it changes nothing. The person commits
+# what it wrote as "version: Release v<X.Y.Z>" and pushes main, and CI runs on that commit.
+[tasks.version]
+description = "Write a release into the files: ClientIdentification.version, the README's install lines and CHANGELOG.md; no git"
+run = "bash scripts/version.sh"
+
+# A release is a tag of the pushed commit CI passed, made where the rest of the gate can run: no CI
+# runner offers the pinned Xcode, so the release runs `ci:local` itself, once per commit, before it
+# tags. It makes no commit and pushes no branch, and run again it resumes where it stopped.
+# `bash scripts/release.sh --help` says what it refuses and what it does, and `--check` runs every
+# check and changes nothing.
 [tasks.release]
-description = "Release a version: the preflight and the gate, then the changelog, the tag, the push of main and then the tag to Entire, and the wait for the mirror"
+description = "Release the version of the pushed commit CI passed: the checks, ci:local once per commit, the tag, its push to Entire, and the wait for the mirror SwiftPM resolves from"
 run = "bash scripts/release.sh"
 
-# The gate, whole, which runs where you work: no CI runner offers the pinned Xcode, so CI runs its
-# Linux part alone, `ci:linux`. It runs its tasks in order and stops at the first that fails: it
-# deletes what the builds left behind in the repository and no longer use and checks the disk has
-# room for the rest, then the host suites with the capability coverage test among them, Trail's
-# session server's tests, the device suites on the iOS simulator with Trail's journey, the size of
-# Trail, the sample app, in release, then everything CI runs, in the Linux container at the pinned
-# toolchain and at the floor.
-[tasks.ci]
-description = "The gate: every lint, build and suite, on the host, the iOS simulator and the Linux containers, Trail's journey, and the app-size gate"
+# The release's own test: scripts/version.sh and scripts/release.sh run in a scratch copy of the
+# files they read, against bare repositories for Entire and the mirror and stand-ins for depot,
+# mise and xcrun, so it needs no network, no Xcode and no registry. `ci:linux` runs it, so CI does.
+[tasks."test:release"]
+description = "The release's fixture test: scripts/version.sh and scripts/release.sh against fakes, with no network, on macOS and Linux"
+run = "bash scripts/test-release.sh"
+
+# The part of the gate CI never runs, which needs this Mac and the pinned Xcode, and which a
+# release runs before it tags, once per commit. It runs its tasks in order and stops at the first
+# that fails: it deletes what the builds left behind in the repository and no longer use and checks
+# the disk has room for the rest, then the host suites with the capability coverage test among
+# them, Trail's session server's tests, the device suites on the iOS simulator with Trail's journey,
+# and the size of Trail, the sample app, in release.
+[tasks."ci:local"]
+description = "The part of the gate CI never runs: the toolchain, the lints, the builds and the host suites on macOS, the Apple platform builds, the iOS simulator suites with Trail's journey, and the app-size gate"
 run = [
   { task = "clean" },
   { task = "disk:check" },
@@ -228,22 +243,28 @@ run = [
   { task = "test:trail:session" },
   { task = "test:device" },
   { task = "size:check" },
-  { task = "ci:linux" },
 ]
 
+# The gate, whole, which runs where you work: `ci:local`, the part that needs the pinned Xcode, which
+# no CI runner offers, then everything CI runs, `ci:linux`. It stops at the first that fails.
+[tasks.ci]
+description = "The gate: ci:local, every lint, build and suite on the host and the iOS simulator, Trail's journey and the app-size gate, then ci:linux, the Linux containers and the release's test"
+run = [{ task = "ci:local" }, { task = "ci:linux" }]
+
 # What CI runs on every push, on a Depot Ubuntu runner (.depot/workflows/ci.yml), and the last part
-# of the gate: everything a Linux host can check, each in the official Swift container. The lints
-# and the printed files' check at the pinned toolchain, then every suite at the pinned toolchain and
-# at the floor, the coverage tests among them, each run's conformance results held to the report
-# the macOS run wrote in the contract checkout. It leaves to the macOS gate, `mise run ci`, what
-# needs Xcode: the toolchain check, the Apple platform builds, the iOS simulator suites, the naming
-# law over the iOS build, the API baselines printed from the consumer, Trail's session server and
-# journey, and the app-size gate.
+# of the gate: everything a Linux host can check. The release's fixture test on the host first,
+# then, each in the official Swift container, the lints and the printed files' check at the pinned
+# toolchain, then every suite at the pinned toolchain and at the floor, the coverage tests among
+# them, each run's conformance results held to the report the macOS run wrote in the contract
+# checkout. It leaves to `ci:local` what needs Xcode: the toolchain check, the Apple platform
+# builds, the iOS simulator suites, the naming law over the iOS build, the API baselines printed
+# from the consumer, Trail's session server and journey, and the app-size gate.
 [tasks."ci:linux"]
-description = "What CI runs: the lints, the printed files and every suite in the Linux container at the pinned toolchain and the floor, against the conformance report; leaves the Apple platform builds, the iOS simulator suites, the API baselines and the app-size gate to `ci`"
+description = "What CI runs: the release's test, then the lints, the printed files and every suite in the Linux container at the pinned toolchain and the floor, against the conformance report; leaves the Apple platform builds, the iOS simulator suites, the API baselines and the app-size gate to `ci:local`"
 env = { MOUNTAYA_CONFORMANCE_REPORT = "check" }
 run = [
   "bash scripts/check-disk.sh",
+  { task = "test:release" },
   "bash scripts/lint-linux.sh {{vars.swift}}",
   "bash scripts/test-linux.sh {{vars.swift}}",
   "bash scripts/test-linux.sh {{vars.swift_floor}}",

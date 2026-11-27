@@ -4,7 +4,7 @@ The documentation is at [docs.mountaya.com/en/sdks/swift](https://docs.mountaya.
 installing the package, a first map, the client, the map's elements and navigation, a page each.
 
 Mountaya's Swift SDK, written against contract v0.9.0 of
-[`mountaya/schemas`](https://entire.com/et/mountaya/schemas). It declares five products, the units every Mountaya SDK shares, each listed
+[`mountaya/schemas`](https://github.com/mountaya/schemas). It declares five products, the units every Mountaya SDK shares, each listed
 with its TypeScript twin in [the API by capability](https://docs.mountaya.com/en/sdks/swift/reference/api/).
 The first three run on iOS, iPadOS, macOS, Mac Catalyst, tvOS, watchOS, visionOS and Linux:
 
@@ -1719,7 +1719,7 @@ What working on this repository needs. Using the SDK needs none of it: see [Inst
 | Swift | Xcode on macOS, installed by hand; pinned in `mise.toml` on Linux | Everything |
 | xcodebuild, xcrun | come with Xcode, at the version `mise.toml` names | `scripts/check-toolchain.sh`, `scripts/build-platforms.sh` and the size gate, `Tools/SizeGate` |
 | Docker | Docker Desktop, installed by hand | `scripts/test-linux.sh` and `scripts/lint-linux.sh`, the suites and the lints on Linux, in the gate and in CI |
-| git, mise | git comes with Xcode's command line tools; `sh .agents/setup` installs mise | `scripts/release.sh`, a release: the tag, its push, and the questions it asks Entire and the GitHub mirror |
+| git, mise | git comes with Xcode's command line tools; `sh .agents/setup` installs mise | `scripts/release.sh`, a release: the tag, its push, and the questions it asks Entire, the GitHub mirror and Depot, which `mise.toml` pins |
 
 ## Setup
 
@@ -1737,10 +1737,12 @@ sh .agents/setup --check   # what is missing, changing nothing
 | `mise run build` | Every target, the tests included |
 | `mise run format` | `swift format` over the tree |
 | `mise run ci:quick` | What pre-commit runs: `lint` |
-| `mise run ci` | The gate: the toolchain, the lints, the builds and every suite, the coverage tests of the capabilities and of the names the registry publishes for Swift, the hot-path budgets the contract lists for Swift, this README's snippets and floors table and the `mountaya-sdk-swift` skill's, the device suites on the iOS simulator, the size of an iOS app and the Linux containers included. It first deletes what the builds left in the repository and no longer use, and stops where the disk lacks room |
+| `mise run ci` | The gate: `ci:local`, then `ci:linux` |
+| `mise run ci:local` | The part of the gate CI never runs: the toolchain, the lints, the builds and every suite on macOS, the coverage tests of the capabilities and of the names the registry publishes for Swift, the hot-path budgets the contract lists for Swift, this README's snippets and floors table and the `mountaya-sdk-swift` skill's, the device suites on the iOS simulator and the size of an iOS app. It first deletes what the builds left in the repository and no longer use, and stops where the disk lacks room |
 | `mise run clean` | Delete what the builds left in the repository and no longer use: the build directories of a Swift no pin names, and nothing outside the repository. `mise run clean -- --all` deletes every build directory, `-- --dry-run` only lists |
 | `mise run clean:toolchains` | Yours to run, never the gate's, and denied to an agent: list the Linux images, `swift:<version>-noble`, of a Swift no Mountaya checkout pins any more, which live in Docker's disk outside the repository. `mise run clean:toolchains -- --yes` deletes them |
-| `mise run ci:linux` | What CI runs on every push, and the gate last: the lints, the printed files and every suite in the Linux containers, each run held to the conformance report. It leaves the Apple platform builds, the iOS simulator suites, the API baselines and the size gate to `mise run ci` |
+| `mise run ci:linux` | What CI runs on every push, and the gate last: the release's test, then the lints, the printed files and every suite in the Linux containers, each run held to the conformance report. It leaves the Apple platform builds, the iOS simulator suites, the API baselines and the size gate to `mise run ci:local` |
+| `mise run test:release` | The release's fixture test: `scripts/version.sh` and `scripts/release.sh` against bare repositories and stand-ins for depot, mise and xcrun, with no network, on macOS and Linux |
 | `mise run test:device` | The device suites on the iOS simulator: `test:ios`, `test:ios:elements`, then `test:trail` |
 | `mise run test:ios` | `MountayaNavigation` built for iOS, and its voice's tests on the iOS simulator |
 | `mise run test:ios:elements` | `MountayaElements` built for iOS with its trait, and its Renderer tests on the iOS simulator |
@@ -1751,8 +1753,9 @@ sh .agents/setup --check   # what is missing, changing nothing
 | `mise run test:linux` | The suites in the Linux container at the pinned Swift; `test:linux:floor` at the oldest Swift the package supports |
 | `mise run api:update` | Print each product's public API baseline, `Tests/BoundaryTests/Baseline/<Product>.txt`, again after a deliberate change to the API, on macOS; the diff is the review |
 | `mise run snippets -- <file.md> [...]` | Type-check the Swift fences of Markdown files this repository does not hold, the public docs' pages among them, against the products, on macOS: each fence printed under `.build/snippets` as a file of its own, `<!-- swift:skip <reason> -->` above it opting it out, checked for the iOS simulator with the `Elements` trait where it imports `MountayaElements`, `MountayaNavigation`, `SwiftUI` or `UIKit`, and for macOS otherwise. It names each fence that fails by its file and line, ends on how many it compiled and skipped, and reads only the paths it is handed |
-| `mise run release <version>` | A release: the preflight, every sibling clean at its pin among it, and the gate, then `CHANGELOG.md`, the tag `v<version>`, a push of `main` to Entire and then of the tag, since Entire takes no atomic push, and a wait until the GitHub mirror lists the tag, which the Depot workflow `mirror.yml` pushes there from Entire |
-| `mise run release <version> --dry-run` | Every check of the release but git's, and the gate (`--skip-gate` leaves it out); no commit, no tag and no push |
+| `mise run version <version>` | A release written into the files: `ClientIdentification.version`, this README's install lines, and `CHANGELOG.md`'s `[Unreleased]` notes dated under the version. It edits files alone, and run again it changes nothing. Commit it as `version: Release v<version>` and push `main`, and CI runs on it |
+| `mise run release <version>` | Yours to run, once CI passed on that pushed commit: every check, every sibling clean at its pin among them, then `ci:local` unless it passed on the commit already, the tag `v<version>` on it, a push of the tag alone to Entire, and a wait until the GitHub mirror lists the tag, which the Depot workflow `mirror.yml` pushes there from Entire. It makes no commit and pushes no branch, and run again after a stop it resumes |
+| `mise run release <version> --check` | Every check of the release, and what it would do; it runs, tags and pushes nothing |
 
 Pre-commit runs `mise run ci:quick`, and CI runs `mise run ci:linux` on every push to Entire. The
 rest of the gate needs Xcode, which no CI runner here offers, so run `mise run ci` yourself before

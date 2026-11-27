@@ -4613,27 +4613,32 @@ repository to build it elsewhere.
   the simulator's included (§7). No CI runner carries the pinned Xcode, so what needs it, the
   Apple platform builds, the iOS simulator suites and the six hot-path budgets they run, the naming
   law over the iOS build, the API baselines, the skill's snippets type-checked for iOS and the
-  app-size gate, which builds for an iOS device (§7), runs in `mise run ci` alone, on macOS, which
-  runs `ci:linux` last.
-- **A release is `mise run release <version>`, run where the gate can run.** No CI runner carries
-  the pinned Xcode, so the release's own preflight runs the gate, last, once nothing else has
-  refused: `mise run disk:check` on its own, since it passes under CI without looking, then
-  `CI=true mise run ci`. Each refusal says what to do, all of them told together: a tree that is
-  no git repository; a version that is not MAJOR.MINOR.PATCH, tagged already here or on Entire, or
-  not newer than the newest `v*` tag; a mirror that holds the version's tag or a newer one, asked
-  over https; a version other than the one every request names, `ClientIdentification.version`; a
-  tree with changes; a commit that is not `main` at the commit Entire's `main` is at, or no
-  `origin` remote; nothing under `CHANGELOG.md`'s `[Unreleased]` and no section of the version's;
-  a sibling that is not clean at the commit `siblings.lock` pins, which `sh .agents/siblings
-  at-pins` names; a licence text that differs from sdk-typescript's bytes; and a gate that fails,
-  which holds the API baselines, the README's snippets, the licence, the hot-path budgets and the
-  app's size as well. It then says what it will do and asks, moves the notes to the version and
-  its date in a commit holding nothing else, unless the section is there already, tags that commit
-  `v<version>`, annotated, with the section as its message, and pushes `main` at that commit to
-  Entire, then the tag, since Entire takes no atomic push; no other branch is pushed. Last, it
-  waits, ten minutes at most, until the mirror lists the tag, and where it never does it says the
-  release is done and names `mirror.yml`'s runs to read. `--dry-run` runs every check but git's, and the gate, and
-  pushes nothing; `--skip-gate` leaves the gate out of a dry run, and is refused without one.
+  app-size gate, which builds for an iOS device (§7), runs in `mise run ci:local` alone, on macOS;
+  `mise run ci`, the whole gate, is `ci:local`, then `ci:linux`.
+- **A release is a tag of the pushed commit CI passed, made where the rest of the gate can run.**
+  `mise run version <version>` writes it into the files and nothing else:
+  `ClientIdentification.version`, the one version every request names, the README's install lines,
+  and `CHANGELOG.md`'s `[Unreleased]` notes, dated under the version; run again it changes nothing.
+  The person commits that as `version: Release v<version>` and pushes `main`, and CI runs on it.
+  `mise run release <version>` then refuses, each refusal saying what to do and all of them told
+  together: a tree that is no clean `main` at the commit Entire's `main` is at; a version that is
+  not MAJOR.MINOR.PATCH or not newer than every `v*` tag here, on Entire and on the mirror; its tag
+  anywhere but on this commit; CI not finished green on the commit, as Depot lists its runs; a
+  version other than `ClientIdentification.version` or than the README's install lines; no dated
+  `CHANGELOG.md` section of it; a sibling that is not clean at the commit `siblings.lock` pins,
+  which `sh .agents/siblings at-pins` names; a licence text that differs from sdk-typescript's
+  bytes; and, while `ci:local` has not passed on the commit, no booted simulator of the one
+  `mise.toml` names. `--check` stops there and changes nothing. It then says what it will do and
+  asks, and runs what no CI runner can, which holds the API baselines, the README's snippets, the
+  licence, the hot-path budgets and the app's size: `mise run disk:check` on its own, since it
+  passes under CI without looking, then `CI=true mise run ci:local`, once per commit, a marker
+  under `.git/mountaya/release/` recording the pass. It tags the commit `v<version>`, annotated,
+  with the version's section as its message, pushes the tag alone to Entire, and waits, ten
+  minutes at most, until the mirror lists it, the tag being the publish. It makes no commit and
+  pushes no branch, and every step reads where it stands from the clone and the remotes, so run
+  again after a stop it resumes where it stopped. `mise run test:release` holds
+  `scripts/version.sh` and `scripts/release.sh` to all of it against fakes, and `ci:linux` runs
+  it.
 - **`CHANGELOG.md` records the package's version**, in Keep a Changelog's shape: `[Unreleased]`
   first, then each release as its version and its date, newest first, the five products being one
   release. BoundaryTests holds it to that shape, and every name it writes in backticks to a product,
